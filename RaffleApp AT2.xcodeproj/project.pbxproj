@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		124CACFF245FE90A001C2DBE /* Raffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124CACFE245FE90A001C2DBE /* Raffle.swift */; };
 		12F28FD72446983400965015 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F28FD62446983400965015 /* Movie.swift */; };
 		12F28FD924469A3C00965015 /* MovieUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F28FD824469A3C00965015 /* MovieUITableViewCell.swift */; };
 		12F28FDB24469BEC00965015 /* MovieUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F28FDA24469BEC00965015 /* MovieUITableViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		124CACFE245FE90A001C2DBE /* Raffle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Raffle.swift; sourceTree = "<group>"; };
 		12F28FD62446983400965015 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		12F28FD824469A3C00965015 /* MovieUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieUITableViewCell.swift; sourceTree = "<group>"; };
 		12F28FDA24469BEC00965015 /* MovieUITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieUITableViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 		D3290752221FAC6800D31C68 /* RaffleApp */ = {
 			isa = PBXGroup;
 			children = (
+				124CACFE245FE90A001C2DBE /* Raffle.swift */,
 				D3290765221FAC8500D31C68 /* SQLiteDatabase.swift */,
 				12F28FD62446983400965015 /* Movie.swift */,
 				D3290755221FAC6800D31C68 /* ViewController.swift */,
@@ -158,6 +161,7 @@
 				12F28FD924469A3C00965015 /* MovieUITableViewCell.swift in Sources */,
 				D3290766221FAC8500D31C68 /* SQLiteDatabase.swift in Sources */,
 				12F28FDD2446A27E00965015 /* DetailViewController.swift in Sources */,
+				124CACFF245FE90A001C2DBE /* Raffle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

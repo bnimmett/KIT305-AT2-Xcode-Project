@@ -26,7 +26,7 @@ class SQLiteDatabase
      
         WARNING: DOING THIS WILL WIPE YOUR DATA, unless you modify how updateDatabase() works.
      */
-    private let DATABASE_VERSION = 5
+    private let DATABASE_VERSION = 6
     
     
     
@@ -69,10 +69,12 @@ class SQLiteDatabase
     private func createTables()
     {
         createMovieTable()
+        createRaffleTable()
     }
     private func dropTables()
     {
        dropTable(tableName:"Movie")
+        dropTable(tableName:"raffle")
     }
     
     /* --------------------------------*/
@@ -288,17 +290,32 @@ class SQLiteDatabase
     /* --- ADD YOUR TABLES ETC HERE ---*/
     /* --------------------------------*/
     
-        func createMovieTable() {
-            let createMoviesTableQuery = """
-                CREATE TABLE Movie (
-                    ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                    Name CHAR(255),
-                    Year INTEGER,
-                    Director CHAR(255)
-                );
-                """
-            createTableWithQuery(createMoviesTableQuery, tableName: "Movie")
-        }
+    func createMovieTable() {
+        let createMoviesTableQuery = """
+            CREATE TABLE Movie (
+                ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Name CHAR(255),
+                Year INTEGER,
+                Director CHAR(255)
+            );
+            """
+        createTableWithQuery(createMoviesTableQuery, tableName: "Movie")
+    }
+
+    func createRaffleTable() {
+        let createRaffleTableQuery = """
+            CREATE TABLE Raffle (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                name CHAR(255),
+                draw_date DATE,
+                prize INTEGER,
+                pool INTEGER,
+                max INTEGER,
+                recuring bool
+            );
+            """
+        createTableWithQuery(createRaffleTableQuery, tableName: "raffle")
+    }
 
     func insert(movie:Movie){
         let insertStatementQuery = "INSERT INTO MOVIE (Name, Year, Director) VALUES (?,?,?);"
@@ -306,6 +323,18 @@ class SQLiteDatabase
             sqlite3_bind_text(insertStatement, 1, NSString(string:movie.name).utf8String, -1, nil)
             sqlite3_bind_int(insertStatement, 2, movie.year)
             sqlite3_bind_text(insertStatement, 3, NSString(string:movie.director).utf8String, -1, nil)
+        })
+    }
+    
+    func insert(raffle:Raffle){
+        let insertStatementQuery = "INSERT INTO raffle (name, draw_date, prize, pool, max, recuring) VALUES (?,?,?,?,?,?);"
+        insertWithQuery(insertStatementQuery, bindingFunction: { (insertStatement) in
+            sqlite3_bind_text(insertStatement, 1, NSString(string:raffle.name).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 2, NSString(string:raffle.draw_date).utf8String, -1, nil) // must take date as 'YYYY-MM-DD HH:MM:SS.SSS'
+            sqlite3_bind_int(insertStatement, 3, raffle.prize)
+            sqlite3_bind_int(insertStatement, 4, raffle.pool)
+            sqlite3_bind_int(insertStatement, 5, raffle.max)
+            sqlite3_bind_int(insertStatement, 6, raffle.recuring ? 0 : 1) //Typecase bool to int
         })
     }
     
@@ -323,6 +352,27 @@ class SQLiteDatabase
                 director: String(cString:sqlite3_column_text(row, 3))
             ) //add it to the result array
             result += [movie]
+        })
+        return result
+    }
+    
+    func selectAllRaffles() -> [Raffle]
+    {
+        var result = [Raffle]()
+        let selectStatementQuery = "SELECT id, name, draw_date, prize, pool, max, recuring FROM raffle;"
+        
+        selectWithQuery(selectStatementQuery, eachRow: { (row) in
+            //create a movie object from each result
+            let raffle = Raffle(
+                id: sqlite3_column_int(row, 0),
+                name: String(cString:sqlite3_column_text(row, 1)),
+                draw_date: String(cString:sqlite3_column_text(row, 2)),
+                prize: sqlite3_column_int(row, 3),
+                pool: sqlite3_column_int(row, 4),
+                max: sqlite3_column_int(row, 5),
+                recuring: Bool(truncating: sqlite3_column_int(row, 6) as NSNumber)
+            ) //add it to the result array
+            result += [raffle]
         })
         return result
     }
