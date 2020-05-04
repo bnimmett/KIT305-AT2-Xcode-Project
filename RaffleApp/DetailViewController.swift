@@ -10,7 +10,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    var movie : Movie?
+    var raffle : Raffle?
     
     @IBOutlet var   titleLabel: UILabel!
     @IBOutlet var   yearLabel: UILabel!
@@ -20,11 +20,11 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let  displayMovie = movie
+        if let  displayRaffle = raffle
         {
-            titleLabel.text = displayMovie.name
-            yearLabel.text = String(displayMovie.year)
-            directorLabel.text = displayMovie.director
+            titleLabel.text = displayRaffle.name
+            yearLabel.text = String(displayRaffle.draw_date.prefix(10))
+            directorLabel.text = String(displayRaffle.prize)
         }
     }
     

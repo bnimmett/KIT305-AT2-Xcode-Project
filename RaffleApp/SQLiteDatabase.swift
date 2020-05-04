@@ -68,12 +68,12 @@ class SQLiteDatabase
     
     private func createTables()
     {
-        createMovieTable()
+//        createMovieTable()
         createRaffleTable()
     }
     private func dropTables()
     {
-       dropTable(tableName:"Movie")
+//        dropTable(tableName:"Movie")
         dropTable(tableName:"raffle")
     }
     
@@ -290,7 +290,8 @@ class SQLiteDatabase
     /* --- ADD YOUR TABLES ETC HERE ---*/
     /* --------------------------------*/
     
-    func createMovieTable() {
+/*
+     func createMovieTable() {
         let createMoviesTableQuery = """
             CREATE TABLE Movie (
                 ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -301,7 +302,7 @@ class SQLiteDatabase
             """
         createTableWithQuery(createMoviesTableQuery, tableName: "Movie")
     }
-
+*/
     func createRaffleTable() {
         let createRaffleTableQuery = """
             CREATE TABLE Raffle (
@@ -316,7 +317,7 @@ class SQLiteDatabase
             """
         createTableWithQuery(createRaffleTableQuery, tableName: "raffle")
     }
-
+/*
     func insert(movie:Movie){
         let insertStatementQuery = "INSERT INTO MOVIE (Name, Year, Director) VALUES (?,?,?);"
         insertWithQuery(insertStatementQuery, bindingFunction: { (insertStatement) in
@@ -325,7 +326,7 @@ class SQLiteDatabase
             sqlite3_bind_text(insertStatement, 3, NSString(string:movie.director).utf8String, -1, nil)
         })
     }
-    
+*/
     func insert(raffle:Raffle){
         let insertStatementQuery = "INSERT INTO raffle (name, draw_date, prize, pool, max, recuring) VALUES (?,?,?,?,?,?);"
         insertWithQuery(insertStatementQuery, bindingFunction: { (insertStatement) in
@@ -337,7 +338,7 @@ class SQLiteDatabase
             sqlite3_bind_int(insertStatement, 6, raffle.recuring ? 0 : 1) //Typecase bool to int
         })
     }
-    
+/*
     func selectAllMovies() -> [Movie]
     {
         var result = [Movie]()
@@ -355,7 +356,7 @@ class SQLiteDatabase
         })
         return result
     }
-    
+*/
     func selectAllRaffles() -> [Raffle]
     {
         var result = [Raffle]()
