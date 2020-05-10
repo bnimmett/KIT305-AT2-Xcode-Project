@@ -22,7 +22,7 @@ class DetailViewController: UIViewController {
 
         if let  displayRaffle = raffle
         {
-            titleLabel.text = displayRaffle.name
+            titleLabel.text = displayRaffle.raffle_name
             yearLabel.text = String(displayRaffle.draw_date.prefix(10))
             directorLabel.text = String(displayRaffle.prize)
         }

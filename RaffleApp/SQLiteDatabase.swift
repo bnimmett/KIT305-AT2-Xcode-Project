@@ -482,6 +482,21 @@ class SQLiteDatabase
         return result
     }
     
+    func selectTicketCountByRaffle(raffle_id:Int32) -> Int32
+    {
+        var result:Int32 = 0
+        let selectStatementQuery = "SELECT count(*) FROM ticket where raffle_id = ?;"
+        
+        selectWithQuery(selectStatementQuery,
+                        eachRow: { (row) in
+                            result += sqlite3_column_int(row, 0)
+                        },
+                        bindingFunction: { (insertStatement) in
+                            sqlite3_bind_int(insertStatement, 1, raffle_id)
+                        }
+        )
+        return result
+    }
     
     
     

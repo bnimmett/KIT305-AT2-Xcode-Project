@@ -11,52 +11,60 @@ import UIKit
 class RaffleUITableViewController: UITableViewController {
 
     var raffles = [Raffle]()
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
         
         database.insert(raffle:Raffle(
-            name:"Tuesday night raffle",
-            draw_date:"2020-05-05 00:00:00.000",
+            raffle_name:"Tuesday night raffle",
+            draw_date:"2020-05-12 00:00:00.000",
+            price:1.5,
             prize:5000,
             pool:150,
             max:5,
-            recuring:false)
+            recuring:true,
+            frequency:"Weekly",
+            archived:false,
+            image:"")
         )
         
         database.insert(raffle:Raffle(
-            name:"Wednesday night raffle",
-            draw_date:"2020-05-06 00:00:00.000",
+            raffle_name:"Wacky Wednesday",
+            draw_date:"2020-05-13 00:00:00.000",
+            price:3,
             prize:10000,
-            pool:450,
-            max:15,
-            recuring:true)
+            pool:75,
+            max:3,
+            recuring:false,
+            frequency:"",
+            archived:false,
+            image:"")
         )
         
         database.insert(raffle:Raffle(
-            name:"Thursday night raffle",
-            draw_date:"2020-05-07 00:00:00.000",
+            raffle_name:"First Friday Frenzy",
+            draw_date:"2020-05-15 00:00:00.000",
+            price:0.5,
             prize:2500,
-            pool:75,
+            pool:500,
             max:10,
-            recuring:false)
+            recuring:true,
+            frequency:"Monthly",
+            archived:false,
+            image:"")
         )
+        
         raffles = database.selectAllRaffles()
 
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return raffles.count
     }
 
@@ -66,18 +74,23 @@ class RaffleUITableViewController: UITableViewController {
 
         let raffle = raffles[indexPath.row]
         
+        let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
+        let ticket_count = database.selectTicketCountByRaffle(raffle_id:raffle.raffle_id)
+        
         if let raffleCell = cell as? RaffleUITableViewCell
         {
-            raffleCell.titleLabel.text = raffle.name
-            raffleCell.subTitleLabel.text = String(raffle.draw_date.prefix(10))
+            raffleCell.raffle_name_label.text = raffle.raffle_name
+            raffleCell.raffle_draw_date_label.text = String(raffle.draw_date.prefix(10))
+            raffleCell.raffle_prize_label.text = String(raffle.prize)
+//            raffleCell.raffle_sold_label.text = String(ticket_count)
+            raffleCell.raffle_sold_label.text = String(raffle.raffle_id)
         }
-        
         
         return cell
     }
     
 
-    override func   prepare(for segue: UIStoryboardSegue, sender: Any?)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         super.prepare(for: segue, sender: sender)
         
