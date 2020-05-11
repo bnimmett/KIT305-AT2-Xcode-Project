@@ -399,6 +399,30 @@ class SQLiteDatabase
         return result
     }
     
+    func selectAllActiveRaffles() -> [Raffle]
+    {
+        var result = [Raffle]()
+        let selectStatementQuery = "SELECT raffle_id, raffle_name, draw_date, price, prize, pool, max, recuring, frequency, recuring, image FROM raffle WHERE archived = 0;"
+        
+        selectWithQuery(selectStatementQuery, eachRow: { (row) in
+            let raffle = Raffle(
+                raffle_id: sqlite3_column_int(row, 0),
+                raffle_name: String(cString:sqlite3_column_text(row, 1)),
+                draw_date: String(cString:sqlite3_column_text(row, 2)),
+                price: sqlite3_column_double(row, 3),
+                prize: sqlite3_column_int(row, 4),
+                pool: sqlite3_column_int(row, 5),
+                max: sqlite3_column_int(row, 6),
+                recuring: Bool(truncating: sqlite3_column_int(row, 7) as NSNumber),
+                frequency: String(cString:sqlite3_column_text(row, 8)),
+                archived: Bool(truncating: sqlite3_column_int(row, 9) as NSNumber),
+                image: String(cString:sqlite3_column_text(row, 10))
+            )
+            result += [raffle]
+        })
+        return result
+    }
+    
     func selectAllCustomers() -> [Customer]
     {
         var result = [Customer]()
