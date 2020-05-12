@@ -10,17 +10,16 @@ import UIKit
 
 class CustomerListViewController: UIViewController {
 
-    var insert = false
-    var customers = [Customer]()
+    var insert = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-           
-            customers = database.selectAllCustomers()
-            
+        let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
+                    
             if insert {
+                database.truncateTable(tableName:"customer")
+                
                 database.insert(customer:Customer(
                     customer_name:"Brandon Nimmett",
                     email:"bnimmett@utas.fake.au",
@@ -46,20 +45,4 @@ class CustomerListViewController: UIViewController {
                 )
             }
         }
-        
-
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-           {
-               super.prepare(for: segue, sender: sender)
-               
-               if (segue.identifier == "ShowCusrtomerTableSegue")
-               {
-                guard let CustomerUITableViewController = segue.destination as? CustomerUITableViewController else
-                   {
-                       fatalError("Unexpected destination: \(segue.destination)")
-                   }
-                   
-                   //CustomerUITableViewController.customers = customers
-               }
-           }
 }

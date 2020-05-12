@@ -10,17 +10,16 @@ import UIKit
 
 class RaffleListViewController: UIViewController {
 
-    var insert = false
-    var raffles = [Raffle]()
+    var insert = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-       
-        raffles = database.selectAllRaffles()
-        
+               
         if insert {
+            database.truncateTable(tableName:"raffle")
+
             database.insert(raffle:Raffle(
                 raffle_name:"Tuesday night raffle",
                 draw_date:"2020-05-12 00:00:00.000",
@@ -61,21 +60,4 @@ class RaffleListViewController: UIViewController {
             )
         }
     }
-    
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-       {
-           super.prepare(for: segue, sender: sender)
-           
-           if (segue.identifier == "ShowRaffleTableSegue")
-           {
-            guard let RaffleUITableViewController = segue.destination as? RaffleUITableViewController else
-               {
-                   fatalError("Unexpected destination: \(segue.destination)")
-               }
-               
-               //RaffleUITableViewController.raffles = raffles
-           }
-       }
-
 }

@@ -180,6 +180,34 @@ class SQLiteDatabase
         //clear up
         sqlite3_finalize(statement)
     }
+    func truncateTable(tableName:String)
+    {
+        /*
+         1.    sqlite3_prepare_v2()
+         2.    sqlite3_step()
+         3.    sqlite3_finalize()
+         */
+        
+        //prepare the statement
+        let query = "DELETE FROM \(tableName)"
+        var statement: OpaquePointer? = nil
+
+        if sqlite3_prepare_v2(db, query, -1, &statement, nil)     == SQLITE_OK
+        {
+            //run the query
+            if sqlite3_step(statement) == SQLITE_DONE {
+                print("\(tableName) table truncated.")
+            }
+        }
+        else
+        {
+            print("\(tableName) table could not be truncated.")
+            printCurrentSQLErrorMessage(db)
+        }
+        
+        //clear up
+        sqlite3_finalize(statement)
+    }
     
     //helper function for handling INSERT statements
     //provide it with a binding function for replacing the ?'s for setting values

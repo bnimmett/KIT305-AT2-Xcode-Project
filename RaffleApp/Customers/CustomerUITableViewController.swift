@@ -14,14 +14,8 @@ class CustomerUITableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
         customers = database.selectAllCustomers()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -34,7 +28,6 @@ class CustomerUITableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomerUITableViewCell", for: indexPath)
-
         let customer = customers[indexPath.row]
         
         if let customerCell = cell as? CustomerUITableViewCell
@@ -44,7 +37,6 @@ class CustomerUITableViewController: UITableViewController {
                 customerCell.customer_phone_label.text = String(customer.phone)
                 customerCell.customer_postcode_label.text = String(customer.postcode)
              }
-        
         return cell
     }
 

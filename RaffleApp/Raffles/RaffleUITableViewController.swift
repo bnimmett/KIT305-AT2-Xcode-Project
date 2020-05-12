@@ -49,7 +49,6 @@ class RaffleUITableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        print("Segue 2")
         super.prepare(for: segue, sender: sender)
         
         if segue.identifier == "ShowRaffleDetailSegue"

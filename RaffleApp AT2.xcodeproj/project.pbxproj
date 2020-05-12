@@ -51,6 +51,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12287320246A3162001FF91D /* Raffles */ = {
+			isa = PBXGroup;
+			children = (
+				1282BECB2468FC8C00D245CE /* RaffleListViewController.swift */,
+				124CAD00245FFE55001C2DBE /* RaffleUITableViewController.swift */,
+				124CAD01245FFE55001C2DBE /* RaffleUITableViewCell.swift */,
+				12F28FDC2446A27E00965015 /* DetailViewController.swift */,
+			);
+			path = Raffles;
+			sourceTree = "<group>";
+		};
+		12287321246A3182001FF91D /* Customers */ = {
+			isa = PBXGroup;
+			children = (
+				12BB43BB246965B6004D6857 /* CustomerListViewController.swift */,
+				12BB43B724695EA2004D6857 /* CustomerUITableViewController.swift */,
+				12BB43B924695FC7004D6857 /* CustomerUITableViewCell.swift */,
+			);
+			path = Customers;
+			sourceTree = "<group>";
+		};
+		12287322246A31E6001FF91D /* Xcode */ = {
+			isa = PBXGroup;
+			children = (
+				D329075C221FAC6800D31C68 /* LaunchScreen.storyboard */,
+				D329075A221FAC6800D31C68 /* Assets.xcassets */,
+				D3290753221FAC6800D31C68 /* AppDelegate.swift */,
+				D329075F221FAC6800D31C68 /* Info.plist */,
+			);
+			path = Xcode;
+			sourceTree = "<group>";
+		};
 		D3290747221FAC6800D31C68 = {
 			isa = PBXGroup;
 			children = (
@@ -70,20 +102,12 @@
 		D3290752221FAC6800D31C68 /* RaffleApp */ = {
 			isa = PBXGroup;
 			children = (
+				D3290757221FAC6800D31C68 /* Main.storyboard */,
 				D3290765221FAC8500D31C68 /* SQLiteDatabase.swift */,
 				12A09D87246677A5004C4A44 /* classes.swift */,
-				1282BECB2468FC8C00D245CE /* RaffleListViewController.swift */,
-				124CAD00245FFE55001C2DBE /* RaffleUITableViewController.swift */,
-				124CAD01245FFE55001C2DBE /* RaffleUITableViewCell.swift */,
-				12BB43BB246965B6004D6857 /* CustomerListViewController.swift */,
-				12BB43B724695EA2004D6857 /* CustomerUITableViewController.swift */,
-				12BB43B924695FC7004D6857 /* CustomerUITableViewCell.swift */,
-				12F28FDC2446A27E00965015 /* DetailViewController.swift */,
-				D3290757221FAC6800D31C68 /* Main.storyboard */,
-				D329075A221FAC6800D31C68 /* Assets.xcassets */,
-				D329075C221FAC6800D31C68 /* LaunchScreen.storyboard */,
-				D3290753221FAC6800D31C68 /* AppDelegate.swift */,
-				D329075F221FAC6800D31C68 /* Info.plist */,
+				12287321246A3182001FF91D /* Customers */,
+				12287320246A3162001FF91D /* Raffles */,
+				12287322246A31E6001FF91D /* Xcode */,
 			);
 			path = RaffleApp;
 			sourceTree = "<group>";
@@ -319,7 +343,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9YMCZYVRUA;
-				INFOPLIST_FILE = RaffleApp/Info.plist;
+				INFOPLIST_FILE = RaffleApp/Xcode/Info.plist;
+				"INFOPLIST_FILE[sdk=*]" = RaffleApp/Xcode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -337,7 +362,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9YMCZYVRUA;
-				INFOPLIST_FILE = RaffleApp/Info.plist;
+				INFOPLIST_FILE = RaffleApp/Xcode/Info.plist;
+				"INFOPLIST_FILE[sdk=*]" = RaffleApp/Xcode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
