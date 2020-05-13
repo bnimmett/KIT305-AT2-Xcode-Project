@@ -16,7 +16,7 @@ class CustomerListViewController: UIViewController {
         super.viewDidLoad()
 
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-                    
+
             if insert {
                 database.truncateTable(tableName:"customer")
                 
