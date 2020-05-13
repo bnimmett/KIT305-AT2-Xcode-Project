@@ -10,7 +10,7 @@ import UIKit
 
 class CustomerListViewController: UIViewController {
 
-    var insert = true
+    var insert = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

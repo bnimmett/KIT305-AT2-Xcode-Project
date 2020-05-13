@@ -23,6 +23,7 @@ class NewCustomerViewController: UIViewController {
         if(customerNameField.text == "" || customerEmailField.text == "" || customerPhoneField.text == "" || customerPostcodeField.text == "")
         {
             empty = true
+            print("All fields must have values")
             // Add alert message
         }
                 
@@ -37,14 +38,25 @@ class NewCustomerViewController: UIViewController {
                 postcode:Int32(customerPostcodeField.text!) ?? 0
                 )
             )
+            
+            //sends user to previous view controller
+            self.navigationController!.popViewController(animated: true)
+            
         }
-       
+        
     }
     
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        /*
+         * Code to close keyboard by selecting anywhere on the screen
+         * Source: https://medium.com/@KaushElsewhere/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
+         */
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+       
     }
     
 
