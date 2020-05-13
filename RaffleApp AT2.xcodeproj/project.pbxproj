@@ -20,6 +20,9 @@
 		D329075B221FAC6800D31C68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D329075A221FAC6800D31C68 /* Assets.xcassets */; };
 		D329075E221FAC6800D31C68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D329075C221FAC6800D31C68 /* LaunchScreen.storyboard */; };
 		D3290766221FAC8500D31C68 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3290765221FAC8500D31C68 /* SQLiteDatabase.swift */; };
+		D329A44D246BD4C100F0E90C /* SellTicketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D329A44C246BD4C100F0E90C /* SellTicketsViewController.swift */; };
+		D3FB7D1C246B9BCE0071E538 /* NewCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB7D1B246B9BCE0071E538 /* NewCustomerViewController.swift */; };
+		D3FB7D1E246BAFBD0071E538 /* NewRaffleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB7D1D246BAFBD0071E538 /* NewRaffleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		D329075D221FAC6800D31C68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D329075F221FAC6800D31C68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3290765221FAC8500D31C68 /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
+		D329A44C246BD4C100F0E90C /* SellTicketsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellTicketsViewController.swift; sourceTree = "<group>"; };
+		D3FB7D1B246B9BCE0071E538 /* NewCustomerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCustomerViewController.swift; sourceTree = "<group>"; };
+		D3FB7D1D246BAFBD0071E538 /* NewRaffleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewRaffleViewController.swift; path = RaffleApp/Raffles/NewRaffleViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 		12287320246A3162001FF91D /* Raffles */ = {
 			isa = PBXGroup;
 			children = (
+				D3FB7D1D246BAFBD0071E538 /* NewRaffleViewController.swift */,
 				1282BECB2468FC8C00D245CE /* RaffleListViewController.swift */,
 				124CAD00245FFE55001C2DBE /* RaffleUITableViewController.swift */,
 				124CAD01245FFE55001C2DBE /* RaffleUITableViewCell.swift */,
@@ -68,6 +75,7 @@
 				12BB43BB246965B6004D6857 /* CustomerListViewController.swift */,
 				12BB43B724695EA2004D6857 /* CustomerUITableViewController.swift */,
 				12BB43B924695FC7004D6857 /* CustomerUITableViewCell.swift */,
+				D3FB7D1B246B9BCE0071E538 /* NewCustomerViewController.swift */,
 			);
 			path = Customers;
 			sourceTree = "<group>";
@@ -105,6 +113,7 @@
 				D3290757221FAC6800D31C68 /* Main.storyboard */,
 				D3290765221FAC8500D31C68 /* SQLiteDatabase.swift */,
 				12A09D87246677A5004C4A44 /* classes.swift */,
+				D329A44C246BD4C100F0E90C /* SellTicketsViewController.swift */,
 				12287321246A3182001FF91D /* Customers */,
 				12287320246A3162001FF91D /* Raffles */,
 				12287322246A31E6001FF91D /* Xcode */,
@@ -184,10 +193,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3FB7D1C246B9BCE0071E538 /* NewCustomerViewController.swift in Sources */,
 				D3290754221FAC6800D31C68 /* AppDelegate.swift in Sources */,
 				124CAD02245FFE55001C2DBE /* RaffleUITableViewController.swift in Sources */,
+				D329A44D246BD4C100F0E90C /* SellTicketsViewController.swift in Sources */,
 				12BB43BC246965B6004D6857 /* CustomerListViewController.swift in Sources */,
 				12BB43BA24695FC7004D6857 /* CustomerUITableViewCell.swift in Sources */,
+				D3FB7D1E246BAFBD0071E538 /* NewRaffleViewController.swift in Sources */,
 				D3290766221FAC8500D31C68 /* SQLiteDatabase.swift in Sources */,
 				1282BECC2468FC8C00D245CE /* RaffleListViewController.swift in Sources */,
 				12F28FDD2446A27E00965015 /* DetailViewController.swift in Sources */,
