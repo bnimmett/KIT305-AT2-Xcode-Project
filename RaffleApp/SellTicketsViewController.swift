@@ -2,18 +2,27 @@
 //  SellTicketsViewController.swift
 //  KIT305 AT2
 //
-//  Created by Lucas Howlett on 13/5/20.
+//  Created by Lucas Howlett on 14/5/20.
 //  Copyright © 2020 Lindsay Wells. All rights reserved.
 //
 
 import UIKit
 
 class SellTicketsViewController: UIViewController {
+    
+    var raffle : Raffle?
+    
+    @IBOutlet var sellTitle: UILabel!
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let displayRaffle = raffle
+        {
+            sellTitle.text = displayRaffle.raffle_name
+        }
     }
     
 

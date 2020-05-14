@@ -15,14 +15,7 @@ class CustomerUITableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-        customers = database.selectAllActiveCustomers()
-    }
-    
-    //Reloads Customer list when view appears
-    override func viewWillAppear(_ animated: Bool) {
-        let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-        customers = database.selectAllActiveCustomers()
-        self.tableView.reloadData()
+        customers = database.selectAllCustomers()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -46,30 +39,5 @@ class CustomerUITableViewController: UITableViewController {
              }
         return cell
     }
-   
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        super.prepare(for: segue, sender: sender)
-        
-        if segue.identifier == "ShowCustomerDetailSegue"
-        {
-            guard let CustomerDetailViewController = segue.destination as? CustomerDetailViewController else
-            {
-                fatalError("Unexpected destination: \(segue.destination)")
-            }
-            
-            guard let selectedCustomerCell = sender as? CustomerUITableViewCell else
-            {
-                fatalError("Unexpected sender: \( String(describing: sender))")
-            }
-            
-            guard let indexPath = tableView.indexPath(for: selectedCustomerCell) else
-            {
-                fatalError("The selected cell is not being displayed by the table")
-            }
-            
-            let selectedCustomer = customers[indexPath.row]
-            CustomerDetailViewController.customer = selectedCustomer
-        }
-    }
+
 }

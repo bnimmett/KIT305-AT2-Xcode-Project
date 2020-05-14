@@ -17,6 +17,10 @@ class DetailViewController: UIViewController {
     @IBOutlet var   directorLabel: UILabel!
     
     
+   
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,8 +29,13 @@ class DetailViewController: UIViewController {
             titleLabel.text = displayRaffle.raffle_name
             yearLabel.text = String(displayRaffle.draw_date.prefix(10))
             directorLabel.text = String(displayRaffle.prize)
+            
+            
         }
+        
+        
     }
+    
     
 
     /*
