@@ -23,11 +23,12 @@ public struct Raffle
 
 public struct Customer
 {
-    var customer_id:Int32 = -1
+    var customer_id:Int32// = -1
     var customer_name:String
     var email:String
     var phone:Int32
     var postcode:Int32
+    var archived:Bool
 }
 
 public struct Ticket

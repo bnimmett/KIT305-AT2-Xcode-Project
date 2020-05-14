@@ -26,7 +26,7 @@ class SQLiteDatabase
      
         WARNING: DOING THIS WILL WIPE YOUR DATA, unless you modify how updateDatabase() works.
      */
-    private let DATABASE_VERSION = 8
+    private let DATABASE_VERSION = 9
     
     
     
@@ -78,6 +78,84 @@ class SQLiteDatabase
         dropTable(tableName:"customer")
         dropTable(tableName:"ticket")
     }
+    func insertPlaceholders()
+    {
+        let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
+               
+        database.truncateTable(tableName:"raffle")
+        database.truncateTable(tableName:"customer")
+        database.truncateTable(tableName:"ticket")
+
+        database.insert(raffle:Raffle(
+            raffle_name:"Tuesday night raffle",
+            draw_date:"2020-05-12 00:00:00.000",
+            price:1.5,
+            prize:5000,
+            pool:150,
+            max:5,
+            recuring:true,
+            frequency:"Weekly",
+            archived:false,
+            image:"")
+        )
+        
+        database.insert(raffle:Raffle(
+            raffle_name:"Wacky Wednesday",
+            draw_date:"2020-05-13 00:00:00.000",
+            price:3,
+            prize:10000,
+            pool:75,
+            max:3,
+            recuring:false,
+            frequency:"",
+            archived:false,
+            image:"")
+        )
+        
+        database.insert(raffle:Raffle(
+            raffle_name:"First Friday Frenzy",
+            draw_date:"2020-05-15 00:00:00.000",
+            price:0.5,
+            prize:2500,
+            pool:500,
+            max:10,
+            recuring:true,
+            frequency:"Monthly",
+            archived:false,
+            image:"")
+        )
+        
+        database.insert(customer:Customer(
+            customer_id: -1,
+            customer_name:"Brandon Nimmett",
+            email:"bnimmett@utas.fake.au",
+            phone:123456789,
+            postcode:7000,
+            archived: false
+           )
+        )
+
+        database.insert(customer:Customer(
+            customer_id: -1,
+            customer_name:"Smithy Smithson",
+            email:"Ssmmiitthhyy@utas.fake.au",
+            phone:987654321,
+            postcode:7250,
+            archived: false
+           )
+        )
+        
+        database.insert(customer:Customer(
+            customer_id: -1,
+            customer_name:"Billy Bob",
+            email:"bb8@utas.fake.au",
+            phone:96664440,
+            postcode:7270,
+            archived: false
+           )
+        )
+        
+    }
     
     /* --------------------------------*/
     /* ----- VERSIONING FUNCTIONS -----*/
@@ -106,6 +184,7 @@ class SQLiteDatabase
         //handle the change (simple version)
         dropTables()
         createTables()
+        insertPlaceholders()
     }
     
     
@@ -180,6 +259,7 @@ class SQLiteDatabase
         //clear up
         sqlite3_finalize(statement)
     }
+    
     func truncateTable(tableName:String)
     {
         /*
@@ -299,11 +379,11 @@ class SQLiteDatabase
             //execute
             if sqlite3_step(updateStatement) == SQLITE_DONE
             {
-                print("Successfully inserted row.")
+                print("Successfully updated row.")
             }
             else
             {
-                print("Could not insert row.")
+                print("Could not update row.")
                 printCurrentSQLErrorMessage(db)
             }
         }
@@ -346,7 +426,8 @@ class SQLiteDatabase
                 customer_name CHAR(255) NOT NULL,
                 email CHAR(255) NOT NULL,
                 phone INTEGER NOT NULL,
-                postcode INTEGER NOT NULL
+                postcode INTEGER NOT NULL,
+                archived INTEGER DEFAULT 0
             );
             """
         createTableWithQuery(createCustomerTableQuery, tableName: "customer")
@@ -368,7 +449,7 @@ class SQLiteDatabase
     }
 
     func insert(raffle:Raffle){
-        let insertStatementQuery = "INSERT INTO raffle (raffle_name, draw_date, price, prize, pool, max, recuring, frequency, recuring, image) VALUES (?,?,?,?,?,?,?,?,?,?);"
+        let insertStatementQuery = "INSERT INTO raffle (raffle_name, draw_date, price, prize, pool, max, recuring, frequency, image) VALUES (?,?,?,?,?,?,?,?,?);"
         insertWithQuery(insertStatementQuery, bindingFunction: { (insertStatement) in
             sqlite3_bind_text(insertStatement, 1, NSString(string:raffle.raffle_name).utf8String, -1, nil)
             sqlite3_bind_text(insertStatement, 2, NSString(string:raffle.draw_date).utf8String, -1, nil) // must take date as 'YYYY-MM-DD HH:MM:SS.SSS'
@@ -376,10 +457,9 @@ class SQLiteDatabase
             sqlite3_bind_int(insertStatement, 4, raffle.prize)
             sqlite3_bind_int(insertStatement, 5, raffle.pool)
             sqlite3_bind_int(insertStatement, 6, raffle.max)
-            sqlite3_bind_int(insertStatement, 7, raffle.recuring ? 0 : 1) //Typecase bool to int
+            sqlite3_bind_int(insertStatement, 7, raffle.recuring ? 1 : 0) //Typecast bool to int
             sqlite3_bind_text(insertStatement, 8, NSString(string:raffle.frequency).utf8String, -1, nil)
-            sqlite3_bind_int(insertStatement, 9, raffle.archived ? 0 : 1) //Typecase bool to int
-            sqlite3_bind_text(insertStatement, 10, NSString(string:raffle.image).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 9, NSString(string:raffle.image).utf8String, -1, nil)
         })
     }
     
@@ -394,14 +474,54 @@ class SQLiteDatabase
     }
     
     func insert(ticket:Ticket){
-        let insertStatementQuery = "INSERT INTO ticket (raffle_id, customer_id, number, archived) VALUES (?,?,?,?);"
+        let insertStatementQuery = "INSERT INTO ticket (raffle_id, customer_id, number) VALUES (?,?,?);"
         insertWithQuery(insertStatementQuery, bindingFunction: { (insertStatement) in
             sqlite3_bind_int(insertStatement, 1, ticket.raffle_id)
             sqlite3_bind_int(insertStatement, 2, ticket.customer_id)
             sqlite3_bind_int(insertStatement, 3, ticket.number)
-            sqlite3_bind_int(insertStatement, 4, ticket.archived ? 0 : 1) //Typecase bool to int
         })
     }
+    
+    func update(raffle:Raffle){
+        let updateStatementQuery = "UPDATE raffle SET raffle_name=?, draw_date=?, price=?, prize=?, pool=?, max=?, recuring=?, frequency=?, image=?, archived=? WHERE raffle_id=?;"
+        updateWithQuery(updateStatementQuery, bindingFunction: { (updateStatement) in
+            sqlite3_bind_text(updateStatement, 1, NSString(string:raffle.raffle_name).utf8String, -1, nil)
+            sqlite3_bind_text(updateStatement, 2, NSString(string:raffle.draw_date).utf8String, -1, nil) // must take date as 'YYYY-MM-DD HH:MM:SS.SSS'
+            sqlite3_bind_double(updateStatement, 3, raffle.price)
+            sqlite3_bind_int(updateStatement, 4, raffle.prize)
+            sqlite3_bind_int(updateStatement, 5, raffle.pool)
+            sqlite3_bind_int(updateStatement, 6, raffle.max)
+            sqlite3_bind_int(updateStatement, 7, raffle.recuring ? 1 : 0) //Typecast bool to int
+            sqlite3_bind_text(updateStatement, 8, NSString(string:raffle.frequency).utf8String, -1, nil)
+            sqlite3_bind_int(updateStatement, 9, raffle.archived ? 1 : 0) //Typecast bool to int
+            sqlite3_bind_text(updateStatement, 10, NSString(string:raffle.image).utf8String, -1, nil)
+            sqlite3_bind_int(updateStatement, 11, raffle.raffle_id)
+        })
+    }
+    
+    func update(customer:Customer){
+        let updateStatementQuery = "UPDATE customer SET customer_name=?, email=?, phone=?, postcode=?, archived=? where customer_id=?;"
+        updateWithQuery(updateStatementQuery, bindingFunction: { (updateStatement) in
+            sqlite3_bind_text(updateStatement, 1, NSString(string:customer.customer_name).utf8String, -1, nil)
+            sqlite3_bind_text(updateStatement, 2, NSString(string:customer.email).utf8String, -1, nil)
+            sqlite3_bind_int(updateStatement, 3, customer.phone)
+            sqlite3_bind_int(updateStatement, 4, customer.postcode)
+            sqlite3_bind_int(updateStatement, 5, customer.archived ? 1 : 0) //Typecast bool to int
+            sqlite3_bind_int(updateStatement, 6, customer.customer_id)
+        })
+    }
+    
+    func update(ticket:Ticket){
+        let updateStatementQuery = "UPDATE ticket SET raffle_id=?, customer_id=?, number=?, archived=? where ticket_id=?;"
+        updateWithQuery(updateStatementQuery, bindingFunction: { (updateStatement) in
+            sqlite3_bind_int(updateStatement, 1, ticket.raffle_id)
+            sqlite3_bind_int(updateStatement, 2, ticket.customer_id)
+            sqlite3_bind_int(updateStatement, 3, ticket.number)
+            sqlite3_bind_int(updateStatement, 4, ticket.archived ? 1 : 0) //Typecast bool to int
+            sqlite3_bind_int(updateStatement, 5, ticket.ticket_id)
+        })
+    }
+    
     
     func selectAllRaffles() -> [Raffle]
     {
@@ -462,7 +582,27 @@ class SQLiteDatabase
                 customer_name: String(cString:sqlite3_column_text(row, 1)),
                 email: String(cString:sqlite3_column_text(row, 2)),
                 phone: sqlite3_column_int(row, 3),
-                postcode: sqlite3_column_int(row, 4)
+                postcode: sqlite3_column_int(row, 4),
+                archived: Bool(truncating: sqlite3_column_int(row, 5) as NSNumber)
+            )
+            result += [customer]
+        })
+        return result
+    }
+    
+    func selectAllActiveCustomers() -> [Customer]
+    {
+        var result = [Customer]()
+        let selectStatementQuery = "SELECT customer_id, customer_name, email, phone, postcode FROM customer WHERE archived = 0;"
+        
+        selectWithQuery(selectStatementQuery, eachRow: { (row) in
+            let customer = Customer(
+                customer_id: sqlite3_column_int(row, 0),
+                customer_name: String(cString:sqlite3_column_text(row, 1)),
+                email: String(cString:sqlite3_column_text(row, 2)),
+                phone: sqlite3_column_int(row, 3),
+                postcode: sqlite3_column_int(row, 4),
+                archived: Bool(truncating: sqlite3_column_int(row, 5) as NSNumber)
             )
             result += [customer]
         })
@@ -552,27 +692,7 @@ class SQLiteDatabase
     
     
     
-/*    func selectMovieBy(id:Int32) -> Movie?
-    {
-        var result : Movie?
-        let selectStatementQuery = "SELECT id, name, year, director FROM Movie WHERE id = ?;"
-        selectWithQuery(selectStatementQuery, eachRow: { (row) in
-            let movie = Movie(
-                ID: sqlite3_column_int(row, 0),
-                name: String(cString:sqlite3_column_text(row, 1)),
-                year: sqlite3_column_int(row, 2),
-                director: String(cString:sqlite3_column_text(row, 3))
-            )
-            
-            result = movie
-                
-        }, bindingFunction: { (selectStatement) in
-            sqlite3_bind_int(selectStatement, 1, id)
-        })
 
-        return result
-    }
-    */
     
     
     
