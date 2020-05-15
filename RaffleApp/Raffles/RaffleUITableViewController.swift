@@ -60,7 +60,7 @@ class RaffleUITableViewController: UITableViewController {
         
         if segue.identifier == "ShowRaffleDetailSegue"
         {
-            guard let detailViewController = segue.destination as? DetailViewController else
+            guard let detailViewController = segue.destination as? RaffleDetailViewController else
             {
                 fatalError("Unexpected destination: \(segue.destination)")
             }

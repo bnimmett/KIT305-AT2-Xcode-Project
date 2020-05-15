@@ -8,13 +8,17 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class RaffleDetailViewController: UIViewController {
 
     var raffle : Raffle?
     
     @IBOutlet var   titleLabel: UILabel!
     @IBOutlet var   yearLabel: UILabel!
     @IBOutlet var   directorLabel: UILabel!
+    
+    
+   
+    
     
     
     override func viewDidLoad() {
@@ -25,8 +29,13 @@ class DetailViewController: UIViewController {
             titleLabel.text = displayRaffle.raffle_name
             yearLabel.text = String(displayRaffle.draw_date.prefix(10))
             directorLabel.text = String(displayRaffle.prize)
+            
+            
         }
+        
+        
     }
+    
     
 
     /*

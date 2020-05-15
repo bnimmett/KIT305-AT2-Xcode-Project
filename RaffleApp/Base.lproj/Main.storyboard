@@ -13,12 +13,24 @@
             <objects>
                 <viewController id="q4b-RH-uL9" customClass="SellTicketsViewController" customModule="KIT305_AT2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MZT-nY-zmg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="514"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BC9-gS-6EG">
+                                <rect key="frame" x="166" y="124" width="82" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="1dv-3q-pFG"/>
                     </view>
                     <navigationItem key="navigationItem" id="HOT-y0-euN"/>
+                    <connections>
+                        <outlet property="sellTitle" destination="BC9-gS-6EG" id="5GY-CH-FgC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9m-cd-ij7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -700,7 +712,7 @@
         <!--Raffle Details-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="DetailViewController" customModule="KIT305_AT2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="RaffleDetailViewController" customModule="KIT305_AT2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="514"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -889,8 +901,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="list.bullet.below.rectangle" catalog="system" width="128" height="112"/>
-        <image name="list.bullet.indent" catalog="system" width="128" height="74"/>
-        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="list.bullet.below.rectangle" catalog="system" width="64" height="56"/>
+        <image name="list.bullet.indent" catalog="system" width="64" height="36"/>
+        <image name="plus" catalog="system" width="64" height="56"/>
     </resources>
 </document>
