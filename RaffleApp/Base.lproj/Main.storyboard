@@ -13,7 +13,7 @@
             <objects>
                 <viewController id="q4b-RH-uL9" customClass="SellTicketsViewController" customModule="KIT305_AT2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MZT-nY-zmg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="514"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BC9-gS-6EG">
@@ -901,8 +901,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="list.bullet.below.rectangle" catalog="system" width="64" height="56"/>
-        <image name="list.bullet.indent" catalog="system" width="64" height="36"/>
-        <image name="plus" catalog="system" width="64" height="56"/>
+        <image name="list.bullet.below.rectangle" catalog="system" width="128" height="112"/>
+        <image name="list.bullet.indent" catalog="system" width="128" height="74"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
     </resources>
 </document>
