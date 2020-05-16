@@ -45,10 +45,10 @@ class RaffleUITableViewController: UITableViewController {
         
         if let raffleCell = cell as? RaffleUITableViewCell
         {
-            raffleCell.raffle_name_label.text = raffle.raffle_name
-            raffleCell.raffle_draw_date_label.text = String(raffle.draw_date.prefix(10))
-            raffleCell.raffle_prize_label.text = String(raffle.prize)
-            raffleCell.raffle_sold_label.text = String(ticket_count)
+            raffleCell.raffleNameLabel.text = raffle.raffle_name
+            raffleCell.raffleDrawDateLabel.text = String(raffle.draw_date.prefix(10))
+            raffleCell.rafflePrizeLabel.text = String(raffle.prize)
+            raffleCell.raffleTicketsSoldLabel.text = String(ticket_count)
         }
         
         return cell
@@ -60,7 +60,7 @@ class RaffleUITableViewController: UITableViewController {
         
         if segue.identifier == "ShowRaffleDetailSegue"
         {
-            guard let detailViewController = segue.destination as? RaffleDetailViewController else
+            guard let RaffleDetailViewController = segue.destination as? RaffleDetailViewController else
             {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
@@ -76,7 +76,7 @@ class RaffleUITableViewController: UITableViewController {
             }
             
             let selectedRaffle = raffles[indexPath.row]
-            detailViewController.raffle = selectedRaffle
+            RaffleDetailViewController.raffle = selectedRaffle
         }
     }
 

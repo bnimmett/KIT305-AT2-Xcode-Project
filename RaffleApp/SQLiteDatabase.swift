@@ -26,7 +26,7 @@ class SQLiteDatabase
      
         WARNING: DOING THIS WILL WIPE YOUR DATA, unless you modify how updateDatabase() works.
      */
-    private let DATABASE_VERSION = 9
+    private let DATABASE_VERSION = 13
     
     
     
@@ -89,6 +89,7 @@ class SQLiteDatabase
         database.insert(raffle:Raffle(
             raffle_name:"Tuesday night raffle",
             draw_date:"2020-05-12 00:00:00.000",
+            start_date:"2020-05-06 00:00:00.000",
             price:1.5,
             prize:5000,
             pool:150,
@@ -96,12 +97,13 @@ class SQLiteDatabase
             recuring:true,
             frequency:"Weekly",
             archived:false,
-            image:"")
+            image:"TEST")
         )
         
         database.insert(raffle:Raffle(
             raffle_name:"Wacky Wednesday",
             draw_date:"2020-05-13 00:00:00.000",
+            start_date:"2020-05-06 00:00:00.000",
             price:3,
             prize:10000,
             pool:75,
@@ -109,12 +111,13 @@ class SQLiteDatabase
             recuring:false,
             frequency:"",
             archived:false,
-            image:"")
+            image:"TEST")
         )
         
         database.insert(raffle:Raffle(
             raffle_name:"First Friday Frenzy",
             draw_date:"2020-05-15 00:00:00.000",
+            start_date:"2020-05-06 00:00:00.000",
             price:0.5,
             prize:2500,
             pool:500,
@@ -122,7 +125,7 @@ class SQLiteDatabase
             recuring:true,
             frequency:"Monthly",
             archived:false,
-            image:"")
+            image:"TEST")
         )
         
         database.insert(customer:Customer(
@@ -155,6 +158,135 @@ class SQLiteDatabase
            )
         )
         
+        database.insert(ticket:Ticket(
+            raffle_id: 1,
+            customer_id: 1,
+            number: 1,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 1,
+            customer_id: 1,
+            number: 2,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 1,
+            customer_id: 1,
+            number: 3,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 1,
+            customer_id: 2,
+            number: 4,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 1,
+            customer_id: 2,
+            number: 5,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 1,
+            customer_id: 3,
+            number: 6,
+            archived:false
+            )
+        )
+        
+        database.insert(ticket:Ticket(
+            raffle_id: 2,
+            customer_id: 1,
+            number: 1,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 2,
+            customer_id: 1,
+            number: 2,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 2,
+            customer_id: 2,
+            number: 3,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 2,
+            customer_id: 2,
+            number: 4,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 2,
+            customer_id: 3,
+            number: 5,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 2,
+            customer_id: 3,
+            number: 6,
+            archived:false
+            )
+        )
+ 
+        database.insert(ticket:Ticket(
+            raffle_id: 3,
+            customer_id: 1,
+            number: 1,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 3,
+            customer_id: 2,
+            number: 2,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 3,
+            customer_id: 2,
+            number: 3,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 3,
+            customer_id: 2,
+            number: 4,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 3,
+            customer_id: 2,
+            number: 5,
+            archived:false
+            )
+        )
+        database.insert(ticket:Ticket(
+            raffle_id: 3,
+            customer_id: 3,
+            number: 6,
+            archived:false
+            )
+        )
+        
     }
     
     /* --------------------------------*/
@@ -184,7 +316,7 @@ class SQLiteDatabase
         //handle the change (simple version)
         dropTables()
         createTables()
-        insertPlaceholders()
+        //insertPlaceholders()
     }
     
     
@@ -406,14 +538,16 @@ class SQLiteDatabase
                 raffle_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 raffle_name CHAR(255) NOT NULL,
                 draw_date CHAR(255) NOT NULL,
+                start_date CHAR(255) NOT NULL,
                 price REAL NOT NULL,
                 prize INTEGER NOT NULL,
                 pool INTEGER NOT NULL,
                 max INTEGER NOT NULL,
+                current INTEGER DEFAULT 0,
                 recuring INTEGER DEFAULT 0,
-                frequency CHAR(255) DEFAULT '',
+                frequency CHAR(255) DEFAULT 'TEST',
                 archived INTEGER DEFAULT 0,
-                image CHAR(255) DEFAULT ''
+                image CHAR(255) DEFAULT 'TEST'
             );
             """
         createTableWithQuery(createRaffleTableQuery, tableName: "raffle")
@@ -440,6 +574,7 @@ class SQLiteDatabase
                 raffle_id INTEGER NOT NULL,
                 customer_id INTEGER NOT NULL,
                 number INTEGER NOT NULL,
+                sold TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 archived INTEGER DEFAULT 0,
                 FOREIGN KEY (raffle_id) REFERENCES raffle (raffle_id),
                 FOREIGN KEY (customer_id) REFERENCES customer (customer_id)
@@ -449,17 +584,18 @@ class SQLiteDatabase
     }
 
     func insert(raffle:Raffle){
-        let insertStatementQuery = "INSERT INTO raffle (raffle_name, draw_date, price, prize, pool, max, recuring, frequency, image) VALUES (?,?,?,?,?,?,?,?,?);"
+        let insertStatementQuery = "INSERT INTO raffle (raffle_name, draw_date, start_date, price, prize, pool, max, recuring, frequency, image) VALUES (?,?,?,?,?,?,?,?,?,?);"
         insertWithQuery(insertStatementQuery, bindingFunction: { (insertStatement) in
             sqlite3_bind_text(insertStatement, 1, NSString(string:raffle.raffle_name).utf8String, -1, nil)
             sqlite3_bind_text(insertStatement, 2, NSString(string:raffle.draw_date).utf8String, -1, nil) // must take date as 'YYYY-MM-DD HH:MM:SS.SSS'
-            sqlite3_bind_double(insertStatement, 3, raffle.price)
-            sqlite3_bind_int(insertStatement, 4, raffle.prize)
-            sqlite3_bind_int(insertStatement, 5, raffle.pool)
-            sqlite3_bind_int(insertStatement, 6, raffle.max)
-            sqlite3_bind_int(insertStatement, 7, raffle.recuring ? 1 : 0) //Typecast bool to int
-            sqlite3_bind_text(insertStatement, 8, NSString(string:raffle.frequency).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 9, NSString(string:raffle.image).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 3, NSString(string:raffle.start_date).utf8String, -1, nil) // must take date as 'YYYY-MM-DD HH:MM:SS.SSS'
+            sqlite3_bind_double(insertStatement, 4, raffle.price)
+            sqlite3_bind_int(insertStatement, 5, raffle.prize)
+            sqlite3_bind_int(insertStatement, 6, raffle.pool)
+            sqlite3_bind_int(insertStatement, 7, raffle.max)
+            sqlite3_bind_int(insertStatement,8, raffle.recuring ? 1 : 0) //Typecast bool to int
+            sqlite3_bind_text(insertStatement, 9, NSString(string:raffle.frequency).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 10, NSString(string:raffle.image).utf8String, -1, nil)
         })
     }
     
@@ -483,19 +619,20 @@ class SQLiteDatabase
     }
     
     func update(raffle:Raffle){
-        let updateStatementQuery = "UPDATE raffle SET raffle_name=?, draw_date=?, price=?, prize=?, pool=?, max=?, recuring=?, frequency=?, image=?, archived=? WHERE raffle_id=?;"
+        let updateStatementQuery = "UPDATE raffle SET raffle_name=?, draw_date=?, start_date=?, price=?, prize=?, pool=?, max=?, recuring=?, frequency=?, image=?, archived=? WHERE raffle_id=?;"
         updateWithQuery(updateStatementQuery, bindingFunction: { (updateStatement) in
             sqlite3_bind_text(updateStatement, 1, NSString(string:raffle.raffle_name).utf8String, -1, nil)
             sqlite3_bind_text(updateStatement, 2, NSString(string:raffle.draw_date).utf8String, -1, nil) // must take date as 'YYYY-MM-DD HH:MM:SS.SSS'
-            sqlite3_bind_double(updateStatement, 3, raffle.price)
-            sqlite3_bind_int(updateStatement, 4, raffle.prize)
-            sqlite3_bind_int(updateStatement, 5, raffle.pool)
-            sqlite3_bind_int(updateStatement, 6, raffle.max)
-            sqlite3_bind_int(updateStatement, 7, raffle.recuring ? 1 : 0) //Typecast bool to int
-            sqlite3_bind_text(updateStatement, 8, NSString(string:raffle.frequency).utf8String, -1, nil)
-            sqlite3_bind_int(updateStatement, 9, raffle.archived ? 1 : 0) //Typecast bool to int
-            sqlite3_bind_text(updateStatement, 10, NSString(string:raffle.image).utf8String, -1, nil)
-            sqlite3_bind_int(updateStatement, 11, raffle.raffle_id)
+            sqlite3_bind_text(updateStatement, 3, NSString(string:raffle.start_date).utf8String, -1, nil) // must take date as 'YYYY-MM-DD HH:MM:SS.SSS'
+            sqlite3_bind_double(updateStatement, 4, raffle.price)
+            sqlite3_bind_int(updateStatement, 5, raffle.prize)
+            sqlite3_bind_int(updateStatement, 6, raffle.pool)
+            sqlite3_bind_int(updateStatement, 7, raffle.max)
+            sqlite3_bind_int(updateStatement, 8, raffle.recuring ? 1 : 0) //Typecast bool to int
+            sqlite3_bind_text(updateStatement, 9, NSString(string:raffle.frequency).utf8String, -1, nil)
+            sqlite3_bind_int(updateStatement, 10, raffle.archived ? 1 : 0) //Typecast bool to int
+            sqlite3_bind_text(updateStatement, 11, NSString(string:raffle.image).utf8String, -1, nil)
+            sqlite3_bind_int(updateStatement, 12, raffle.raffle_id)
         })
     }
     
@@ -526,21 +663,23 @@ class SQLiteDatabase
     func selectAllRaffles() -> [Raffle]
     {
         var result = [Raffle]()
-        let selectStatementQuery = "SELECT raffle_id, raffle_name, draw_date, price, prize, pool, max, recuring, frequency, recuring, image FROM raffle;"
+        let selectStatementQuery = "SELECT raffle_id, raffle_name, draw_date, start_date, price, prize, pool, max, recuring, frequency, recuring, image FROM raffle;"
         
         selectWithQuery(selectStatementQuery, eachRow: { (row) in
             let raffle = Raffle(
                 raffle_id: sqlite3_column_int(row, 0),
                 raffle_name: String(cString:sqlite3_column_text(row, 1)),
                 draw_date: String(cString:sqlite3_column_text(row, 2)),
-                price: sqlite3_column_double(row, 3),
-                prize: sqlite3_column_int(row, 4),
-                pool: sqlite3_column_int(row, 5),
-                max: sqlite3_column_int(row, 6),
-                recuring: Bool(truncating: sqlite3_column_int(row, 7) as NSNumber),
-                frequency: String(cString:sqlite3_column_text(row, 8)),
-                archived: Bool(truncating: sqlite3_column_int(row, 9) as NSNumber),
-                image: String(cString:sqlite3_column_text(row, 10))
+                start_date: String(cString:sqlite3_column_text(row, 3)),
+                price: sqlite3_column_double(row, 4),
+                prize: sqlite3_column_int(row, 5),
+                pool: sqlite3_column_int(row, 6),
+                max: sqlite3_column_int(row, 7),
+                current: sqlite3_column_int(row, 8),
+                recuring: Bool(truncating: sqlite3_column_int(row, 9) as NSNumber),
+                frequency: String(cString:sqlite3_column_text(row, 10)),
+                archived: Bool(truncating: sqlite3_column_int(row, 11) as NSNumber),
+                image: String(cString:sqlite3_column_text(row, 12))
             )
             result += [raffle]
         })
@@ -557,14 +696,16 @@ class SQLiteDatabase
                 raffle_id: sqlite3_column_int(row, 0),
                 raffle_name: String(cString:sqlite3_column_text(row, 1)),
                 draw_date: String(cString:sqlite3_column_text(row, 2)),
-                price: sqlite3_column_double(row, 3),
-                prize: sqlite3_column_int(row, 4),
-                pool: sqlite3_column_int(row, 5),
-                max: sqlite3_column_int(row, 6),
-                recuring: Bool(truncating: sqlite3_column_int(row, 7) as NSNumber),
-                frequency: String(cString:sqlite3_column_text(row, 8)),
-                archived: Bool(truncating: sqlite3_column_int(row, 9) as NSNumber),
-                image: String(cString:sqlite3_column_text(row, 10))
+                start_date: String(cString:sqlite3_column_text(row, 3)),
+                price: sqlite3_column_double(row, 4),
+                prize: sqlite3_column_int(row, 5),
+                pool: sqlite3_column_int(row, 6),
+                max: sqlite3_column_int(row, 7),
+                current: sqlite3_column_int(row, 8),
+                recuring: Bool(truncating: sqlite3_column_int(row, 9) as NSNumber),
+                frequency: String(cString:sqlite3_column_text(row, 10)),
+                archived: Bool(truncating: sqlite3_column_int(row, 11) as NSNumber),
+                image: "Test" // String(cString:sqlite3_column_text(row, 12))
             )
             result += [raffle]
         })
@@ -609,6 +750,32 @@ class SQLiteDatabase
         return result
     }
     
+    func selectCustomerByID(customer_id:Int32) -> Customer
+    {
+        var result:Customer = Customer(customer_id: 0, customer_name: "", email: "", phone: 0, postcode: 0, archived: false)
+        let selectStatementQuery = "SELECT customer_id, customer_name, email, phone, postcode, archived FROM customer where customer_id = ?;"
+           
+           selectWithQuery(selectStatementQuery,
+                           eachRow: { (row) in
+                               let customer = Customer(
+                                   customer_id: sqlite3_column_int(row, 0),
+                                   customer_name: String(cString:sqlite3_column_text(row, 1)),
+                                   email: String(cString:sqlite3_column_text(row, 2)),
+                                   phone: sqlite3_column_int(row, 3),
+                                   postcode: sqlite3_column_int(row, 4),
+                                   archived: Bool(truncating: sqlite3_column_int(row, 5) as NSNumber)
+                               )
+                               result = customer
+                           },
+                           bindingFunction: { (insertStatement) in
+                               sqlite3_bind_int(insertStatement, 1, customer_id)
+                           }
+           )
+           return result
+       }
+       
+    
+    
     func selectAllTickets() -> [Ticket]
     {
         var result = [Ticket]()
@@ -620,7 +787,8 @@ class SQLiteDatabase
                 raffle_id: sqlite3_column_int(row, 1),
                 customer_id: sqlite3_column_int(row, 2),
                 number: sqlite3_column_int(row, 3),
-                archived: Bool(truncating: sqlite3_column_int(row, 4) as NSNumber)
+                sold: String(cString:sqlite3_column_text(row, 4)),
+                archived: Bool(truncating: sqlite3_column_int(row, 5) as NSNumber)
             )
             result += [ticket]
         })
@@ -639,7 +807,8 @@ class SQLiteDatabase
                                 raffle_id: sqlite3_column_int(row, 1),
                                 customer_id: sqlite3_column_int(row, 2),
                                 number: sqlite3_column_int(row, 3),
-                                archived: Bool(truncating: sqlite3_column_int(row, 4) as NSNumber)
+                                sold: String(cString:sqlite3_column_text(row, 4)),
+                                archived: Bool(truncating: sqlite3_column_int(row, 5) as NSNumber)
                             )
                             result += [ticket]
                         },
@@ -662,7 +831,8 @@ class SQLiteDatabase
                                 raffle_id: sqlite3_column_int(row, 1),
                                 customer_id: sqlite3_column_int(row, 2),
                                 number: sqlite3_column_int(row, 3),
-                                archived: Bool(truncating: sqlite3_column_int(row, 4) as NSNumber)
+                                sold: String(cString:sqlite3_column_text(row, 4)),
+                                archived: Bool(truncating: sqlite3_column_int(row, 5) as NSNumber)
                             )
                             result += [ticket]
                         },

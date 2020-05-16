@@ -10,10 +10,10 @@ import UIKit
 
 class RaffleUITableViewCell: UITableViewCell {
 
-    @IBOutlet var raffle_name_label: UILabel!
-    @IBOutlet var raffle_draw_date_label: UILabel!
-    @IBOutlet var raffle_prize_label: UILabel!
-    @IBOutlet var raffle_sold_label: UILabel!
+    @IBOutlet var raffleNameLabel: UILabel!
+    @IBOutlet var raffleDrawDateLabel: UILabel!
+    @IBOutlet var rafflePrizeLabel: UILabel!
+    @IBOutlet var raffleTicketsSoldLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

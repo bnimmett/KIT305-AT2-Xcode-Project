@@ -12,8 +12,8 @@ class RaffleListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
         //uncomment and run to treload database
+        //let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
         //database.insertPlaceholders()
     }
 }

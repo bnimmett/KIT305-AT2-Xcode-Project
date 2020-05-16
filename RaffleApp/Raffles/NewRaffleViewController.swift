@@ -45,6 +45,7 @@ class NewRaffleViewController: UIViewController {
             database.insert(raffle:Raffle(
                 raffle_name:raffleNameField.text!,
                 draw_date:raffleDrawDateField.text!,
+                start_date:raffleDrawDateField.text!, //Add start date to UI then change this to raffleStartDateField
                 price:Double(rafflePriceField.text!) ?? 0,
                 prize:Int32(rafflePrizeField.text!) ?? 0,
                 pool:150,
@@ -52,7 +53,7 @@ class NewRaffleViewController: UIViewController {
                 recuring:recurring,
                 frequency:"Weekly",
                 archived:false,
-                image:"")
+                image:"Test")
             )
             
             //sends user to previous view controller
