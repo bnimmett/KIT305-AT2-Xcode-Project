@@ -16,10 +16,8 @@ class RaffleDetailViewController: UIViewController {
     @IBOutlet var   yearLabel: UILabel!
     @IBOutlet var   directorLabel: UILabel!
     
-    
-   
-    
-    
+    @IBOutlet var sellTicketButton: UIButton!
+    @IBOutlet var drawWinnerButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,23 +27,41 @@ class RaffleDetailViewController: UIViewController {
             titleLabel.text = displayRaffle.raffle_name
             yearLabel.text = String(displayRaffle.draw_date.prefix(10))
             directorLabel.text = String(displayRaffle.prize)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "ShowNewTicketSegue"
+        {
+            guard let NewTicketViewController = segue.destination as? NewTicketViewController else
+            {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
             
+            guard let currentRaffle = sender as? UIButton else
+            {
+                fatalError("Unexpected sender: \( String(describing: sender))")
+            }
             
+            NewTicketViewController.raffle = raffle
         }
         
-        
+        if segue.identifier == "ShowTicketTableSegue"
+        {
+            guard let TicketUITableViewController = segue.destination as? TicketUITableViewController else
+            {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let RaffleDetailViewController = sender as? RaffleDetailViewController else
+            {
+                fatalError("Unexpected sender: \( String(describing: sender))")
+            }
+            
+            TicketUITableViewController.raffle = raffle
+        }
     }
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
