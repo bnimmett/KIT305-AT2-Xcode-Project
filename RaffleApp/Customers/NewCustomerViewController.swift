@@ -15,23 +15,27 @@ class NewCustomerViewController: UIViewController {
     @IBOutlet var customerPhoneField: UITextField!
     @IBOutlet var customerPostcodeField: UITextField!
         
+    
+    private func emptyAlert()
+       {
+           let emptyAlertController = UIAlertController(title: "Empty Values", message:"All fields must contain a value", preferredStyle: UIAlertController.Style.alert)
+           
+           let dismissAction = UIAlertAction.init(title: "Dismiss", style: .default, handler: nil)
+           emptyAlertController.addAction(dismissAction)
+        
+           present(emptyAlertController, animated: true, completion: nil)
+       }
+    
+    
     @IBAction func saveCustomerButtonTapped(_ sender: UIButton) {
 
-        /*
-         * Note: Moved emtpy var inside to function to fix case when user presses
-         * Save customer button with an empty field and therefore empty is set to true.
-         * User then completes empty fields and presses button a second time,
-         * however emtpy is always set to true, making nothing happen.
-         * By making empty a local variable it is set to false at the start of each press.
-         * Alternatively could have just assigned empty to false instead at each function call.
-         */
+        
         var empty = false
         
         if(customerNameField.text == "" || customerEmailField.text == "" || customerPhoneField.text == "" || customerPostcodeField.text == "")
         {
             empty = true
-            print("All fields must have values")
-            // Add alert message
+            emptyAlert()
         }
                 
         if(!empty)

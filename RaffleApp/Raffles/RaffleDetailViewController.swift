@@ -30,9 +30,25 @@ class RaffleDetailViewController: UIViewController {
         }
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "EditRaffleSegue"
+        {
+            guard let EditRaffleViewController = segue.destination as? EditRaffleViewController else
+            {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let currentRaffle = sender as? UIBarItem else
+            {
+                fatalError("Unexpected sender: \( String(describing: sender))")
+            }
+            
+            EditRaffleViewController.raffle = raffle
+        }
         
         if segue.identifier == "ShowNewTicketSegue"
         {
@@ -48,7 +64,7 @@ class RaffleDetailViewController: UIViewController {
             
             NewTicketViewController.raffle = raffle
         }
-        
+    
         if segue.identifier == "ShowTicketTableSegue"
         {
             guard let TicketUITableViewController = segue.destination as? TicketUITableViewController else

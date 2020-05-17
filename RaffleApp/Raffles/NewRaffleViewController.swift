@@ -10,32 +10,32 @@ import UIKit
 
 class NewRaffleViewController: UIViewController {
 
-
-    var empty = false
-    var recurring = true
-    
     @IBOutlet var raffleNameField: UITextField!
     @IBOutlet var rafflePriceField: UITextField!
     @IBOutlet var raffleMaxTicketField: UITextField!
     @IBOutlet var rafflePrizeField: UITextField!
     @IBOutlet var raffleDrawDateField: UITextField!
+    @IBOutlet var raffleStartDateField: UITextField!
     
-    @IBAction func raffleRecurringSwitch(_ sender: UISwitch) {
-        if(sender.isOn)
-        {
-            recurring = true
-        } else {
-            recurring = false
-        }
+    
+    private func emptyAlert()
+    {
+        let emptyAlertController = UIAlertController(title: "Empty Values", message:"All fields must contain a value", preferredStyle: UIAlertController.Style.alert)
+        
+        let dismissAction = UIAlertAction.init(title: "Dismiss", style: .default, handler: nil)
+        emptyAlertController.addAction(dismissAction)
+     
+        present(emptyAlertController, animated: true, completion: nil)
     }
-    
     
     @IBAction func SaveRaffleButtonTapped(_ sender: UIButton) {
         
-        if(raffleNameField.text == "")
+        var empty = false
+        
+        if(raffleNameField.text == "" || rafflePriceField.text == "" || raffleMaxTicketField.text == "" || rafflePrizeField.text == "" || raffleDrawDateField.text == "" || raffleStartDateField.text == "")
         {
             empty = true
-            print("All fields must have a value")
+            emptyAlert()
         }
         
         if(!empty)
@@ -45,12 +45,12 @@ class NewRaffleViewController: UIViewController {
             database.insert(raffle:Raffle(
                 raffle_name:raffleNameField.text!,
                 draw_date:raffleDrawDateField.text!,
-                start_date:raffleDrawDateField.text!, //Add start date to UI then change this to raffleStartDateField
+                start_date:raffleStartDateField.text!,
                 price:Double(rafflePriceField.text!) ?? 0,
                 prize:Int32(rafflePrizeField.text!) ?? 0,
                 pool:150,
                 max:Int32(raffleMaxTicketField.text!) ?? 0,
-                recuring:recurring,
+                recuring:false,
                 frequency:"Weekly",
                 archived:false,
                 image:"Test")
@@ -58,17 +58,7 @@ class NewRaffleViewController: UIViewController {
             
             //sends user to previous view controller
             self.navigationController!.popViewController(animated: true)
-            
-            
         }
-        
-        if(recurring)
-        {
-            print("recurring yes")
-        } else {
-            print("recurring no")
-        }
-
     }
     
     

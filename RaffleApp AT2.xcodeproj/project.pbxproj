@@ -19,6 +19,7 @@
 		12BB43BA24695FC7004D6857 /* CustomerUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BB43B924695FC7004D6857 /* CustomerUITableViewCell.swift */; };
 		12BB43BC246965B6004D6857 /* CustomerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BB43BB246965B6004D6857 /* CustomerListViewController.swift */; };
 		12F28FDD2446A27E00965015 /* RaffleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F28FDC2446A27E00965015 /* RaffleDetailViewController.swift */; };
+		D3192F5B2471235700E0FCCA /* EditRaffleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3192F5A2471235700E0FCCA /* EditRaffleViewController.swift */; };
 		D3290754221FAC6800D31C68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3290753221FAC6800D31C68 /* AppDelegate.swift */; };
 		D3290759221FAC6800D31C68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3290757221FAC6800D31C68 /* Main.storyboard */; };
 		D329075E221FAC6800D31C68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D329075C221FAC6800D31C68 /* LaunchScreen.storyboard */; };
@@ -41,6 +42,7 @@
 		12BB43B924695FC7004D6857 /* CustomerUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerUITableViewCell.swift; sourceTree = "<group>"; };
 		12BB43BB246965B6004D6857 /* CustomerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerListViewController.swift; sourceTree = "<group>"; };
 		12F28FDC2446A27E00965015 /* RaffleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaffleDetailViewController.swift; sourceTree = "<group>"; };
+		D3192F5A2471235700E0FCCA /* EditRaffleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRaffleViewController.swift; sourceTree = "<group>"; };
 		D3290750221FAC6800D31C68 /* KIT305 AT2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KIT305 AT2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3290753221FAC6800D31C68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3290758221FAC6800D31C68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				124CAD01245FFE55001C2DBE /* RaffleUITableViewCell.swift */,
 				D3FB7D1D246BAFBD0071E538 /* NewRaffleViewController.swift */,
 				12F28FDC2446A27E00965015 /* RaffleDetailViewController.swift */,
+				D3192F5A2471235700E0FCCA /* EditRaffleViewController.swift */,
 			);
 			path = Raffles;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				D3FB7D1E246BAFBD0071E538 /* NewRaffleViewController.swift in Sources */,
 				D3290766221FAC8500D31C68 /* SQLiteDatabase.swift in Sources */,
 				1282BECC2468FC8C00D245CE /* RaffleListViewController.swift in Sources */,
+				D3192F5B2471235700E0FCCA /* EditRaffleViewController.swift in Sources */,
 				12F28FDD2446A27E00965015 /* RaffleDetailViewController.swift in Sources */,
 				12295E05246E74040066B4C1 /* TicketUITableViewCell.swift in Sources */,
 				12BB43B824695EA2004D6857 /* CustomerUITableViewController.swift in Sources */,
@@ -374,14 +378,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9YMCZYVRUA;
+				DEVELOPMENT_TEAM = 294A5WJ96P;
 				INFOPLIST_FILE = RaffleApp/Xcode/Info.plist;
 				"INFOPLIST_FILE[sdk=*]" = RaffleApp/Xcode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utas.cis.bnimmett.RaffleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utas.cis.lhowlett.RaffleApp;
 				PRODUCT_NAME = "KIT305 AT2";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -393,14 +397,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9YMCZYVRUA;
+				DEVELOPMENT_TEAM = 294A5WJ96P;
 				INFOPLIST_FILE = RaffleApp/Xcode/Info.plist;
 				"INFOPLIST_FILE[sdk=*]" = RaffleApp/Xcode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utas.cis.bnimmett.RaffleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utas.cis.lhowlett.RaffleApp;
 				PRODUCT_NAME = "KIT305 AT2";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
