@@ -12,7 +12,7 @@ class EditRaffleViewController: UIViewController {
 
     var raffle : Raffle?
     
-    @IBOutlet var raffleName: UITextField!
+    @IBOutlet var raffleNameField: UITextField!
     @IBOutlet var rafflePrice: UITextField!
     @IBOutlet var raffleMax: UITextField!
     @IBOutlet var rafflePrize: UITextField!
@@ -29,7 +29,7 @@ class EditRaffleViewController: UIViewController {
         
         var empty = false
         
-        if(raffleName.text == "" || rafflePrice.text == "" || rafflePrize.text == "" || raffleMax.text == "" || raffleDrawDate.text == "")
+        if(raffleNameField.text == "" || rafflePrice.text == "" || rafflePrize.text == "" || raffleMax.text == "" || raffleDrawDate.text == "")
         {
             empty = true
             emptyAlert()
@@ -40,12 +40,11 @@ class EditRaffleViewController: UIViewController {
             let database : SQLiteDatabase = SQLiteDatabase(databaseName: "my_database")
             let updateRaffle = Raffle(
                 raffle_id: raffle?.raffle_id ?? -1,
-                raffle_name:raffleName.text!,
+                raffle_name:raffleNameField.text!,
                 draw_date:raffleDrawDate.text!,
                 start_date:raffle!.start_date,
                 price:Double(rafflePrice.text!) ?? 0,
                 prize:Int32(rafflePrize.text!) ?? 0,
-                pool:raffle!.pool,
                 max:Int32(raffleMax.text!) ?? 0,
                 current:raffle!.current,
                 recuring:raffle!.recuring,
@@ -81,7 +80,6 @@ class EditRaffleViewController: UIViewController {
         start_date:raffle!.start_date,
         price:raffle!.price,
         prize:raffle!.prize,
-        pool:raffle!.pool,
         max:raffle!.max,
         current:raffle!.current,
         recuring:raffle!.recuring,
@@ -159,7 +157,7 @@ class EditRaffleViewController: UIViewController {
         toolbarStart.setItems([flexSpaceStart, doneButtonStart], animated: true)
         
         //add each toolbar to keyboard
-        raffleName.inputAccessoryView = toolbar
+        raffleNameField.inputAccessoryView = toolbar
         rafflePrice.inputAccessoryView = toolbar
         rafflePrize.inputAccessoryView = toolbar
         raffleMax.inputAccessoryView = toolbar
@@ -212,7 +210,7 @@ class EditRaffleViewController: UIViewController {
         
         if let displayRaffle = raffle
         {
-            raffleName.text = displayRaffle.raffle_name
+            raffleNameField.text = displayRaffle.raffle_name
             rafflePrice.text = String(displayRaffle.price)
             raffleMax.text = String(displayRaffle.max)
             rafflePrize.text = String(displayRaffle.prize)

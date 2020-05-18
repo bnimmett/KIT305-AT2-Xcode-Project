@@ -14,6 +14,7 @@ class NewTicketViewController: UIViewController {
     
     @IBOutlet var raffleTitle: UILabel!
     @IBOutlet var raffleDrawDate: UILabel!
+    @IBOutlet var raffleStartDate: UILabel!
     @IBOutlet var rafflePrize: UILabel!
     @IBOutlet var rafflePrice: UILabel!
     @IBOutlet var raffleSold: UILabel!

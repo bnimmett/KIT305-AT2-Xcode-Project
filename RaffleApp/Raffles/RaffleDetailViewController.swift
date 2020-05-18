@@ -12,9 +12,9 @@ class RaffleDetailViewController: UIViewController {
 
     var raffle : Raffle?
     
-    @IBOutlet var   titleLabel: UILabel!
-    @IBOutlet var   yearLabel: UILabel!
-    @IBOutlet var   directorLabel: UILabel!
+    @IBOutlet var   raffleName: UILabel!
+    @IBOutlet var   raffleDrawDate: UILabel!
+    @IBOutlet var   rafflePrize: UILabel!
     
     @IBOutlet var sellTicketButton: UIButton!
     @IBOutlet var drawWinnerButton: UIButton!
@@ -24,9 +24,9 @@ class RaffleDetailViewController: UIViewController {
 
         if let  displayRaffle = raffle
         {
-            titleLabel.text = displayRaffle.raffle_name
-            yearLabel.text = String(displayRaffle.draw_date.prefix(10))
-            directorLabel.text = String(displayRaffle.prize)
+            raffleName.text = displayRaffle.raffle_name
+            raffleDrawDate.text = String(displayRaffle.draw_date.prefix(10))
+            rafflePrize.text = String(displayRaffle.prize)
         }
     }
     
@@ -42,7 +42,7 @@ class RaffleDetailViewController: UIViewController {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
-            guard let currentRaffle = sender as? UIBarItem else
+            guard let editButton = sender as? UIBarItem else
             {
                 fatalError("Unexpected sender: \( String(describing: sender))")
             }

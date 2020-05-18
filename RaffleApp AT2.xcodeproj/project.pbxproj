@@ -378,14 +378,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 294A5WJ96P;
+				DEVELOPMENT_TEAM = 9YMCZYVRUA;
 				INFOPLIST_FILE = RaffleApp/Xcode/Info.plist;
 				"INFOPLIST_FILE[sdk=*]" = RaffleApp/Xcode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utas.cis.lhowlett.RaffleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utas.cis.bnimmett.RaffleApp;
 				PRODUCT_NAME = "KIT305 AT2";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -397,14 +397,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 294A5WJ96P;
+				DEVELOPMENT_TEAM = 9YMCZYVRUA;
 				INFOPLIST_FILE = RaffleApp/Xcode/Info.plist;
 				"INFOPLIST_FILE[sdk=*]" = RaffleApp/Xcode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utas.cis.lhowlett.RaffleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utas.cis.bnimmett.RaffleApp;
 				PRODUCT_NAME = "KIT305 AT2";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

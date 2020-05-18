@@ -14,7 +14,6 @@ public struct Raffle
     var start_date:String
     var price:Double
     var prize:Int32
-    var pool:Int32
     var max:Int32
     var current:Int32 = 0
     var recuring:Bool
