@@ -17,16 +17,10 @@ class NewRaffleViewController: UIViewController {
     @IBOutlet var raffleDrawDateField: UITextField!
     @IBOutlet var raffleStartDateField: UITextField!
     
+    let drawDatePicker = UIDatePicker()
+    let startDatePicker = UIDatePicker()
     
-    private func emptyAlert()
-    {
-        let emptyAlertController = UIAlertController(title: "Empty Values", message:"All fields must contain a value", preferredStyle: UIAlertController.Style.alert)
-        
-        let dismissAction = UIAlertAction.init(title: "Dismiss", style: .default, handler: nil)
-        emptyAlertController.addAction(dismissAction)
-     
-        present(emptyAlertController, animated: true, completion: nil)
-    }
+
     
     @IBAction func SaveRaffleButtonTapped(_ sender: UIButton) {
         
@@ -61,10 +55,99 @@ class NewRaffleViewController: UIViewController {
         }
     }
     
+    /*
+     Function to add a toolbar and 'done' button to close keyboards on textfields
+     */
+    func addToolbar()
+    {
+        let toolbar = UIToolbar()
+        let toolbarDraw = UIToolbar()
+        let toolbarStart = UIToolbar()
+        toolbar.sizeToFit()
+        toolbarDraw.sizeToFit()
+        toolbarStart.sizeToFit()
+     
+        //toolbar with button for all regular textfield keyboards
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        //set button on right
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([flexSpace, doneButton], animated: true)
+        
+        
+        //seperate toolbar with done button for each date textfield keyboard
+        let doneButtonDraw = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneBtnPressDraw))
+        //set button on right
+        let flexSpaceDraw = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+        toolbarDraw.setItems([flexSpaceDraw, doneButtonDraw], animated: true)
+        
+        let doneButtonStart = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneBtnPressStart))
+        //set button on right
+        let flexSpaceStart = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+        toolbarStart.setItems([flexSpaceStart, doneButtonStart], animated: true)
+        
+        //add each toolbar to keyboard
+        raffleNameField.inputAccessoryView = toolbar
+        rafflePriceField.inputAccessoryView = toolbar
+        rafflePrizeField.inputAccessoryView = toolbar
+        raffleMaxTicketField.inputAccessoryView = toolbar
+        raffleDrawDateField.inputAccessoryView = toolbarDraw
+        raffleStartDateField.inputAccessoryView = toolbarStart
+    }
+    
+    /*
+     Function that adds date picker keyboard to relevent textfields
+     */
+    func addDatePicker()
+    {
+        raffleDrawDateField.inputView = drawDatePicker
+        raffleStartDateField.inputView = startDatePicker
+        
+        //date picker style
+        drawDatePicker.datePickerMode = .dateAndTime
+    }
+    
+    @objc func doneButtonPressed()
+    {
+        self.view.endEditing(true)
+    }
+    
+    //https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
+    //date picker text format to match database requirements */
+    
+    //Function to handle draw date toolbar button
+    @objc func doneBtnPressDraw() {
+        let drawDate = drawDatePicker.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
+        raffleDrawDateField.text = (dateFormatter.string(from: drawDate))
+        self.view.endEditing(true)
+    }
+    //Function to handle start date toolbar button
+    @objc func doneBtnPressStart() {
+       let startDate = startDatePicker.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
+        raffleStartDateField.text = (dateFormatter.string(from: startDate))
+        self.view.endEditing(true)
+    }
+    
+    
+    private func emptyAlert()
+    {
+        let emptyAlertController = UIAlertController(title: "Empty Values", message:"All fields must contain a value", preferredStyle: UIAlertController.Style.alert)
+        
+        let dismissAction = UIAlertAction.init(title: "Dismiss", style: .default, handler: nil)
+        emptyAlertController.addAction(dismissAction)
+     
+        present(emptyAlertController, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        addToolbar()
+        addDatePicker()
+        
         /*
          * Code to close keyboard by selecting anywhere on the screen
          * Source: https://medium.com/@KaushElsewhere/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
@@ -72,16 +155,4 @@ class NewRaffleViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

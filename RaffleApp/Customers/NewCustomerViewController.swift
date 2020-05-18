@@ -57,13 +57,35 @@ class NewCustomerViewController: UIViewController {
         }
     }
   
+    func addToolbar()
+    {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        //toolbar with button for all regular textfield keyboards
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        //set button on right
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([flexSpace, doneButton], animated: true)
+    
+        //add each toolbar to keyboard
+        customerNameField.inputAccessoryView = toolbar
+        customerEmailField.inputAccessoryView = toolbar
+        customerPhoneField.inputAccessoryView = toolbar
+        customerPostcodeField.inputAccessoryView = toolbar
+        
+    }
+    
+    @objc func doneButtonPressed()
+    {
+        self.view.endEditing(true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        customerNameField.returnKeyType = UIReturnKeyType.done
-        customerEmailField.returnKeyType = UIReturnKeyType.done
-        customerPhoneField.returnKeyType = UIReturnKeyType.done
-        customerPostcodeField.returnKeyType = UIReturnKeyType.done
+        addToolbar()
+        
         
         /*
          * Code to close keyboard by selecting anywhere on the screen

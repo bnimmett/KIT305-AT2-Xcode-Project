@@ -113,18 +113,34 @@ class CustomerDetailViewController: UIViewController {
         }
     }
     
+    func addToolbar()
+    {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        //toolbar with button for all regular textfield keyboards
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        //set button on right
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([flexSpace, doneButton], animated: true)
     
+        //add each toolbar to keyboard
+        customerNameField.inputAccessoryView = toolbar
+        customerEmailField.inputAccessoryView = toolbar
+        CustomerPhoneField.inputAccessoryView = toolbar
+        CustomerPostcodeField.inputAccessoryView = toolbar
+        
+    }
     
-    
-    
+    @objc func doneButtonPressed()
+    {
+        self.view.endEditing(true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        customerNameField.returnKeyType = UIReturnKeyType.done
-        customerEmailField.returnKeyType = UIReturnKeyType.done
-        CustomerPhoneField.returnKeyType = UIReturnKeyType.done
-        CustomerPostcodeField.returnKeyType = UIReturnKeyType.done
+        addToolbar()
 
         if let  displayCustomer = customer
         {
@@ -138,6 +154,14 @@ class CustomerDetailViewController: UIViewController {
         else {
             print("Didnt recieve cutomer from segue")
         }
+        
+        
+        /*
+         * Code to close keyboard by selecting anywhere on the screen
+         * Source: https://medium.com/@KaushElsewhere/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
+         */
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
     }
 
 }

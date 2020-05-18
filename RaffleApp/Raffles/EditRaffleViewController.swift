@@ -17,35 +17,13 @@ class EditRaffleViewController: UIViewController {
     @IBOutlet var raffleMax: UITextField!
     @IBOutlet var rafflePrize: UITextField!
     @IBOutlet var raffleDrawDate: UITextField!
+    @IBOutlet var raffleStartDate: UITextField!
     
     
-    private func emptyAlert()
-    {
-        let emptyAlertController = UIAlertController(title: "Empty Values", message:"All fields must contain a value", preferredStyle: UIAlertController.Style.alert)
-        
-        let dismissAction = UIAlertAction.init(title: "Dismiss", style: .default, handler: nil)
-        emptyAlertController.addAction(dismissAction)
-     
-        present(emptyAlertController, animated: true, completion: nil)
-    }
+    let drawDatePicker = UIDatePicker()
+    let startDatePicker = UIDatePicker()
     
-    private func deleteAlert()
-    {
-        let deleteAlertController = UIAlertController(title: "Delete?", message:"You cannot undo this action", preferredStyle: UIAlertController.Style.alert)
-        
-        let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { _ in
-            
-        }
-        let deleteAction = UIAlertAction.init(title: "Delete", style: .destructive) { _ in
-            self.deleteRaffle()
-        }
-         
-        deleteAlertController.addAction(cancelAction)
-        deleteAlertController.addAction(deleteAction)
-        
-        
-        present(deleteAlertController, animated: true, completion: nil)
-    }
+    
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         
@@ -88,11 +66,6 @@ class EditRaffleViewController: UIViewController {
         
     }
     
-        
-        
-    
-    
-    
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         
         deleteAlert()
@@ -129,15 +102,113 @@ class EditRaffleViewController: UIViewController {
         }
     }
     
+    private func emptyAlert()
+    {
+        let emptyAlertController = UIAlertController(title: "Empty Values", message:"All fields must contain a value", preferredStyle: UIAlertController.Style.alert)
+        
+        let dismissAction = UIAlertAction.init(title: "Dismiss", style: .default, handler: nil)
+        emptyAlertController.addAction(dismissAction)
+     
+        present(emptyAlertController, animated: true, completion: nil)
+    }
+    
+    private func deleteAlert()
+    {
+        let deleteAlertController = UIAlertController(title: "Delete?", message:"You cannot undo this action", preferredStyle: UIAlertController.Style.alert)
+        
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { _ in
+        }
+        let deleteAction = UIAlertAction.init(title: "Delete", style: .destructive) { _ in
+            self.deleteRaffle()
+        }
+         
+        deleteAlertController.addAction(cancelAction)
+        deleteAlertController.addAction(deleteAction)
+        
+        present(deleteAlertController, animated: true, completion: nil)
+    }
+    
+    /*
+     Function to add a toolbar and 'done' button to close keyboards on textfields
+     */
+    func addToolbar()
+    {
+        let toolbar = UIToolbar()
+        let toolbarDraw = UIToolbar()
+        let toolbarStart = UIToolbar()
+        toolbar.sizeToFit()
+        toolbarDraw.sizeToFit()
+        toolbarStart.sizeToFit()
+     
+        //toolbar with button for all regular textfield keyboards
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        //set button on right
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([flexSpace, doneButton], animated: true)
+        
+        
+        //seperate toolbar with done button for each date textfield keyboard
+        let doneButtonDraw = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneBtnPressDraw))
+        //set button on right
+        let flexSpaceDraw = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+        toolbarDraw.setItems([flexSpaceDraw, doneButtonDraw], animated: true)
+        
+        let doneButtonStart = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneBtnPressStart))
+        //set button on right
+        let flexSpaceStart = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+        toolbarStart.setItems([flexSpaceStart, doneButtonStart], animated: true)
+        
+        //add each toolbar to keyboard
+        raffleName.inputAccessoryView = toolbar
+        rafflePrice.inputAccessoryView = toolbar
+        rafflePrize.inputAccessoryView = toolbar
+        raffleMax.inputAccessoryView = toolbar
+        raffleDrawDate.inputAccessoryView = toolbarDraw
+        raffleStartDate.inputAccessoryView = toolbarStart
+    }
+    
+    /*
+     Function that adds date picker keyboard to relevent textfields
+     */
+    func addDatePicker()
+    {
+        raffleDrawDate.inputView = drawDatePicker
+        raffleStartDate.inputView = startDatePicker
+        
+        //date picker style
+        drawDatePicker.datePickerMode = .dateAndTime
+    }
+    
+    @objc func doneButtonPressed()
+    {
+        self.view.endEditing(true)
+    }
+    
+    //https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
+    //date picker text format to match database requirements */
+    
+    @objc func doneBtnPressDraw() {
+        let drawDate = drawDatePicker.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
+        raffleDrawDate.text = (dateFormatter.string(from: drawDate))
+        self.view.endEditing(true)
+    }
+    
+    @objc func doneBtnPressStart() {
+       let startDate = startDatePicker.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
+        raffleStartDate.text = (dateFormatter.string(from: startDate))
+        self.view.endEditing(true)
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        raffleName.returnKeyType = UIReturnKeyType.done
-        rafflePrice.returnKeyType = UIReturnKeyType.done
-        rafflePrize.returnKeyType = UIReturnKeyType.done
-        raffleDrawDate.returnKeyType = UIReturnKeyType.done
+        addToolbar()
+        addDatePicker()
         
         if let displayRaffle = raffle
         {
@@ -146,6 +217,7 @@ class EditRaffleViewController: UIViewController {
             raffleMax.text = String(displayRaffle.max)
             rafflePrize.text = String(displayRaffle.prize)
             raffleDrawDate.text = String(displayRaffle.draw_date)
+            raffleStartDate.text = String(displayRaffle.start_date)
         } else
         {
             print("Didnt recieve raffle from segue")
@@ -159,18 +231,4 @@ class EditRaffleViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
     }
-    
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
