@@ -21,9 +21,23 @@ class NewTicketViewController: UIViewController {
     @IBOutlet var raffleMax: UILabel!
     @IBOutlet var raffleBuyTotal: UILabel!
     
+    @IBOutlet var customerName: UILabel!
     
-    @IBOutlet var customerName: UITextField!
+
     @IBOutlet var raffleBuyQuantity: UITextField!
+    
+    
+    //Shows VC over the top of current VC rather than new page
+    @IBAction func customerButtonTapped(_ sender: UIButton) {
+        
+        let customerPopOver = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "customerPopOver") as! CustomerPopOverViewController
+        self.addChild(customerPopOver)
+        customerPopOver.view.frame = self.view.frame
+        self.view.addSubview(customerPopOver.view)
+        customerPopOver.didMove(toParent: self)
+    }
+    
+    
     
     
     @IBAction func buyTicketsButtonTapped(_ sender: UIButton) {
@@ -41,6 +55,8 @@ class NewTicketViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        customerName.text = ""
+        
         if let displayRaffle = raffle
         {
             raffleTitle.text = displayRaffle.raffle_name
