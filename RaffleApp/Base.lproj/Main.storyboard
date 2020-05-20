@@ -91,8 +91,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Price $" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNA-6W-YzJ">
-                                <rect key="frame" x="278" y="410" width="116" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNA-6W-YzJ">
+                                <rect key="frame" x="295" y="410" width="99" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -103,7 +103,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wsH-AS-6Mw">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wsH-AS-6Mw">
                                 <rect key="frame" x="20" y="444" width="128" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="HCw-JN-gcz"/>
@@ -118,6 +118,7 @@
                                     <constraint firstAttribute="width" constant="150" id="2vX-6Q-2UU"/>
                                     <constraint firstAttribute="height" constant="50" id="lG2-nw-gey"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Select Customer">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
@@ -146,6 +147,12 @@
                                     <action selector="buyTicketsButtonTapped:" destination="q4b-RH-uL9" eventType="touchUpInside" id="AKb-M0-k6Z"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRo-mY-EfR">
+                                <rect key="frame" x="328" y="444" width="13" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -181,6 +188,7 @@
                             <constraint firstItem="aLW-JH-VRG" firstAttribute="top" secondItem="yhT-Q4-SXj" secondAttribute="bottom" constant="10" id="jxH-Lj-jRV"/>
                             <constraint firstItem="90W-Gg-zcK" firstAttribute="top" secondItem="CDo-Wh-VY4" secondAttribute="bottom" id="mX0-y3-cbY"/>
                             <constraint firstItem="wsH-AS-6Mw" firstAttribute="leading" secondItem="1dv-3q-pFG" secondAttribute="leading" constant="20" id="o55-aC-x4T"/>
+                            <constraint firstItem="jyO-bE-y4J" firstAttribute="leading" secondItem="SRo-mY-EfR" secondAttribute="trailing" constant="5" id="pbI-rk-Wdy"/>
                             <constraint firstItem="2g8-Ov-dmV" firstAttribute="top" secondItem="CDo-Wh-VY4" secondAttribute="bottom" id="pnA-uo-Vu7"/>
                             <constraint firstItem="Waf-DD-n5c" firstAttribute="leading" secondItem="1dv-3q-pFG" secondAttribute="leading" constant="132" id="qkO-JU-PeD"/>
                             <constraint firstItem="yhT-Q4-SXj" firstAttribute="top" secondItem="6W1-bd-C23" secondAttribute="bottom" id="qnF-Eh-qEf"/>
@@ -189,6 +197,7 @@
                             <constraint firstItem="vIe-1M-0z3" firstAttribute="leading" secondItem="1dv-3q-pFG" secondAttribute="leading" constant="20" id="vRl-eQ-C6M"/>
                             <constraint firstItem="6W1-bd-C23" firstAttribute="leading" secondItem="1dv-3q-pFG" secondAttribute="leading" constant="20" id="xyo-wI-S30"/>
                             <constraint firstItem="Waf-DD-n5c" firstAttribute="top" secondItem="CDo-Wh-VY4" secondAttribute="bottom" constant="35" id="z3S-Nq-hIq"/>
+                            <constraint firstItem="SRo-mY-EfR" firstAttribute="top" secondItem="UNA-6W-YzJ" secondAttribute="bottom" constant="10" id="z9M-dU-Wzm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1dv-3q-pFG"/>
                     </view>
@@ -196,6 +205,7 @@
                     <size key="freeformSize" width="414" height="800"/>
                     <connections>
                         <outlet property="customerName" destination="uAH-BW-aBX" id="Y6h-Df-9DO"/>
+                        <outlet property="dollarSignLabel" destination="SRo-mY-EfR" id="k44-EU-iyq"/>
                         <outlet property="raffleBuyQuantity" destination="wsH-AS-6Mw" id="MKM-8b-ezc"/>
                         <outlet property="raffleBuyTotal" destination="jyO-bE-y4J" id="mu1-it-rVY"/>
                         <outlet property="raffleDrawDate" destination="yhT-Q4-SXj" id="7zd-nv-bjt"/>
@@ -204,6 +214,7 @@
                         <outlet property="rafflePrize" destination="9q4-L9-75p" id="Abw-wL-TrJ"/>
                         <outlet property="raffleSold" destination="U0d-aB-Vfs" id="PZU-Y1-xnw"/>
                         <outlet property="raffleTitle" destination="BC9-gS-6EG" id="Igy-gF-uyO"/>
+                        <outlet property="totalPrice" destination="jyO-bE-y4J" id="WDO-Tc-hwq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9m-cd-ij7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -242,7 +253,7 @@
                                         <rect key="frame" x="0.0" y="79" width="340" height="450"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <connections>
-                                            <segue destination="ocI-bC-CYu" kind="embed" identifier="" id="twY-vm-qsc"/>
+                                            <segue destination="ocI-bC-CYu" kind="embed" identifier="ShowCustomerTableSegue" id="twY-vm-qsc"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
@@ -256,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mw1-YB-tWe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-94" y="599"/>
+            <point key="canvasLocation" x="178" y="599"/>
         </scene>
         <!--Raffle Table-->
         <scene sceneID="XAR-LH-MIW">
@@ -1558,20 +1569,20 @@
             </objects>
             <point key="canvasLocation" x="-361" y="-820"/>
         </scene>
-        <!--View Controller-->
+        <!--Select Customer-->
         <scene sceneID="8BX-PC-plA">
             <objects>
-                <viewController id="ocI-bC-CYu" sceneMemberID="viewController">
+                <viewController id="ocI-bC-CYu" userLabel="Select Customer" customClass="SelectCustomerTableViewController" customModule="KIT305_AT2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CW2-oE-ZK1">
                         <rect key="frame" x="0.0" y="0.0" width="340" height="450"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="umH-mx-C57">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="umH-mx-C57">
                                 <rect key="frame" x="0.0" y="0.0" width="340" height="450"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomerUITableViewCell" rowHeight="100" id="skY-CX-hQS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectCustomerTableViewCell" rowHeight="100" id="skY-CX-hQS">
                                         <rect key="frame" x="0.0" y="28" width="340" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="skY-CX-hQS" id="OdN-bu-DEq">
@@ -1622,11 +1633,12 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="RMh-zU-RtD"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="whu-CW-dlb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-94" y="1174"/>
+            <point key="canvasLocation" x="178" y="1298"/>
         </scene>
     </scenes>
     <resources>

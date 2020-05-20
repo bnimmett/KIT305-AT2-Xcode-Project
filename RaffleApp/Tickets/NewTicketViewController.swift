@@ -12,6 +12,8 @@ class NewTicketViewController: UIViewController {
     
     var raffle : Raffle?
     
+    var localPrice = 0.0
+    
     @IBOutlet var raffleTitle: UILabel!
     @IBOutlet var raffleDrawDate: UILabel!
     @IBOutlet var raffleStartDate: UILabel!
@@ -25,6 +27,8 @@ class NewTicketViewController: UIViewController {
     
 
     @IBOutlet var raffleBuyQuantity: UITextField!
+    @IBOutlet var totalPrice: UILabel!
+    @IBOutlet var dollarSignLabel: UILabel!
     
     
     //Shows VC over the top of current VC rather than new page
@@ -48,14 +52,46 @@ class NewTicketViewController: UIViewController {
         */
     }
     
+    func addToolbar()
+    {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+     
+        //toolbar with button for all regular textfield keyboards
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        //set button on right
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([flexSpace, doneButton], animated: true)
+        
+        //add toolbar to keyboard
+        raffleBuyQuantity.inputAccessoryView = toolbar
+    }
     
-    
-    
+    /*
+     Calculate total price and display on screen
+     */
+    @objc func doneButtonPressed()
+    {
+        if let buyQuantity = Double(raffleBuyQuantity.text!)
+        {
+            let totalP = buyQuantity * localPrice
+            //Display Double as String with two decimal places
+            let formatted = String(format: "%.2f", totalP)
+            totalPrice.text = String(formatted)
+            dollarSignLabel.text = "$"
+
+        }
+        self.view.endEditing(true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         customerName.text = ""
+        totalPrice.text = ""
+        dollarSignLabel.text = ""
+        
+        addToolbar()
         
         if let displayRaffle = raffle
         {
@@ -66,7 +102,7 @@ class NewTicketViewController: UIViewController {
             raffleSold.text = String(displayRaffle.current)
             raffleMax.text = String(displayRaffle.max)
             
-          
+            localPrice = displayRaffle.price
             
             
         }

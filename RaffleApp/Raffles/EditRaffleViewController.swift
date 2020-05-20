@@ -23,7 +23,7 @@ class EditRaffleViewController: UIViewController {
     let drawDatePicker = UIDatePicker()
     let startDatePicker = UIDatePicker()
     
-    
+
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         
@@ -34,7 +34,7 @@ class EditRaffleViewController: UIViewController {
             empty = true
             emptyAlert()
         }
-        
+        print(raffleDrawDate.text)
         if(!empty)
         {
             let database : SQLiteDatabase = SQLiteDatabase(databaseName: "my_database")
@@ -60,7 +60,7 @@ class EditRaffleViewController: UIViewController {
                 database.update(raffle:updateRaffle)
                 print("Raffle \(raffle?.raffle_id ?? -2) updated")
                 self.navigationController!.popViewController(animated: true)
-            }
+                self.navigationController!.popViewController(animated: true)            }
         }
         
     }

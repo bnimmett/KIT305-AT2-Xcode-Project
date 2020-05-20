@@ -23,6 +23,8 @@ class RaffleDetailViewController: UIViewController {
     @IBOutlet var sellTicketButton: UIButton!
     @IBOutlet var drawWinnerButton: UIButton!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
