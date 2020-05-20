@@ -1170,6 +1170,7 @@
                         <outlet property="raffleDrawDate" destination="pad-9E-DmD" id="W8c-Is-bWG"/>
                         <outlet property="raffleMax" destination="vOM-ZC-sP6" id="ytV-zx-ju7"/>
                         <outlet property="raffleName" destination="vg2-Gh-LYM" id="G5Q-NQ-MC3"/>
+                        <outlet property="rafflePrice" destination="nQI-pF-UdO" id="8KM-AA-cc1"/>
                         <outlet property="rafflePrize" destination="EN4-jJ-WKP" id="Y3v-vd-Cro"/>
                         <outlet property="raffleSold" destination="FAF-fS-59a" id="17Q-rt-yLX"/>
                         <outlet property="sellTicketButton" destination="1X6-NV-Yug" id="Veo-Le-gNX"/>

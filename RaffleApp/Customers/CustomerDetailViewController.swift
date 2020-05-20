@@ -17,7 +17,7 @@ class CustomerDetailViewController: UIViewController {
     @IBOutlet var   CustomerPhoneField: UITextField!
     @IBOutlet var   CustomerPostcodeField: UITextField!
     
-   private func emptyAlert()
+   private func emptyAlert() //REF[3]
    {
        let emptyAlertController = UIAlertController(title: "Empty Values", message:"All fields must contain a value", preferredStyle: UIAlertController.Style.alert)
        
@@ -27,7 +27,7 @@ class CustomerDetailViewController: UIViewController {
        present(emptyAlertController, animated: true, completion: nil)
    }
     
-    private func deleteAlert()
+    private func deleteAlert() //REF[3]
     {
         let deleteAlertController = UIAlertController(title: "Delete?", message:"You cannot undo this action", preferredStyle: UIAlertController.Style.alert)
         
@@ -40,7 +40,6 @@ class CustomerDetailViewController: UIViewController {
          
         deleteAlertController.addAction(cancelAction)
         deleteAlertController.addAction(deleteAction)
-        
         
         present(deleteAlertController, animated: true, completion: nil)
     }
@@ -81,10 +80,8 @@ class CustomerDetailViewController: UIViewController {
         }
     }
     
-    @IBAction func deleteCustomerButtontap(_ sender: UIButton) {
-        //Note this will save any changes made to the user. Perhaps implement a new archive database function.
-        //Add alert for confirmation
-        
+    @IBAction func deleteCustomerButtontap(_ sender: UIButton)
+    {
         deleteAlert()
     }
     
@@ -150,16 +147,13 @@ class CustomerDetailViewController: UIViewController {
             CustomerPostcodeField.text = String(displayCustomer.postcode)
             print("Recieved customer \(displayCustomer.customer_id)")
             print("Archived: \(String(displayCustomer.archived))")
+            
+            print(displayCustomer.customer_id)
         }
         else {
             print("Didnt recieve cutomer from segue")
         }
         
-        
-        /*
-         * Code to close keyboard by selecting anywhere on the screen
-         * Source: https://medium.com/@KaushElsewhere/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
-         */
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }

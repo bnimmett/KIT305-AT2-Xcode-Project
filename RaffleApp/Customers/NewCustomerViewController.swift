@@ -16,7 +16,7 @@ class NewCustomerViewController: UIViewController {
     @IBOutlet var customerPostcodeField: UITextField!
         
     
-    private func emptyAlert()
+    private func emptyAlert() //REF[3]
        {
            let emptyAlertController = UIAlertController(title: "Empty Values", message:"All fields must contain a value", preferredStyle: UIAlertController.Style.alert)
            
@@ -29,7 +29,6 @@ class NewCustomerViewController: UIViewController {
     
     @IBAction func saveCustomerButtonTapped(_ sender: UIButton) {
 
-        
         var empty = false
         
         if(customerNameField.text == "" || customerEmailField.text == "" || customerPhoneField.text == "" || customerPostcodeField.text == "")
@@ -87,10 +86,7 @@ class NewCustomerViewController: UIViewController {
         addToolbar()
         
         
-        /*
-         * Code to close keyboard by selecting anywhere on the screen
-         * Source: https://medium.com/@KaushElsewhere/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
-         */
+        
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }

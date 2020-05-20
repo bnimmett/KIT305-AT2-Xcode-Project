@@ -17,11 +17,12 @@ class RaffleDetailViewController: UIViewController {
     @IBOutlet var   rafflePrize: UILabel!
     @IBOutlet var   raffleSold: UILabel!
     @IBOutlet var   raffleMax: UILabel!
+    @IBOutlet var   rafflePrice: UILabel!
     
     
     
-    @IBOutlet var sellTicketButton: UIButton!
-    @IBOutlet var drawWinnerButton: UIButton!
+    @IBOutlet var   sellTicketButton: UIButton!
+    @IBOutlet var   drawWinnerButton: UIButton!
     
     
     
@@ -33,8 +34,11 @@ class RaffleDetailViewController: UIViewController {
             raffleName.text = displayRaffle.raffle_name
             raffleDrawDate.text = String(displayRaffle.draw_date.prefix(10))
             rafflePrize.text = String(displayRaffle.prize)
+            rafflePrice.text = String(displayRaffle.price)
             raffleSold.text = String(displayRaffle.current)
             raffleMax.text = String(displayRaffle.max)
+            
+            print(displayRaffle.raffle_id)
         }
     }
     

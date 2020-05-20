@@ -111,7 +111,7 @@ class NewRaffleViewController: UIViewController {
     }
     
     //https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
-    //date picker text format to match database requirements */
+
     
     //Function to handle draw date toolbar button
     @objc func doneBtnPressDraw() {

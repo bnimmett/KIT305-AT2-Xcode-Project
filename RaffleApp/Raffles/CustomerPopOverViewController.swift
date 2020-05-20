@@ -14,7 +14,6 @@ class CustomerPopOverViewController: UIViewController {
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
         self.view.removeFromSuperview()
-        
     }
     
     
