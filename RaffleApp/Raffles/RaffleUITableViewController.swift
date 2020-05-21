@@ -39,16 +39,13 @@ class RaffleUITableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RaffleUITableViewCell", for: indexPath)
 
         let raffle = raffles[indexPath.row]
-        
-        let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-        let ticket_count = database.selectTicketCountByRaffle(raffle_id:raffle.raffle_id)
-        
+                
         if let raffleCell = cell as? RaffleUITableViewCell
         {
             raffleCell.raffleNameLabel.text = raffle.raffle_name
             raffleCell.raffleDrawDateLabel.text = String(raffle.draw_date.prefix(10))
             raffleCell.rafflePrizeLabel.text = String(raffle.prize)
-            raffleCell.raffleTicketsSoldLabel.text = String(ticket_count)
+            raffleCell.raffleTicketsSoldLabel.text = String(raffle.current)
         }
         
         return cell

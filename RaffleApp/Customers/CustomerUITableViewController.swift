@@ -8,12 +8,21 @@
 
 import UIKit
 
-class CustomerUITableViewController: UITableViewController {
+protocol SelectCustomerCellProtocol : class {
+    func customerSelected(_ sentCustomer: Customer)
+}
 
+class CustomerUITableViewController: UITableViewController {
+    
+    weak var delegate: SelectCustomerCellProtocol?
+    
     var customers = [Customer]()
+    var raffle: Raffle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
         customers = database.selectAllActiveCustomers()
     }
@@ -46,6 +55,18 @@ class CustomerUITableViewController: UITableViewController {
              }
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let customer = customers[indexPath.row]
+        print("itsrunnung, selecting: ")
+        print(customer.customer_name)
+        delegate?.customerSelected(customer)
+        //self.view.removeFromSuperview()
+        //self.navigationController!.popViewController(animated: true)
+    }
+    
+    
+    
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
@@ -67,9 +88,34 @@ class CustomerUITableViewController: UITableViewController {
             {
                 fatalError("The selected cell is not being displayed by the table")
             }
-            
+            print("segueing")
             let selectedCustomer = customers[indexPath.row]
             CustomerDetailViewController.customer = selectedCustomer
         }
+
+/* Old segue methof
+        if segue.identifier == "SelectCustomerSellSegue"
+        {
+            guard let NewTicketViewController = segue.destination as? NewTicketViewController else
+            {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let selectedCustomerCell = sender as? CustomerUITableViewCell else
+            {
+                fatalError("Unexpected sender: \( String(describing: sender))")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedCustomerCell) else
+            {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedCustomer = customers[indexPath.row]
+            NewTicketViewController.customer = selectedCustomer
+            NewTicketViewController.raffle = raffle
+        }
+ */
+        
     }
 }

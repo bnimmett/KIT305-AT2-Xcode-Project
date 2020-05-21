@@ -35,13 +35,21 @@ class RaffleDetailViewController: UIViewController {
             raffleDrawDate.text = String(displayRaffle.draw_date.prefix(10))
             rafflePrize.text = String(displayRaffle.prize)
             rafflePrice.text = String(displayRaffle.price)
-            raffleSold.text = String(displayRaffle.current)
             raffleMax.text = String(displayRaffle.max)
             
             print(displayRaffle.raffle_id)
+            
+            //When backbutton is pressed, will always return to raffle list and not new ticket view.
+            if let returnToRoot = navigationController?.viewControllers.first {
+                navigationController?.viewControllers = [returnToRoot, self]
+            }
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
+        raffleSold.text = String(database.selectTicketCountByRaffle(raffle_id: raffle!.raffle_id))
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {

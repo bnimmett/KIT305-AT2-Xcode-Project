@@ -43,6 +43,7 @@ class NewRaffleViewController: UIViewController {
                 price:Double(rafflePriceField.text!) ?? 0,
                 prize:Int32(rafflePrizeField.text!) ?? 0,
                 max:Int32(raffleMaxTicketField.text!) ?? 0, 
+                current:0,
                 recuring:false,
                 frequency:"Weekly",
                 archived:false,

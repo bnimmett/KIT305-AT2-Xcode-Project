@@ -10,6 +10,7 @@ import UIKit
 
 class CustomerUITableViewCell: UITableViewCell {
 
+    
     @IBOutlet var customer_name_label: UILabel!
     @IBOutlet var customer_phone_label: UILabel!
     @IBOutlet var customer_email_label: UILabel!

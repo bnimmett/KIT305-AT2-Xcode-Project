@@ -15,7 +15,7 @@ public struct Raffle
     var price:Double
     var prize:Int32
     var max:Int32
-    var current:Int32 = 0
+    var current:Int32 
     var recuring:Bool
     var frequency:String
     var archived:Bool

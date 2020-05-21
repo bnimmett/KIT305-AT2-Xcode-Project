@@ -34,7 +34,7 @@ class EditRaffleViewController: UIViewController {
             empty = true
             emptyAlert()
         }
-        print(raffleDrawDate.text)
+        //print(raffleDrawDate.text)
         if(!empty)
         {
             let database : SQLiteDatabase = SQLiteDatabase(databaseName: "my_database")

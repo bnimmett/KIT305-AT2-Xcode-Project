@@ -8,10 +8,16 @@
 
 import UIKit
 
-class NewTicketViewController: UIViewController {
+class NewTicketViewController: UIViewController, PassCustomerProtocol {
+    
     
     var raffle : Raffle?
-    
+    var customer : Customer? {
+        didSet{
+            customerName.text = customer?.customer_name ?? "No Customer Selected"
+        }
+    }
+
     var localPrice = 0.0
     
     @IBOutlet var raffleTitle: UILabel!
@@ -30,19 +36,23 @@ class NewTicketViewController: UIViewController {
     @IBOutlet var totalPrice: UILabel!
     @IBOutlet var dollarSignLabel: UILabel!
     
+    func passCustomer(_ sentCustomer: Customer) {
+        customer = sentCustomer
+        print("customer selected")
+    }
     
     //Shows VC over the top of current VC rather than new page REF[5]
     @IBAction func customerButtonTapped(_ sender: UIButton) {
         
         let customerPopOver = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "customerPopOver") as! CustomerPopOverViewController
+        customerPopOver.delegateTwo = self
+        //customerPopOver.raffle = raffle
         self.addChild(customerPopOver)
+        //customerPopOver.view.self.subviews[1].
         customerPopOver.view.frame = self.view.frame
         self.view.addSubview(customerPopOver.view)
         customerPopOver.didMove(toParent: self)
     }
-    
-    
-    
     
     @IBAction func buyTicketsButtonTapped(_ sender: UIButton) {
         
@@ -50,20 +60,24 @@ class NewTicketViewController: UIViewController {
         {
             let database :SQLiteDatabase = SQLiteDatabase(databaseName: "my_database")
             
-            var raffles = [Raffle]()
-            var customers = [Customer]()
+            //var raffles = [Raffle]()
+            //var customers = [Customer]()
             var ticketsPerRaffle = [Ticket]()
-            
-            var raffleId: Int32 = 9999
-            var customerId: Int32 = 9999
+            //var raffleId: Int32 = 9999
+            let raffleId = raffle?.raffle_id ?? 9999
+            //var customerId: Int32 = 9999
+            let customerId = customer?.customer_id ?? 9999
             var ticketCount: Int32 = -1
             
-            raffles = database.selectAllActiveRaffles()
-            customers = database.selectAllCustomers()
+            ticketsPerRaffle = database.selectTicketsByRaffle(raffle_id: raffleId)
+            ticketCount = Int32(ticketsPerRaffle.count)
+            
+            //raffles = database.selectAllActiveRaffles()
+            //customers = database.selectAllCustomers()
             
             
             //Cycle through each table in database searching for matching raffle and ticket
-            for raffles in raffles
+/*            for raffles in raffles
             {
                 if raffles.raffle_name == raffleTitle.text
                 {
@@ -79,16 +93,39 @@ class NewTicketViewController: UIViewController {
                     customerId = customers.customer_id
                 }
             }
-            
+  */
             if raffleId != 9999 && customerId != 9999 && ticketCount != -1
             {
-                database.insert(ticket: Ticket(
-                    raffle_id: raffleId,
-                    customer_id: customerId,
-                    number: ticketCount + 1,
-                    archived: false))
+                var count:Int = Int(raffleBuyQuantity.text ?? "0") ?? 0
+                while count != 0 {
+                    count -= 1
+
+                    //Update raffle current
+                    let ticket_count = database.selectTicketCountByRaffle(raffle_id: raffle?.raffle_id ?? 0)
+                    database.update(raffle: Raffle(
+                        raffle_id: raffle!.raffle_id,
+                        raffle_name: raffle!.raffle_name,
+                        draw_date: raffle!.draw_date,
+                        start_date: raffle!.start_date,
+                        price: raffle!.price,
+                        prize: raffle!.prize,
+                        max: raffle!.max,
+                        current: ticket_count+1,
+                        //current: raffle!.current+1,
+                        recuring: raffle!.recuring,
+                        frequency: raffle!.frequency,
+                        archived: raffle!.archived,
+                        image: raffle!.image))
+                    
+                    database.insert(ticket: Ticket(
+                        raffle_id: raffleId,
+                        customer_id: customerId,
+                        number: ticketCount + 1,
+                        archived: false))
+                    ticketCount += 1
+                }
                 
-                    self.navigationController!.popViewController(animated: true)
+                //self.navigationController!.popViewController(animated: true)
             }
         } else {
             alert(Title: "No Tickets Selected", Message: "")
@@ -142,8 +179,8 @@ class NewTicketViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        customerName.text = "Lucas"
+        
+        customerName.text = customer?.customer_name ?? "No Customer Selected"
         totalPrice.text = "0"
         dollarSignLabel.text = "$"
         
@@ -159,8 +196,29 @@ class NewTicketViewController: UIViewController {
             raffleMax.text = String(displayRaffle.max)
             
             localPrice = displayRaffle.price
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "ReturnToRaffleDetailSegue"
+        {
+            guard let RaffleDetailViewController = segue.destination as? RaffleDetailViewController else
+            {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
             
+            guard let buyButton = sender as? UIButton else
+            {
+                fatalError("Unexpected sender: \( String(describing: sender))")
+            }
             
+            RaffleDetailViewController.raffle = raffle
         }
     }
 }
+
+
+
