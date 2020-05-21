@@ -10,7 +10,6 @@ import UIKit
 
 class NewTicketViewController: UIViewController, PassCustomerProtocol {
     
-    
     var raffle : Raffle?
     var customer : Customer? {
         didSet{
@@ -30,7 +29,6 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
     @IBOutlet var raffleBuyTotal: UILabel!
     
     @IBOutlet var customerName: UILabel!
-    
 
     @IBOutlet var raffleBuyQuantity: UITextField!
     @IBOutlet var totalPrice: UILabel!
@@ -46,9 +44,7 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
         
         let customerPopOver = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "customerPopOver") as! CustomerPopOverViewController
         customerPopOver.delegateTwo = self
-        //customerPopOver.raffle = raffle
         self.addChild(customerPopOver)
-        //customerPopOver.view.self.subviews[1].
         customerPopOver.view.frame = self.view.frame
         self.view.addSubview(customerPopOver.view)
         customerPopOver.didMove(toParent: self)
@@ -56,76 +52,48 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
     
     @IBAction func buyTicketsButtonTapped(_ sender: UIButton) {
         
-        if raffleBuyQuantity.text != "" || totalPrice.text != "0"
+        if raffleBuyQuantity.text != "" && totalPrice.text != "0" && customer != nil
         {
             let database :SQLiteDatabase = SQLiteDatabase(databaseName: "my_database")
-            
-            //var raffles = [Raffle]()
-            //var customers = [Customer]()
-            var ticketsPerRaffle = [Ticket]()
-            //var raffleId: Int32 = 9999
-            let raffleId = raffle?.raffle_id ?? 9999
-            //var customerId: Int32 = 9999
-            let customerId = customer?.customer_id ?? 9999
-            var ticketCount: Int32 = -1
-            
-            ticketsPerRaffle = database.selectTicketsByRaffle(raffle_id: raffleId)
-            ticketCount = Int32(ticketsPerRaffle.count)
-            
-            //raffles = database.selectAllActiveRaffles()
-            //customers = database.selectAllCustomers()
-            
-            
-            //Cycle through each table in database searching for matching raffle and ticket
-/*            for raffles in raffles
-            {
-                if raffles.raffle_name == raffleTitle.text
-                {
-                    raffleId = raffles.raffle_id
-                    ticketsPerRaffle = database.selectTicketsByRaffle(raffle_id: raffleId)
-                    ticketCount = Int32(ticketsPerRaffle.count)
-                }
-            }
-            for customers in customers
-            {
-                if customers.customer_name == customerName.text
-                {
-                    customerId = customers.customer_id
-                }
-            }
-  */
-            if raffleId != 9999 && customerId != 9999 && ticketCount != -1
+
+            let raffleId = raffle?.raffle_id ?? -1
+            let customerId = customer?.customer_id ?? -1
+            var ticket_count = database.selectTicketCountByRaffle(raffle_id: raffleId)
+
+            if raffleId != -1 && customerId != -1 && ticket_count != -1
             {
                 var count:Int = Int(raffleBuyQuantity.text ?? "0") ?? 0
-                while count != 0 {
-                    count -= 1
+                if Int32(count)+ticket_count <= raffle?.max ?? -1 {
+                    while count != 0 {
+                        count -= 1
 
-                    //Update raffle current
-                    let ticket_count = database.selectTicketCountByRaffle(raffle_id: raffle?.raffle_id ?? 0)
-                    database.update(raffle: Raffle(
-                        raffle_id: raffle!.raffle_id,
-                        raffle_name: raffle!.raffle_name,
-                        draw_date: raffle!.draw_date,
-                        start_date: raffle!.start_date,
-                        price: raffle!.price,
-                        prize: raffle!.prize,
-                        max: raffle!.max,
-                        current: ticket_count+1,
-                        //current: raffle!.current+1,
-                        recuring: raffle!.recuring,
-                        frequency: raffle!.frequency,
-                        archived: raffle!.archived,
-                        image: raffle!.image))
-                    
-                    database.insert(ticket: Ticket(
-                        raffle_id: raffleId,
-                        customer_id: customerId,
-                        number: ticketCount + 1,
-                        archived: false))
-                    ticketCount += 1
+                        //Update raffle current
+                        ticket_count = database.selectTicketCountByRaffle(raffle_id: raffleId)
+                        database.update(raffle: Raffle(
+                            raffle_id: raffle!.raffle_id,
+                            raffle_name: raffle!.raffle_name,
+                            draw_date: raffle!.draw_date,
+                            start_date: raffle!.start_date,
+                            price: raffle!.price,
+                            prize: raffle!.prize,
+                            max: raffle!.max,
+                            current: ticket_count+1,
+                            recuring: raffle!.recuring,
+                            frequency: raffle!.frequency,
+                            archived: raffle!.archived,
+                            image: raffle!.image))
+                        
+                        database.insert(ticket: Ticket(
+                            raffle_id: raffleId,
+                            customer_id: customerId,
+                            number: ticket_count + 1,
+                            archived: false))
+                    }
+                    raffleSold.text = String(raffle!.current)
                 }
-                
-                //self.navigationController!.popViewController(animated: true)
+                else {
+                    alert(Title: "Too many tickets", Message: "There are only \((raffle?.max ?? -1)-(raffle?.current ?? -1)) tickets remaining.")
+                }
             }
         } else {
             alert(Title: "No Tickets Selected", Message: "")

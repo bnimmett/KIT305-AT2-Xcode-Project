@@ -19,8 +19,6 @@ class RaffleDetailViewController: UIViewController {
     @IBOutlet var   raffleMax: UILabel!
     @IBOutlet var   rafflePrice: UILabel!
     
-    
-    
     @IBOutlet var   sellTicketButton: UIButton!
     @IBOutlet var   drawWinnerButton: UIButton!
     
@@ -48,7 +46,8 @@ class RaffleDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-        raffleSold.text = String(database.selectTicketCountByRaffle(raffle_id: raffle!.raffle_id))
+        raffle = database.selectRaffleByID(raffle_id: raffle?.raffle_id ?? -1)
+        raffleSold.text = String(raffle?.current ?? -1)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

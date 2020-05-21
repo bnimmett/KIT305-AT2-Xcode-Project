@@ -707,6 +707,35 @@ class SQLiteDatabase
         return result
     }
     
+    func selectRaffleByID(raffle_id:Int32) -> Raffle
+    {
+        var result:Raffle = Raffle(raffle_id: 0, raffle_name: "", draw_date: "", start_date: "", price: 0, prize: 0, max: 0, current: 0, recuring: false, frequency: "", archived: false, image: "")
+        let selectStatementQuery = "SELECT raffle_id, raffle_name, draw_date, start_date, price, prize, max, current, recuring, frequency, archived, image FROM raffle WHERE raffle_id = ?;"
+
+        selectWithQuery(selectStatementQuery, eachRow: { (row) in
+            let raffle = Raffle(
+                raffle_id: sqlite3_column_int(row, 0),
+                raffle_name: String(cString:sqlite3_column_text(row, 1)),
+                draw_date: String(cString:sqlite3_column_text(row, 2)),
+                start_date: String(cString:sqlite3_column_text(row, 3)),
+                price: sqlite3_column_double(row, 4),
+                prize: sqlite3_column_int(row, 5),
+                max: sqlite3_column_int(row, 6),
+                current: sqlite3_column_int(row, 7),
+                recuring: Bool(truncating: sqlite3_column_int(row, 8) as NSNumber),
+                frequency: String(cString:sqlite3_column_text(row, 9)),
+                archived: Bool(truncating: sqlite3_column_int(row, 10) as NSNumber),
+                image: "Test" // String(cString:sqlite3_column_text(row, 12))
+                )
+                result = raffle
+            },
+            bindingFunction: { (insertStatement) in
+                sqlite3_bind_int(insertStatement, 1, raffle_id)
+            }
+        )
+        return result
+   }
+    
     func selectAllCustomers() -> [Customer]
     {
         var result = [Customer]()
