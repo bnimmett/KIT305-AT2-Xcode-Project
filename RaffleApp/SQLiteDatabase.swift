@@ -797,8 +797,6 @@ class SQLiteDatabase
            )
            return result
        }
-       
-    
     
     func selectAllTickets() -> [Ticket]
     {
@@ -867,6 +865,30 @@ class SQLiteDatabase
         return result
     }
     
+    func selectNonWinningTicketsByRaffle(raffle_id:Int32) -> [Ticket] //Can change to pass Raffle as parameter instead
+    {
+        var result = [Ticket]()
+        let selectStatementQuery = "SELECT ticket_id, raffle_id, customer_id, number, sold, win FROM ticket where raffle_id = ? and win = 0;"
+        
+        selectWithQuery(selectStatementQuery,
+                        eachRow: { (row) in
+                            let ticket = Ticket(
+                                ticket_id: sqlite3_column_int(row, 0),
+                                raffle_id: sqlite3_column_int(row, 1),
+                                customer_id: sqlite3_column_int(row, 2),
+                                number: sqlite3_column_int(row, 3),
+                                sold: String(cString:sqlite3_column_text(row, 4)),
+                                win: sqlite3_column_int(row, 5)
+                            )
+                            result += [ticket]
+                        },
+                        bindingFunction: { (insertStatement) in
+                            sqlite3_bind_int(insertStatement, 1, raffle_id)
+                        }
+        )
+        return result
+    }
+    
     func selectTicketsByRaffleAndCustomer(raffle_id:Int32, customer_id:Int32) -> [Ticket]
     {
         var result = [Ticket]()
@@ -911,7 +933,7 @@ class SQLiteDatabase
     func selectWinningTicketCountByRaffle(raffle_id:Int32) -> Int32
     {
         var result:Int32 = 0
-        let selectStatementQuery = "SELECT count(*) FROM ticket where raffle_id = ?;"
+        let selectStatementQuery = "SELECT count(*) FROM ticket where raffle_id = ? and win <> 0;"
         
         selectWithQuery(selectStatementQuery,
                         eachRow: { (row) in

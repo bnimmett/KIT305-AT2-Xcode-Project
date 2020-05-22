@@ -26,7 +26,7 @@ class WinningTicketTableViewController: UITableViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    func reloadTable() {
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
         if let raffle_id = raffle?.raffle_id {
             tickets = database.selectWinningTicketsByRaffle(raffle_id: raffle_id)

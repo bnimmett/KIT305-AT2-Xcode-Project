@@ -61,8 +61,6 @@ class CustomerUITableViewController: UITableViewController {
         print("itsrunnung, selecting: ")
         print(customer.customer_name)
         delegate?.customerSelected(customer)
-        //self.view.removeFromSuperview()
-        //self.navigationController!.popViewController(animated: true)
     }
     
     
