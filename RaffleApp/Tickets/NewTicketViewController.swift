@@ -87,7 +87,7 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
                             raffle_id: raffleId,
                             customer_id: customerId,
                             number: ticket_count + 1,
-                            archived: false))
+                            win: 0))
                     }
                     raffleSold.text = String(raffle!.current)
                 }

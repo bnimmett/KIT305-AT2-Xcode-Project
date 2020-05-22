@@ -39,5 +39,5 @@ public struct Ticket
     var customer_id:Int32
     var number:Int32
     var sold:String = ""
-    var archived:Bool
+    var win:Int32
 }

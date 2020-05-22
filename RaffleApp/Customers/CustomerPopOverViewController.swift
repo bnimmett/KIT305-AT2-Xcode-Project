@@ -26,8 +26,6 @@ class CustomerPopOverViewController: UIViewController, SelectCustomerCellProtoco
         print("customer recieved from selection")
         print(customer?.customer_name ?? "")
     }
-
-    //var raffle: Raffle?
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
         self.view.removeFromSuperview()

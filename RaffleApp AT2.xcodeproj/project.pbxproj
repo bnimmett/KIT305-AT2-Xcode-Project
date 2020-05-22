@@ -11,6 +11,9 @@
 		12295E05246E74040066B4C1 /* TicketUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12295E04246E74040066B4C1 /* TicketUITableViewCell.swift */; };
 		124CAD02245FFE55001C2DBE /* RaffleUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124CAD00245FFE55001C2DBE /* RaffleUITableViewController.swift */; };
 		124CAD03245FFE55001C2DBE /* RaffleUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124CAD01245FFE55001C2DBE /* RaffleUITableViewCell.swift */; };
+		127BC317247770B00039A5B9 /* WinningTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127BC316247770B00039A5B9 /* WinningTicketTableViewCell.swift */; };
+		127BC319247770C90039A5B9 /* WinningTicketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127BC318247770C90039A5B9 /* WinningTicketTableViewController.swift */; };
+		127BC31B247775460039A5B9 /* DrawTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127BC31A247775460039A5B9 /* DrawTicketViewController.swift */; };
 		1282BECC2468FC8C00D245CE /* RaffleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1282BECB2468FC8C00D245CE /* RaffleListViewController.swift */; };
 		128BA507246E1F97007DD2BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 128BA506246E1F97007DD2BF /* Assets.xcassets */; };
 		128BA509246E1FC7007DD2BF /* CustomerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128BA508246E1FC7007DD2BF /* CustomerDetailViewController.swift */; };
@@ -36,6 +39,9 @@
 		12295E04246E74040066B4C1 /* TicketUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketUITableViewCell.swift; sourceTree = "<group>"; };
 		124CAD00245FFE55001C2DBE /* RaffleUITableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaffleUITableViewController.swift; sourceTree = "<group>"; };
 		124CAD01245FFE55001C2DBE /* RaffleUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaffleUITableViewCell.swift; sourceTree = "<group>"; };
+		127BC316247770B00039A5B9 /* WinningTicketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningTicketTableViewCell.swift; sourceTree = "<group>"; };
+		127BC318247770C90039A5B9 /* WinningTicketTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningTicketTableViewController.swift; sourceTree = "<group>"; };
+		127BC31A247775460039A5B9 /* DrawTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawTicketViewController.swift; sourceTree = "<group>"; };
 		1282BECB2468FC8C00D245CE /* RaffleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaffleListViewController.swift; sourceTree = "<group>"; };
 		128BA506246E1F97007DD2BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		128BA508246E1FC7007DD2BF /* CustomerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerDetailViewController.swift; sourceTree = "<group>"; };
@@ -78,7 +84,6 @@
 				D3FB7D1D246BAFBD0071E538 /* NewRaffleViewController.swift */,
 				12F28FDC2446A27E00965015 /* RaffleDetailViewController.swift */,
 				D3192F5A2471235700E0FCCA /* EditRaffleViewController.swift */,
-				D31C9A552473B12E004B2747 /* CustomerPopOverViewController.swift */,
 			);
 			path = Raffles;
 			sourceTree = "<group>";
@@ -91,6 +96,7 @@
 				12BB43B924695FC7004D6857 /* CustomerUITableViewCell.swift */,
 				D3FB7D1B246B9BCE0071E538 /* NewCustomerViewController.swift */,
 				128BA508246E1FC7007DD2BF /* CustomerDetailViewController.swift */,
+				D31C9A552473B12E004B2747 /* CustomerPopOverViewController.swift */,
 			);
 			path = Customers;
 			sourceTree = "<group>";
@@ -111,7 +117,10 @@
 			children = (
 				12295E02246E72100066B4C1 /* TicketUITableViewController.swift */,
 				12295E04246E74040066B4C1 /* TicketUITableViewCell.swift */,
+				127BC318247770C90039A5B9 /* WinningTicketTableViewController.swift */,
+				127BC316247770B00039A5B9 /* WinningTicketTableViewCell.swift */,
 				D3A096B6246D123700D109AB /* NewTicketViewController.swift */,
+				127BC31A247775460039A5B9 /* DrawTicketViewController.swift */,
 			);
 			path = Tickets;
 			sourceTree = "<group>";
@@ -226,6 +235,7 @@
 				D3A096B7246D123700D109AB /* NewTicketViewController.swift in Sources */,
 				12BB43BC246965B6004D6857 /* CustomerListViewController.swift in Sources */,
 				12295E03246E72100066B4C1 /* TicketUITableViewController.swift in Sources */,
+				127BC317247770B00039A5B9 /* WinningTicketTableViewCell.swift in Sources */,
 				12BB43BA24695FC7004D6857 /* CustomerUITableViewCell.swift in Sources */,
 				D3FB7D1E246BAFBD0071E538 /* NewRaffleViewController.swift in Sources */,
 				D3290766221FAC8500D31C68 /* SQLiteDatabase.swift in Sources */,
@@ -235,8 +245,10 @@
 				12295E05246E74040066B4C1 /* TicketUITableViewCell.swift in Sources */,
 				12BB43B824695EA2004D6857 /* CustomerUITableViewController.swift in Sources */,
 				124CAD03245FFE55001C2DBE /* RaffleUITableViewCell.swift in Sources */,
+				127BC31B247775460039A5B9 /* DrawTicketViewController.swift in Sources */,
 				12A09D88246677A5004C4A44 /* classes.swift in Sources */,
 				D31C9A562473B12E004B2747 /* CustomerPopOverViewController.swift in Sources */,
+				127BC319247770C90039A5B9 /* WinningTicketTableViewController.swift in Sources */,
 				128BA509246E1FC7007DD2BF /* CustomerDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

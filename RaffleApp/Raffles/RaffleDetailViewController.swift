@@ -98,5 +98,21 @@ class RaffleDetailViewController: UIViewController {
             
             TicketUITableViewController.raffle = raffle
         }
+        
+        if segue.identifier == "DrawWinnerSegue"
+        {
+            guard let DrawTicketViewController = segue.destination as? DrawTicketViewController else
+            {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let currentRaffle = sender as? UIButton else
+            {
+                fatalError("Unexpected sender: \( String(describing: sender))")
+            }
+        
+            DrawTicketViewController.raffle = raffle
+        }
+        
     }
 }

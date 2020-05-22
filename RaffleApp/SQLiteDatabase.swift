@@ -26,7 +26,7 @@ class SQLiteDatabase
      
         WARNING: DOING THIS WILL WIPE YOUR DATA, unless you modify how updateDatabase() works.
      */
-    private let DATABASE_VERSION = 15
+    private let DATABASE_VERSION = 16
     
     
     
@@ -162,42 +162,42 @@ class SQLiteDatabase
             raffle_id: 1,
             customer_id: 1,
             number: 1,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 1,
             customer_id: 1,
             number: 2,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 1,
             customer_id: 1,
             number: 3,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 1,
             customer_id: 2,
             number: 4,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 1,
             customer_id: 2,
             number: 5,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 1,
             customer_id: 3,
             number: 6,
-            archived:false
+            win:0
             )
         )
         
@@ -205,42 +205,42 @@ class SQLiteDatabase
             raffle_id: 2,
             customer_id: 1,
             number: 1,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 2,
             customer_id: 1,
             number: 2,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 2,
             customer_id: 2,
             number: 3,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 2,
             customer_id: 2,
             number: 4,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 2,
             customer_id: 3,
             number: 5,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 2,
             customer_id: 3,
             number: 6,
-            archived:false
+            win:0
             )
         )
  
@@ -248,42 +248,42 @@ class SQLiteDatabase
             raffle_id: 3,
             customer_id: 1,
             number: 1,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 3,
             customer_id: 2,
             number: 2,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 3,
             customer_id: 2,
             number: 3,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 3,
             customer_id: 2,
             number: 4,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 3,
             customer_id: 2,
             number: 5,
-            archived:false
+            win:0
             )
         )
         database.insert(ticket:Ticket(
             raffle_id: 3,
             customer_id: 3,
             number: 6,
-            archived:false
+            win:0
             )
         )
         
@@ -574,7 +574,7 @@ class SQLiteDatabase
                 customer_id INTEGER NOT NULL,
                 number INTEGER NOT NULL,
                 sold TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                archived INTEGER DEFAULT 0,
+                win INTEGER DEFAULT 0,
                 FOREIGN KEY (raffle_id) REFERENCES raffle (raffle_id),
                 FOREIGN KEY (customer_id) REFERENCES customer (customer_id)
             );
@@ -646,12 +646,12 @@ class SQLiteDatabase
     }
     
     func update(ticket:Ticket){
-        let updateStatementQuery = "UPDATE ticket SET raffle_id=?, customer_id=?, number=?, archived=? where ticket_id=?;"
+        let updateStatementQuery = "UPDATE ticket SET raffle_id=?, customer_id=?, number=?, win=? where ticket_id=?;"
         updateWithQuery(updateStatementQuery, bindingFunction: { (updateStatement) in
             sqlite3_bind_int(updateStatement, 1, ticket.raffle_id)
             sqlite3_bind_int(updateStatement, 2, ticket.customer_id)
             sqlite3_bind_int(updateStatement, 3, ticket.number)
-            sqlite3_bind_int(updateStatement, 4, ticket.archived ? 1 : 0) //Typecast bool to int
+            sqlite3_bind_int(updateStatement, 4, ticket.win)
             sqlite3_bind_int(updateStatement, 5, ticket.ticket_id)
         })
     }
@@ -803,7 +803,7 @@ class SQLiteDatabase
     func selectAllTickets() -> [Ticket]
     {
         var result = [Ticket]()
-        let selectStatementQuery = "SELECT ticket_id, raffle_id, customer_id, number, sold, archived FROM ticket;"
+        let selectStatementQuery = "SELECT ticket_id, raffle_id, customer_id, number, sold, win FROM ticket;"
         
         selectWithQuery(selectStatementQuery, eachRow: { (row) in
             let ticket = Ticket(
@@ -812,7 +812,7 @@ class SQLiteDatabase
                 customer_id: sqlite3_column_int(row, 2),
                 number: sqlite3_column_int(row, 3),
                 sold: String(cString:sqlite3_column_text(row, 4)),
-                archived: Bool(truncating: sqlite3_column_int(row, 5) as NSNumber)
+                win: sqlite3_column_int(row, 5)
             )
             result += [ticket]
         })
@@ -822,7 +822,7 @@ class SQLiteDatabase
     func selectTicketsByRaffle(raffle_id:Int32) -> [Ticket] //Can change to pass Raffle as parameter instead
     {
         var result = [Ticket]()
-        let selectStatementQuery = "SELECT ticket_id, raffle_id, customer_id, number, sold, archived FROM ticket where raffle_id = ?;"
+        let selectStatementQuery = "SELECT ticket_id, raffle_id, customer_id, number, sold, win FROM ticket where raffle_id = ?;"
         
         selectWithQuery(selectStatementQuery,
                         eachRow: { (row) in
@@ -832,7 +832,31 @@ class SQLiteDatabase
                                 customer_id: sqlite3_column_int(row, 2),
                                 number: sqlite3_column_int(row, 3),
                                 sold: String(cString:sqlite3_column_text(row, 4)),
-                                archived: Bool(truncating: sqlite3_column_int(row, 5) as NSNumber)
+                                win: sqlite3_column_int(row, 5)
+                            )
+                            result += [ticket]
+                        },
+                        bindingFunction: { (insertStatement) in
+                            sqlite3_bind_int(insertStatement, 1, raffle_id)
+                        }
+        )
+        return result
+    }
+    
+    func selectWinningTicketsByRaffle(raffle_id:Int32) -> [Ticket] //Can change to pass Raffle as parameter instead
+    {
+        var result = [Ticket]()
+        let selectStatementQuery = "SELECT ticket_id, raffle_id, customer_id, number, sold, win FROM ticket where raffle_id = ? and win <> 0 order by win;"
+        
+        selectWithQuery(selectStatementQuery,
+                        eachRow: { (row) in
+                            let ticket = Ticket(
+                                ticket_id: sqlite3_column_int(row, 0),
+                                raffle_id: sqlite3_column_int(row, 1),
+                                customer_id: sqlite3_column_int(row, 2),
+                                number: sqlite3_column_int(row, 3),
+                                sold: String(cString:sqlite3_column_text(row, 4)),
+                                win: sqlite3_column_int(row, 5)
                             )
                             result += [ticket]
                         },
@@ -846,7 +870,7 @@ class SQLiteDatabase
     func selectTicketsByRaffleAndCustomer(raffle_id:Int32, customer_id:Int32) -> [Ticket]
     {
         var result = [Ticket]()
-        let selectStatementQuery = "SELECT ticket_id, raffle_id, customer_id, number, sold, archived FROM ticket where raffle_id = ? and customer_id = ?;"
+        let selectStatementQuery = "SELECT ticket_id, raffle_id, customer_id, number, sold, win FROM ticket where raffle_id = ? and customer_id = ?;"
         
         selectWithQuery(selectStatementQuery,
                         eachRow: { (row) in
@@ -856,7 +880,7 @@ class SQLiteDatabase
                                 customer_id: sqlite3_column_int(row, 2),
                                 number: sqlite3_column_int(row, 3),
                                 sold: String(cString:sqlite3_column_text(row, 4)),
-                                archived: Bool(truncating: sqlite3_column_int(row, 5) as NSNumber)
+                                win: sqlite3_column_int(row, 5)
                             )
                             result += [ticket]
                         },
@@ -869,6 +893,22 @@ class SQLiteDatabase
     }
     
     func selectTicketCountByRaffle(raffle_id:Int32) -> Int32
+    {
+        var result:Int32 = 0
+        let selectStatementQuery = "SELECT count(*) FROM ticket where raffle_id = ?;"
+        
+        selectWithQuery(selectStatementQuery,
+                        eachRow: { (row) in
+                            result += sqlite3_column_int(row, 0)
+                        },
+                        bindingFunction: { (insertStatement) in
+                            sqlite3_bind_int(insertStatement, 1, raffle_id)
+                        }
+        )
+        return result
+    }
+    
+    func selectWinningTicketCountByRaffle(raffle_id:Int32) -> Int32
     {
         var result:Int32 = 0
         let selectStatementQuery = "SELECT count(*) FROM ticket where raffle_id = ?;"
