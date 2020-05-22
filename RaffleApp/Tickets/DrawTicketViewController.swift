@@ -31,15 +31,48 @@ class DrawTicketViewController: UIViewController {
             customer_id: -1,
             number: 0,
             win: 0))
-        var child = self.children[0] as? WinningTicketTableViewController
+        let child = self.children[0] as? WinningTicketTableViewController
         child?.reloadTable()
     }
     
     @IBAction func drawMarginButton(_ sender: Any) {
         if inputMarginTextField.text != "" {
-            
+            marginDrawAlert()
         }
+        else {
+            alert(Title: "Empty margin", Message: "You must input a margin to draw the raffle")
+        }
+    }
+    
+    func drawMarginRaffle(){
+        var winner: Ticket? = nil
+        let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
+        let margin = Int32(inputMarginTextField.text ?? "0") ?? 0
+        if let raffle_id = raffle?.raffle_id {
+            numWinners = database.selectWinningTicketCountByRaffle(raffle_id: raffle_id)
+            winner = database.selectWinningMarginTicketByRaffle(raffle_id: raffle_id, margin: margin)
+        }
+        if winner != nil && winner?.number != -2 {
+            winner!.win = (numWinners ?? 0) + 1
+            database.update(ticket: winner!)
+            let child = self.children[0] as? WinningTicketTableViewController
+            child?.reloadTable()
+        }
+        else {
+            alert(Title: "No winner", Message: "No ticket won from margin \(margin).")
+        }
+        inputMarginTextField.text = ""
         
+    }
+    
+    private func alert(Title:String, Message:String) //REF[3]
+    {
+        let emptyAlertController = UIAlertController(title: Title, message: Message, preferredStyle: UIAlertController.Style.alert)
+        
+        let dismissAction = UIAlertAction.init(title: "Dismiss", style: .default, handler: nil)
+        emptyAlertController.addAction(dismissAction)
+     
+        present(emptyAlertController, animated: true, completion: nil)
     }
     
     func addToolbar()
@@ -99,6 +132,22 @@ class DrawTicketViewController: UIViewController {
         drawAlertController.addAction(drawAction)
         
         present(drawAlertController, animated: true, completion: nil)
+    }
+    
+    private func marginDrawAlert()
+    {
+        let marginDrawAlertController = UIAlertController(title: "Draw Margin Winner", message:"Are you sure you want to Margin Draw this raffle?", preferredStyle: UIAlertController.Style.alert)
+        
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { _ in
+        }
+        let drawAction = UIAlertAction.init(title: "Draw", style: .destructive) { _ in
+            self.drawMarginRaffle()
+        }
+         
+        marginDrawAlertController.addAction(cancelAction)
+        marginDrawAlertController.addAction(drawAction)
+        
+        present(marginDrawAlertController, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

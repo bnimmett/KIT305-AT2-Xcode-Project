@@ -865,6 +865,31 @@ class SQLiteDatabase
         return result
     }
     
+    func selectWinningMarginTicketByRaffle(raffle_id:Int32, margin:Int32) -> Ticket
+    {
+        var result: Ticket?
+        let selectStatementQuery = "SELECT ticket_id, raffle_id, customer_id, number, sold, win FROM ticket where raffle_id = ? and win == 0 and number = ?;"
+        print("Select: \(margin)")
+        selectWithQuery(selectStatementQuery,
+                        eachRow: { (row) in
+                            let ticket = Ticket(
+                                ticket_id: sqlite3_column_int(row, 0),
+                                raffle_id: sqlite3_column_int(row, 1),
+                                customer_id: sqlite3_column_int(row, 2),
+                                number: sqlite3_column_int(row, 3),
+                                sold: String(cString:sqlite3_column_text(row, 4)),
+                                win: sqlite3_column_int(row, 5)
+                            )
+                            result = ticket
+                        },
+                        bindingFunction: { (insertStatement) in
+                            sqlite3_bind_int(insertStatement, 1, raffle_id)
+                            sqlite3_bind_int(insertStatement, 2, margin)
+                        }
+        )
+        return result ?? Ticket(raffle_id: -2, customer_id: -1, number: -2, win: -1)
+    }
+    
     func selectNonWinningTicketsByRaffle(raffle_id:Int32) -> [Ticket] //Can change to pass Raffle as parameter instead
     {
         var result = [Ticket]()
