@@ -617,19 +617,20 @@ class SQLiteDatabase
     }
     
     func update(raffle:Raffle){
-        let updateStatementQuery = "UPDATE raffle SET raffle_name=?, draw_date=?, start_date=?, price=?, prize=?, current=?, recuring=?, frequency=?, image=?, archived=? WHERE raffle_id=?;"
+        let updateStatementQuery = "UPDATE raffle SET raffle_name=?, draw_date=?, start_date=?, price=?, prize=?, max=?, current=?, recuring=?, frequency=?, image=?, archived=? WHERE raffle_id=?;"
         updateWithQuery(updateStatementQuery, bindingFunction: { (updateStatement) in
             sqlite3_bind_text(updateStatement, 1, NSString(string:raffle.raffle_name).utf8String, -1, nil)
             sqlite3_bind_text(updateStatement, 2, NSString(string:raffle.draw_date).utf8String, -1, nil) // must take date as 'YYYY-MM-DD HH:MM:SS.SSS'
             sqlite3_bind_text(updateStatement, 3, NSString(string:raffle.start_date).utf8String, -1, nil) // must take date as 'YYYY-MM-DD HH:MM:SS.SSS'
             sqlite3_bind_double(updateStatement, 4, raffle.price)
             sqlite3_bind_int(updateStatement, 5, raffle.prize)
-            sqlite3_bind_int(updateStatement, 6, raffle.current)
-            sqlite3_bind_int(updateStatement, 7, raffle.recuring ? 1 : 0) //Typecast bool to int
-            sqlite3_bind_text(updateStatement, 8, NSString(string:raffle.frequency).utf8String, -1, nil)
-            sqlite3_bind_text(updateStatement, 9, NSString(string:raffle.image).utf8String, -1, nil)
-            sqlite3_bind_int(updateStatement, 10, raffle.archived ? 1 : 0) //Typecast bool to int
-            sqlite3_bind_int(updateStatement, 11, raffle.raffle_id)
+            sqlite3_bind_int(updateStatement, 6, raffle.max)
+            sqlite3_bind_int(updateStatement, 7, raffle.current)
+            sqlite3_bind_int(updateStatement, 8, raffle.recuring ? 1 : 0) //Typecast bool to int
+            sqlite3_bind_text(updateStatement, 9, NSString(string:raffle.frequency).utf8String, -1, nil)
+            sqlite3_bind_text(updateStatement, 10, NSString(string:raffle.image).utf8String, -1, nil)
+            sqlite3_bind_int(updateStatement, 11, raffle.archived ? 1 : 0) //Typecast bool to int
+            sqlite3_bind_int(updateStatement, 12, raffle.raffle_id)
         })
     }
     
