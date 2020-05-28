@@ -150,7 +150,7 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
         
         customerName.text = customer?.customer_name ?? "No Customer Selected"
         totalPrice.text = "0"
-        dollarSignLabel.text = "$"
+//        dollarSignLabel.text = "$"
         
         addToolbar()
         

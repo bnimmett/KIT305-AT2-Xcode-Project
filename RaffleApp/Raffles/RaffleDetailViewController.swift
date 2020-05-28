@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RaffleDetailViewController: UIViewController {
+class RaffleDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var raffle : Raffle?
     
@@ -18,11 +18,37 @@ class RaffleDetailViewController: UIViewController {
     @IBOutlet var   raffleSold: UILabel!
     @IBOutlet var   raffleMax: UILabel!
     @IBOutlet var   rafflePrice: UILabel!
+    @IBOutlet var addImageButton: UIButton!
     
     @IBOutlet var   sellTicketButton: UIButton!
     @IBOutlet var   drawWinnerButton: UIButton!
     
+    @IBOutlet var imageView: UIImageView!
     
+    @IBAction func AddPhotoButtonTapped(_ sender: UIButton) {
+        if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            print("No Photo Library Avaliable")
+        }
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            imageView.contentMode = UIView.ContentMode.scaleAspectFit
+            imageView?.image = image
+            addImageButton.isHidden = true
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

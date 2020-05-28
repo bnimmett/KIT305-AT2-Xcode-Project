@@ -8,11 +8,17 @@
 
 import UIKit
 
-class TicketUITableViewController: UITableViewController {
+class TicketUITableViewController: UITableViewController, ShareTicketProtocol {
     
     var raffle : Raffle?
     var tickets = [Ticket]()
-    
+    func shareTicketInfo(_ customerName: String, _ customerTicketNum: String, _ customerSoldTime: String) {
+            let shareViewController = UIActivityViewController(
+                activityItems: ["\(customerName)'s ticket number \(customerTicketNum) sold at \(customerSoldTime) for \(raffle!.raffle_name) which will be drawn on \(raffle!.draw_date). The prize is \(raffle!.prize)"], applicationActivities: [])
+        present(shareViewController, animated: true, completion: nil)
+        
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -55,8 +61,9 @@ class TicketUITableViewController: UITableViewController {
             ticketCell.ticketCustomerNameLabel.text = customer.customer_name
             ticketCell.ticketSoldLabel.text = String(ticket.sold)
             ticketCell.ticketNumberLabel.text = String(ticket.number)
+            ticketCell.delegate = self
         }
-        
+                
         return cell
     }
 
