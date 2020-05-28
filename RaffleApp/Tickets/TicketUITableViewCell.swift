@@ -8,12 +8,21 @@
 
 import UIKit
 
+protocol ShareTicketProtocol {
+    func shareTicketInfo(_ customerName: String, _ customerTicketNum: String, _ customerSoldTime: String)
+}
+
 class TicketUITableViewCell: UITableViewCell {
 
+    var delegate: ShareTicketProtocol!
+    
     @IBOutlet var ticketCustomerNameLabel: UILabel!
     @IBOutlet var ticketSoldLabel: UILabel!
     @IBOutlet var ticketNumberLabel: UILabel!
-
+    @IBAction func shareTicketInformation(_ sender: Any) {
+        self.delegate.shareTicketInfo(ticketCustomerNameLabel.text!, ticketNumberLabel.text!, ticketSoldLabel.text!)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

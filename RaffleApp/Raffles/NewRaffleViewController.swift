@@ -20,8 +20,6 @@ class NewRaffleViewController: UIViewController {
     let drawDatePicker = UIDatePicker()
     let startDatePicker = UIDatePicker()
     
-
-    
     @IBAction func SaveRaffleButtonTapped(_ sender: UIButton) {
         
         var empty = false

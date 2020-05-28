@@ -50,7 +50,13 @@ class CustomerUITableViewController: UITableViewController {
              {
                 customerCell.customer_name_label.text = customer.customer_name
                 customerCell.customer_email_label.text = customer.email
-                customerCell.customer_phone_label.text = String(customer.phone)
+                //Add leading zero if number is 9 digits long, as phone number is stored as an int.
+                if customer.phone > 99999999 && customer.phone < 1000000000 {
+                    customerCell.customer_phone_label.text = String(format: "%010d", customer.phone)
+                }
+                else {
+                    customerCell.customer_phone_label.text = String(customer.phone)
+                }
                 customerCell.customer_postcode_label.text = String(customer.postcode)
              }
         return cell
