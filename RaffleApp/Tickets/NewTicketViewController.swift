@@ -98,6 +98,7 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
         } else {
             alert(Title: "No Tickets or \nCustomer Selected", Message: "")
         }
+        successAlert()
     }
     
     private func alert(Title:String, Message:String) //REF[3]
@@ -110,6 +111,22 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
         present(emptyAlertController, animated: true, completion: nil)
     }
     
+    private func successAlert() //REF[3]
+    {
+        let successAlert = UIAlertController(title: "Tickets Purchased Successfully", message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        let dismissAction = UIAlertAction.init(title: "Dismiss", style: .default) { _ in
+            self.successBuy()
+        }
+         
+        successAlert.addAction(dismissAction)
+        present(successAlert, animated: true, completion: nil)
+    }
+    
+    private func successBuy()
+    {
+        self.navigationController!.popViewController(animated: true)
+    }
     func addToolbar()
     {
         let toolbar = UIToolbar()
