@@ -15,8 +15,11 @@ class DrawTicketViewController: UIViewController {
     var numWinners: Int32?
     
     @IBOutlet var inputMarginTextField: UITextField!
+    @IBOutlet var drawMarginButton: UIButton!
+    @IBOutlet var drawMarginLabel: UILabel!
     
     
+    @IBOutlet var drawRandomButton: UIButton!
     @IBAction func drawRandomButton(_ sender: UIButton) {
         drawAlert()
     }
@@ -110,6 +113,19 @@ class DrawTicketViewController: UIViewController {
             print("Tickets not Loaded, for raffle \(raffle?.raffle_id ?? -1)")
         }
         
+        if raffle?.margin ?? false {
+            drawRandomButton.isHidden = true
+        }
+        else {
+            inputMarginTextField.isHidden = true
+            drawMarginLabel.isHidden = true
+            drawMarginButton.isHidden = true
+        }
+        
+        /*
+         * Code to close keyboard by selecting anywhere on the screen
+         * Source: https://medium.com/@KaushElsewhere/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
+         */
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }

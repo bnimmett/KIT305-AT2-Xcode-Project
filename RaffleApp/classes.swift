@@ -10,16 +10,15 @@ public struct Raffle
 {
     var raffle_id:Int32 = -1
     var raffle_name:String
+    var raffle_description:String
     var draw_date:String
     var start_date:String
     var price:Double
     var prize:Int32
     var max:Int32
     var current:Int32 
-    var recuring:Bool
-    var frequency:String
+    var margin:Bool
     var archived:Bool
-    var image:String
 }
 
 public struct Customer

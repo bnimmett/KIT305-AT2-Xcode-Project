@@ -16,7 +16,9 @@ class NewRaffleViewController: UIViewController {
     @IBOutlet var rafflePrizeField: UITextField!
     @IBOutlet var raffleDrawDateField: UITextField!
     @IBOutlet var raffleStartDateField: UITextField!
-    
+    @IBOutlet var raffleDescriptionField: UITextField!
+    @IBOutlet var marginSwitch: UISwitch!
+
     let drawDatePicker = UIDatePicker()
     let startDatePicker = UIDatePicker()
     
@@ -24,7 +26,7 @@ class NewRaffleViewController: UIViewController {
         
         var empty = false
         
-        if(raffleNameField.text == "" || rafflePriceField.text == "" || raffleMaxTicketField.text == "" || rafflePrizeField.text == "" || raffleDrawDateField.text == "" || raffleStartDateField.text == "")
+        if(raffleNameField.text == "" || raffleDescriptionField.text == "" || rafflePriceField.text == "" || raffleMaxTicketField.text == "" || rafflePrizeField.text == "" || raffleDrawDateField.text == "" || raffleStartDateField.text == "")
         {
             empty = true
             emptyAlert()
@@ -36,16 +38,15 @@ class NewRaffleViewController: UIViewController {
             
             database.insert(raffle:Raffle(
                 raffle_name:raffleNameField.text!,
+                raffle_description:raffleDescriptionField.text!,
                 draw_date:raffleDrawDateField.text!,
                 start_date:raffleStartDateField.text!,
                 price:Double(rafflePriceField.text!) ?? 0,
                 prize:Int32(rafflePrizeField.text!) ?? 0,
                 max:Int32(raffleMaxTicketField.text!) ?? 0, 
                 current:0,
-                recuring:false,
-                frequency:"Weekly",
-                archived:false,
-                image:"Test")
+                margin:marginSwitch.isOn,
+                archived:false)
             )
             
             //sends user to previous view controller
@@ -88,6 +89,7 @@ class NewRaffleViewController: UIViewController {
         rafflePriceField.inputAccessoryView = toolbar
         rafflePrizeField.inputAccessoryView = toolbar
         raffleMaxTicketField.inputAccessoryView = toolbar
+        raffleDescriptionField.inputAccessoryView = toolbar
         raffleDrawDateField.inputAccessoryView = toolbarDraw
         raffleStartDateField.inputAccessoryView = toolbarStart
     }

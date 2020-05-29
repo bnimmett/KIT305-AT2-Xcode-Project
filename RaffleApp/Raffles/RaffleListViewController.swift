@@ -16,4 +16,20 @@ class RaffleListViewController: UIViewController {
         //let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
         //database.insertPlaceholders()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        super.prepare(for: segue, sender: sender)
+
+        if segue.identifier == "ShowRaffleTableSegue"
+        {
+            guard let RaffleUITableViewController = segue.destination as? RaffleUITableViewController else
+            {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+
+            RaffleUITableViewController.showingEndedRaffles = true
+            RaffleUITableViewController.title = "Ended Raffles"
+        }
+    }
 }

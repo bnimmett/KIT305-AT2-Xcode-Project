@@ -11,18 +11,29 @@ import UIKit
 class RaffleUITableViewController: UITableViewController {
     
     var raffles = [Raffle]()
+    var showingEndedRaffles:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-        raffles = database.selectAllActiveRaffles()
+        if showingEndedRaffles {
+            raffles = database.selectAllInactiveRaffles()
+        }
+        else {
+            raffles = database.selectAllActiveRaffles()
+        }
     }
 
     //Reloads Raffle list when view appears
     override func viewWillAppear(_ animated: Bool) {
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-        raffles = database.selectAllActiveRaffles()
+        if showingEndedRaffles {
+            raffles = database.selectAllInactiveRaffles()
+        }
+        else {
+            raffles = database.selectAllActiveRaffles()
+        }
         self.tableView.reloadData()
     }
     

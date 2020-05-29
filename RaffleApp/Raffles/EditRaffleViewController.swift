@@ -18,40 +18,37 @@ class EditRaffleViewController: UIViewController {
     @IBOutlet var rafflePrize: UITextField!
     @IBOutlet var raffleDrawDate: UITextField!
     @IBOutlet var raffleStartDate: UITextField!
-    
-    
+    @IBOutlet var raffleDescription: UITextField!
+
     let drawDatePicker = UIDatePicker()
     let startDatePicker = UIDatePicker()
-    
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         
         var empty = false
         
-        if(raffleNameField.text == "" || rafflePrice.text == "" || rafflePrize.text == "" || raffleMax.text == "" || raffleDrawDate.text == "")
+        if(raffleNameField.text == "" || raffleDescription.text == "" || rafflePrice.text == "" || rafflePrize.text == "" || raffleMax.text == "" || raffleDrawDate.text == "")
         {
             empty = true
             emptyAlert()
         }
-        
+        //print(raffleDrawDate.text)
         if(!empty)
         {
             let database : SQLiteDatabase = SQLiteDatabase(databaseName: "my_database")
             let updateRaffle = Raffle(
                 raffle_id: raffle?.raffle_id ?? -1,
                 raffle_name:raffleNameField.text!,
+                raffle_description:raffleDescription.text!,
                 draw_date:raffleDrawDate.text!,
                 start_date:raffle!.start_date,
                 price:Double(rafflePrice.text!) ?? 0,
                 prize:Int32(rafflePrize.text!) ?? 0,
                 max:Int32(raffleMax.text!) ?? 0,
                 current:raffle!.current,
-                recuring:raffle!.recuring,
-                frequency:raffle!.frequency,
-                archived:false,
-                image:raffle!.image
+                margin:raffle!.margin,
+                archived:false
             )
-            
             if updateRaffle.raffle_id == -1 {
                 print("Error Raffle not updated")
                 //add alert
@@ -62,6 +59,7 @@ class EditRaffleViewController: UIViewController {
                 self.navigationController!.popViewController(animated: true)
                 self.navigationController!.popViewController(animated: true)            }
         }
+        
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
@@ -75,16 +73,15 @@ class EditRaffleViewController: UIViewController {
         let updateRaffle = Raffle(
         raffle_id: raffle?.raffle_id ?? -1,
         raffle_name:raffle!.raffle_name,
+        raffle_description:raffle!.raffle_description,
         draw_date:raffle!.draw_date,
         start_date:raffle!.start_date,
         price:raffle!.price,
         prize:raffle!.prize,
         max:raffle!.max,
         current:raffle!.current,
-        recuring:raffle!.recuring,
-        frequency:raffle!.frequency,
-        archived:true,
-        image:raffle!.image
+        margin:raffle!.margin,
+        archived:true
         )
         
         if updateRaffle.raffle_id == -1 {
@@ -111,18 +108,35 @@ class EditRaffleViewController: UIViewController {
     
     private func deleteAlert()
     {
-        let deleteAlertController = UIAlertController(title: "Delete?", message:"You cannot undo this action", preferredStyle: UIAlertController.Style.alert)
+        let database :SQLiteDatabase = SQLiteDatabase(databaseName: "my_database")
+        let raffleId = raffle?.raffle_id ?? -1
+        let ticket_count = database.selectTicketCountByRaffle(raffle_id: raffleId)
         
-        let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { _ in
+        if ticket_count == 0 {
+            let deleteAlertController = UIAlertController(title: "Delete?", message:"You cannot undo this action", preferredStyle: UIAlertController.Style.alert)
+            
+            let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { _ in
+            }
+            let deleteAction = UIAlertAction.init(title: "Delete", style: .destructive) { _ in
+                self.deleteRaffle()
+            }
+             
+            deleteAlertController.addAction(cancelAction)
+            deleteAlertController.addAction(deleteAction)
+            
+            present(deleteAlertController, animated: true, completion: nil)
         }
-        let deleteAction = UIAlertAction.init(title: "Delete", style: .destructive) { _ in
-            self.deleteRaffle()
+            
+        else {
+            let deleteAlertController = UIAlertController(title: "Can't Delete", message:"You can't delete a raffle after it has started (sold a tiket)", preferredStyle: UIAlertController.Style.alert)
+            
+            let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { _ in
+            }
+             
+            deleteAlertController.addAction(cancelAction)
+            
+            present(deleteAlertController, animated: true, completion: nil)
         }
-         
-        deleteAlertController.addAction(cancelAction)
-        deleteAlertController.addAction(deleteAction)
-        
-        present(deleteAlertController, animated: true, completion: nil)
     }
     
     /*
@@ -133,7 +147,6 @@ class EditRaffleViewController: UIViewController {
         let toolbar = UIToolbar()
         let toolbarDraw = UIToolbar()
         let toolbarStart = UIToolbar()
-        
         toolbar.sizeToFit()
         toolbarDraw.sizeToFit()
         toolbarStart.sizeToFit()
@@ -145,7 +158,7 @@ class EditRaffleViewController: UIViewController {
         toolbar.setItems([flexSpace, doneButton], animated: true)
         
         
-        //separate toolbar with done button for each date textfield keyboard
+        //seperate toolbar with done button for each date textfield keyboard
         let doneButtonDraw = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneBtnPressDraw))
         //set button on right
         let flexSpaceDraw = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
@@ -161,6 +174,7 @@ class EditRaffleViewController: UIViewController {
         rafflePrice.inputAccessoryView = toolbar
         rafflePrize.inputAccessoryView = toolbar
         raffleMax.inputAccessoryView = toolbar
+        raffleDescription.inputAccessoryView = toolbar
         raffleDrawDate.inputAccessoryView = toolbarDraw
         raffleStartDate.inputAccessoryView = toolbarStart
     }
@@ -182,6 +196,8 @@ class EditRaffleViewController: UIViewController {
         self.view.endEditing(true)
     }
     
+    //https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
+    //date picker text format to match database requirements */
     
     @objc func doneBtnPressDraw() {
         let drawDate = drawDatePicker.date
@@ -214,6 +230,7 @@ class EditRaffleViewController: UIViewController {
             rafflePrize.text = String(displayRaffle.prize)
             raffleDrawDate.text = String(displayRaffle.draw_date)
             raffleStartDate.text = String(displayRaffle.start_date)
+            raffleDescription.text = displayRaffle.raffle_description
         } else
         {
             print("Didnt recieve raffle from segue")

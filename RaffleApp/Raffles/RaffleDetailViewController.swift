@@ -10,25 +10,22 @@ import UIKit
 
 class RaffleDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    
     var raffle : Raffle?
     
-    
+    @IBOutlet var   raffleName: UILabel!
     @IBOutlet var raffleNameText: UITextField!
-    
-
     @IBOutlet var   raffleDrawDate: UILabel!
     @IBOutlet var   rafflePrize: UILabel!
     @IBOutlet var   raffleSold: UILabel!
     @IBOutlet var   raffleMax: UILabel!
     @IBOutlet var   rafflePrice: UILabel!
     @IBOutlet var   addImageButton: UIButton!
+    @IBOutlet var   marginLabel: UILabel!
     
     @IBOutlet var   sellTicketButton: UIButton!
     @IBOutlet var   drawWinnerButton: UIButton!
     
     @IBOutlet var   imageView: UIImageView!
-    
     
     @IBAction func AddPhotoButtonTapped(_ sender: UIButton) {
         if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
@@ -105,20 +102,22 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        addToolbar(title: "Edit Raffle Name")
-        
+
         if let  displayRaffle = raffle
         {
             let formattedPrice = String(format: "%.2f", displayRaffle.price) //REF[1]
-        
+            raffleDescription.text = displayRaffle.raffle_description
             raffleNameText.text = displayRaffle.raffle_name
             raffleDrawDate.text = String(displayRaffle.draw_date.prefix(10))
             rafflePrize.text = String(displayRaffle.prize)
-            rafflePrice.text = formattedPrice
+            rafflePrice.text = String(displayRaffle.price)
             raffleMax.text = String(displayRaffle.max)
-            
-            
+            if displayRaffle.margin {
+                marginLabel.text = "Margin Draw"
+            }
+            else {
+                marginLabel.text = "Random Draw"
+            }
             
             print(displayRaffle.raffle_id)
             
