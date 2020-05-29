@@ -80,16 +80,15 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
         let updateRaffle = Raffle(
             raffle_id: raffle?.raffle_id ?? -1,
             raffle_name:raffleNameText.text!,
+            raffle_description:raffle!.raffle_description,
             draw_date:raffle!.draw_date,
             start_date:raffle!.start_date,
             price:raffle!.price,
             prize:raffle!.prize,
             max:raffle!.max,
             current:raffle!.current,
-            recuring:raffle!.recuring,
-            frequency:raffle!.frequency,
-            archived:false,
-            image:raffle!.image
+            margin:raffle!.margin,
+            archived:false
         )
         if updateRaffle.raffle_id == -1 {
             print("Error Raffle Name not updated")
@@ -106,7 +105,7 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
         if let  displayRaffle = raffle
         {
             let formattedPrice = String(format: "%.2f", displayRaffle.price) //REF[1]
-            raffleDescription.text = displayRaffle.raffle_description
+//            raffleDescription.text = displayRaffle.raffle_description
         
             let drawDate = displayRaffle.draw_date
             let dateFormatter = DateFormatter()
@@ -120,10 +119,10 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
             rafflePrice.text = String(displayRaffle.price)
             raffleMax.text = String(displayRaffle.max)
             if displayRaffle.margin {
-                marginLabel.text = "Margin Draw"
+//                marginLabel.text = "Margin Draw"
             }
             else {
-                marginLabel.text = "Random Draw"
+//                marginLabel.text = "Random Draw"
             }
             
             print(displayRaffle.raffle_id)

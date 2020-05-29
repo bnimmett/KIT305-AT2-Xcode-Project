@@ -41,9 +41,9 @@ class NewRaffleViewController: UIViewController {
             
             database.insert(raffle:Raffle(
                 raffle_name:raffleNameField.text!,
+                raffle_description:raffleDescriptionField.text!,
                 draw_date:databaseDrawDate,
                 start_date:databaseStartDate,
-                raffle_description:raffleDescriptionField.text!,
                 price:Double(rafflePriceField.text!) ?? 0,
                 prize:Int32(rafflePrizeField.text!) ?? 0,
                 max:Int32(raffleMaxTicketField.text!) ?? 0, 

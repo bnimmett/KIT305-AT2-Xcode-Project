@@ -118,7 +118,7 @@ class DrawTicketViewController: UIViewController {
         }
         else {
             inputMarginTextField.isHidden = true
-            drawMarginLabel.isHidden = true
+//            drawMarginLabel.isHidden = true
             drawMarginButton.isHidden = true
         }
         
