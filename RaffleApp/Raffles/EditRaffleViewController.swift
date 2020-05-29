@@ -19,6 +19,8 @@ class EditRaffleViewController: UIViewController {
     @IBOutlet var raffleDrawDate: UITextField!
     @IBOutlet var raffleStartDate: UITextField!
     
+    var databaseStartDate = ""
+    var databaseDrawDate = ""
     
     let drawDatePicker = UIDatePicker()
     let startDatePicker = UIDatePicker()
@@ -40,8 +42,8 @@ class EditRaffleViewController: UIViewController {
             let updateRaffle = Raffle(
                 raffle_id: raffle?.raffle_id ?? -1,
                 raffle_name:raffleNameField.text!,
-                draw_date:raffleDrawDate.text!,
-                start_date:raffle!.start_date,
+                draw_date:databaseDrawDate,
+                start_date:databaseStartDate,
                 price:Double(rafflePrice.text!) ?? 0,
                 prize:Int32(rafflePrize.text!) ?? 0,
                 max:Int32(raffleMax.text!) ?? 0,
@@ -187,7 +189,13 @@ class EditRaffleViewController: UIViewController {
         let drawDate = drawDatePicker.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
-        raffleDrawDate.text = (dateFormatter.string(from: drawDate))
+        databaseDrawDate = (dateFormatter.string(from: drawDate))
+        
+        let textDrawDate = drawDatePicker.date
+        let textDateFormatter = DateFormatter()
+        textDateFormatter.dateFormat = "dd MMM YYYY, hh:mm a"
+        raffleDrawDate.text = textDateFormatter.string(from: textDrawDate)
+        
         self.view.endEditing(true)
     }
     
@@ -195,7 +203,13 @@ class EditRaffleViewController: UIViewController {
         let startDate = startDatePicker.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
-        raffleStartDate.text = (dateFormatter.string(from: startDate))
+        databaseStartDate = (dateFormatter.string(from: startDate))
+        
+        let textStartDate = startDatePicker.date
+        let textDateFormatter = DateFormatter()
+        textDateFormatter.dateFormat = "dd MMM YYYY, hh:mm a"
+        raffleStartDate.text = textDateFormatter.string(from: textStartDate)
+        
         self.view.endEditing(true)
     }
     
@@ -208,12 +222,26 @@ class EditRaffleViewController: UIViewController {
         
         if let displayRaffle = raffle
         {
+            let drawDate = displayRaffle.draw_date
+            let startDate = displayRaffle.start_date
+          
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
+          
+            let textDrawDate = dateFormatter.date(from: drawDate)
+            let textStartDate = dateFormatter.date(from: startDate)
+            
+            dateFormatter.dateFormat = "dd MMM YYYY, HH:mm"
+            
+            databaseDrawDate = displayRaffle.draw_date
+            databaseStartDate = displayRaffle.start_date
+            
             raffleNameField.text = displayRaffle.raffle_name
             rafflePrice.text = String(displayRaffle.price)
             raffleMax.text = String(displayRaffle.max)
             rafflePrize.text = String(displayRaffle.prize)
-            raffleDrawDate.text = String(displayRaffle.draw_date)
-            raffleStartDate.text = String(displayRaffle.start_date)
+            raffleDrawDate.text = dateFormatter.string(from: textDrawDate!)
+            raffleStartDate.text = dateFormatter.string(from: textStartDate!)
         } else
         {
             print("Didnt recieve raffle from segue")

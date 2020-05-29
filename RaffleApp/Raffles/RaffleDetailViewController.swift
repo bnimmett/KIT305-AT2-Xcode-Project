@@ -112,8 +112,14 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
         {
             let formattedPrice = String(format: "%.2f", displayRaffle.price) //REF[1]
         
+            let drawDate = displayRaffle.draw_date
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
+            let textDrawDate = dateFormatter.date(from: drawDate)
+            dateFormatter.dateFormat = "dd/MM/YYYY, HH:mm"
+            
             raffleNameText.text = displayRaffle.raffle_name
-            raffleDrawDate.text = String(displayRaffle.draw_date.prefix(10))
+            raffleDrawDate.text = dateFormatter.string(from: textDrawDate!)
             rafflePrize.text = String(displayRaffle.prize)
             rafflePrice.text = formattedPrice
             raffleMax.text = String(displayRaffle.max)

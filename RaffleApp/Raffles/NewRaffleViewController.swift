@@ -17,6 +17,9 @@ class NewRaffleViewController: UIViewController {
     @IBOutlet var raffleDrawDateField: UITextField!
     @IBOutlet var raffleStartDateField: UITextField!
     
+    var databaseStartDate = ""
+    var databaseDrawDate = ""
+    
     let drawDatePicker = UIDatePicker()
     let startDatePicker = UIDatePicker()
     
@@ -36,8 +39,8 @@ class NewRaffleViewController: UIViewController {
             
             database.insert(raffle:Raffle(
                 raffle_name:raffleNameField.text!,
-                draw_date:raffleDrawDateField.text!,
-                start_date:raffleStartDateField.text!,
+                draw_date:databaseDrawDate,
+                start_date:databaseStartDate,
                 price:Double(rafflePriceField.text!) ?? 0,
                 prize:Int32(rafflePrizeField.text!) ?? 0,
                 max:Int32(raffleMaxTicketField.text!) ?? 0, 
@@ -115,7 +118,13 @@ class NewRaffleViewController: UIViewController {
         let drawDate = drawDatePicker.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
-        raffleDrawDateField.text = (dateFormatter.string(from: drawDate))
+        databaseDrawDate = (dateFormatter.string(from: drawDate))
+        
+        let textDrawDate = drawDatePicker.date
+        let textDateFormatter = DateFormatter()
+        textDateFormatter.dateFormat = "dd MMM YYYY, hh:mm a"
+        raffleDrawDateField.text = textDateFormatter.string(from: textDrawDate)
+        
         self.view.endEditing(true)
     }
     //Function to handle start date toolbar button
@@ -123,7 +132,13 @@ class NewRaffleViewController: UIViewController {
        let startDate = startDatePicker.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
-        raffleStartDateField.text = (dateFormatter.string(from: startDate))
+        databaseStartDate = (dateFormatter.string(from: startDate))
+        
+        let textStartDate = startDatePicker.date
+        let textDateFormatter = DateFormatter()
+        textDateFormatter.dateFormat = "dd MMM YYYY, hh:mm a"
+        raffleStartDateField.text = textDateFormatter.string(from: textStartDate)
+        
         self.view.endEditing(true)
     }
     
