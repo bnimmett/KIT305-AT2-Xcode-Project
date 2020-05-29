@@ -66,7 +66,7 @@ class NewCustomerViewController: UIViewController {
         //set button on right
         let flexSpace = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
         toolbar.setItems([flexSpace, doneButton], animated: true)
-    
+        
         //add each toolbar to keyboard
         customerNameField.inputAccessoryView = toolbar
         customerEmailField.inputAccessoryView = toolbar

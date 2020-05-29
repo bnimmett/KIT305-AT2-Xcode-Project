@@ -108,8 +108,6 @@ class NewRaffleViewController: UIViewController {
     {
         self.view.endEditing(true)
     }
-    
-    //https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
 
     
     //Function to handle draw date toolbar button
@@ -146,10 +144,7 @@ class NewRaffleViewController: UIViewController {
         addToolbar()
         addDatePicker()
         
-        /*
-         * Code to close keyboard by selecting anywhere on the screen
-         * Source: https://medium.com/@KaushElsewhere/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
-         */
+       
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }

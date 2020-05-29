@@ -10,20 +10,25 @@ import UIKit
 
 class RaffleDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    
     var raffle : Raffle?
     
-    @IBOutlet var   raffleName: UILabel!
+    
+    @IBOutlet var raffleNameText: UITextField!
+    
+
     @IBOutlet var   raffleDrawDate: UILabel!
     @IBOutlet var   rafflePrize: UILabel!
     @IBOutlet var   raffleSold: UILabel!
     @IBOutlet var   raffleMax: UILabel!
     @IBOutlet var   rafflePrice: UILabel!
-    @IBOutlet var addImageButton: UIButton!
+    @IBOutlet var   addImageButton: UIButton!
     
     @IBOutlet var   sellTicketButton: UIButton!
     @IBOutlet var   drawWinnerButton: UIButton!
     
-    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var   imageView: UIImageView!
+    
     
     @IBAction func AddPhotoButtonTapped(_ sender: UIButton) {
         if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
@@ -50,16 +55,70 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
         dismiss(animated: true, completion: nil)
     }
     
+    func addToolbar(title: String)
+    {
+        let toolbar = UIToolbar()
+ 
+        toolbar.sizeToFit()
+     
+        //toolbar with button for all regular textfield keyboards
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        //set button on right
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+       
+        let text = UIBarButtonItem(title: title, style: .plain, target: nil, action: nil)
+        text.tintColor = UIColor.black
+        toolbar.setItems([text, flexSpace, doneButton], animated: true)
+
+        
+      //  let text = UIBarItem
+        //add each toolbar to keyboard
+        raffleNameText.inputAccessoryView = toolbar
+    
+    }
+    
+    @objc func doneButtonPressed()
+    {
+        let database : SQLiteDatabase = SQLiteDatabase(databaseName: "my_database")
+        let updateRaffle = Raffle(
+            raffle_id: raffle?.raffle_id ?? -1,
+            raffle_name:raffleNameText.text!,
+            draw_date:raffle!.draw_date,
+            start_date:raffle!.start_date,
+            price:raffle!.price,
+            prize:raffle!.prize,
+            max:raffle!.max,
+            current:raffle!.current,
+            recuring:raffle!.recuring,
+            frequency:raffle!.frequency,
+            archived:false,
+            image:raffle!.image
+        )
+        if updateRaffle.raffle_id == -1 {
+            print("Error Raffle Name not updated")
+        } else {
+            database.update(raffle:updateRaffle)
+            print("Raffle \(raffle?.raffle_id ?? -2) updated")
+        }
+        self.view.endEditing(true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        addToolbar(title: "Edit Raffle Name")
+        
         if let  displayRaffle = raffle
         {
-            raffleName.text = displayRaffle.raffle_name
+            let formattedPrice = String(format: "%.2f", displayRaffle.price) //REF[1]
+        
+            raffleNameText.text = displayRaffle.raffle_name
             raffleDrawDate.text = String(displayRaffle.draw_date.prefix(10))
             rafflePrize.text = String(displayRaffle.prize)
-            rafflePrice.text = String(displayRaffle.price)
+            rafflePrice.text = formattedPrice
             raffleMax.text = String(displayRaffle.max)
+            
+            
             
             print(displayRaffle.raffle_id)
             
@@ -68,6 +127,9 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
                 navigationController?.viewControllers = [returnToRoot, self]
             }
         }
+        
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {

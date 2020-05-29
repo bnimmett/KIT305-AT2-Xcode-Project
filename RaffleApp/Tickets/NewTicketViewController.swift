@@ -96,7 +96,7 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
                 }
             }
         } else {
-            alert(Title: "No Tickets Selected", Message: "")
+            alert(Title: "No Tickets or \nCustomer Selected", Message: "")
         }
     }
     
@@ -150,16 +150,18 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
         
         customerName.text = customer?.customer_name ?? "No Customer Selected"
         totalPrice.text = "0"
-//        dollarSignLabel.text = "$"
+
         
         addToolbar()
         
         if let displayRaffle = raffle
         {
+            let formattedPrice = String(format: "%.2f", displayRaffle.price) //REF[1]
+            
             raffleTitle.text = displayRaffle.raffle_name
             raffleDrawDate.text = String(displayRaffle.draw_date.prefix(10))
             rafflePrize.text = String(displayRaffle.prize)
-            rafflePrice.text = String(displayRaffle.price)
+            rafflePrice.text = formattedPrice
             raffleSold.text = String(displayRaffle.current)
             raffleMax.text = String(displayRaffle.max)
             

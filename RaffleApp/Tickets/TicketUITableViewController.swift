@@ -14,7 +14,7 @@ class TicketUITableViewController: UITableViewController, ShareTicketProtocol {
     var tickets = [Ticket]()
     func shareTicketInfo(_ customerName: String, _ customerTicketNum: String, _ customerSoldTime: String) {
             let shareViewController = UIActivityViewController(
-                activityItems: ["\(customerName)'s ticket number \(customerTicketNum) sold at \(customerSoldTime) for \(raffle!.raffle_name) which will be drawn on \(raffle!.draw_date). The prize is \(raffle!.prize)"], applicationActivities: [])
+                activityItems: ["\(customerName)'s ticket number \(customerTicketNum) sold at \(customerSoldTime) for \(raffle!.raffle_name) which will be drawn on \(raffle!.draw_date). The prize is $ \(raffle!.prize)"], applicationActivities: [])
         present(shareViewController, animated: true, completion: nil)
         
     }
@@ -58,8 +58,17 @@ class TicketUITableViewController: UITableViewController, ShareTicketProtocol {
         
         if let ticketCell = cell as? TicketUITableViewCell
         {
+           
+            let soldTime = ticket.sold
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatter.locale = Locale.init(identifier: "en_GB")
+            
+            let time = dateFormatter.date(from: soldTime)
+            dateFormatter.dateFormat = "MMM d, h:mm a"
+            
             ticketCell.ticketCustomerNameLabel.text = customer.customer_name
-            ticketCell.ticketSoldLabel.text = String(ticket.sold)
+            ticketCell.ticketSoldLabel.text = dateFormatter.string(from: time!)
             ticketCell.ticketNumberLabel.text = String(ticket.number)
             ticketCell.delegate = self
         }

@@ -23,7 +23,6 @@ class EditRaffleViewController: UIViewController {
     let drawDatePicker = UIDatePicker()
     let startDatePicker = UIDatePicker()
     
-
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         
@@ -34,7 +33,7 @@ class EditRaffleViewController: UIViewController {
             empty = true
             emptyAlert()
         }
-        //print(raffleDrawDate.text)
+        
         if(!empty)
         {
             let database : SQLiteDatabase = SQLiteDatabase(databaseName: "my_database")
@@ -52,6 +51,7 @@ class EditRaffleViewController: UIViewController {
                 archived:false,
                 image:raffle!.image
             )
+            
             if updateRaffle.raffle_id == -1 {
                 print("Error Raffle not updated")
                 //add alert
@@ -62,7 +62,6 @@ class EditRaffleViewController: UIViewController {
                 self.navigationController!.popViewController(animated: true)
                 self.navigationController!.popViewController(animated: true)            }
         }
-        
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
@@ -134,6 +133,7 @@ class EditRaffleViewController: UIViewController {
         let toolbar = UIToolbar()
         let toolbarDraw = UIToolbar()
         let toolbarStart = UIToolbar()
+        
         toolbar.sizeToFit()
         toolbarDraw.sizeToFit()
         toolbarStart.sizeToFit()
@@ -145,7 +145,7 @@ class EditRaffleViewController: UIViewController {
         toolbar.setItems([flexSpace, doneButton], animated: true)
         
         
-        //seperate toolbar with done button for each date textfield keyboard
+        //separate toolbar with done button for each date textfield keyboard
         let doneButtonDraw = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneBtnPressDraw))
         //set button on right
         let flexSpaceDraw = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
@@ -182,8 +182,6 @@ class EditRaffleViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    //https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
-    //date picker text format to match database requirements */
     
     @objc func doneBtnPressDraw() {
         let drawDate = drawDatePicker.date
@@ -194,7 +192,7 @@ class EditRaffleViewController: UIViewController {
     }
     
     @objc func doneBtnPressStart() {
-       let startDate = startDatePicker.date
+        let startDate = startDatePicker.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
         raffleStartDate.text = (dateFormatter.string(from: startDate))
@@ -221,10 +219,7 @@ class EditRaffleViewController: UIViewController {
             print("Didnt recieve raffle from segue")
         }
         
-        /*
-         * Code to close keyboard by selecting anywhere on the screen
-         * Source: https://medium.com/@KaushElsewhere/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
-         */
+    
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         

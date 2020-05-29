@@ -110,10 +110,6 @@ class DrawTicketViewController: UIViewController {
             print("Tickets not Loaded, for raffle \(raffle?.raffle_id ?? -1)")
         }
         
-        /*
-         * Code to close keyboard by selecting anywhere on the screen
-         * Source: https://medium.com/@KaushElsewhere/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
-         */
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
@@ -122,9 +118,11 @@ class DrawTicketViewController: UIViewController {
     {
         let drawAlertController = UIAlertController(title: "Draw a Winner", message:"Are you sure you want to Draw this raffle?", preferredStyle: UIAlertController.Style.alert)
         
-        let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { _ in
+        drawAlertController.view.tintColor = .systemGreen
+        
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .destructive) { _ in
         }
-        let drawAction = UIAlertAction.init(title: "Draw", style: .destructive) { _ in
+        let drawAction = UIAlertAction.init(title: "Draw", style: .default) { _ in
             self.drawRaffle()
         }
          
@@ -138,9 +136,12 @@ class DrawTicketViewController: UIViewController {
     {
         let marginDrawAlertController = UIAlertController(title: "Draw Margin Winner", message:"Are you sure you want to Margin Draw this raffle?", preferredStyle: UIAlertController.Style.alert)
         
-        let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { _ in
+        //Make button text green
+        marginDrawAlertController.view.tintColor = .systemGreen
+        
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .destructive) { _ in
         }
-        let drawAction = UIAlertAction.init(title: "Draw", style: .destructive) { _ in
+        let drawAction = UIAlertAction.init(title: "Draw", style: .default) { _ in
             self.drawMarginRaffle()
         }
          
