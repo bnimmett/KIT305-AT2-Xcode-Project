@@ -15,8 +15,11 @@ class DrawTicketViewController: UIViewController {
     var numWinners: Int32?
     
     @IBOutlet var inputMarginTextField: UITextField!
+    @IBOutlet var drawMarginButton: UIButton!
+    @IBOutlet var drawMarginLabel: UILabel!
+
     
-    
+    @IBOutlet var drawRandomButton: UIButton!
     @IBAction func drawRandomButton(_ sender: UIButton) {
         drawAlert()
     }
@@ -108,6 +111,15 @@ class DrawTicketViewController: UIViewController {
         }
         else{
             print("Tickets not Loaded, for raffle \(raffle?.raffle_id ?? -1)")
+        }
+        
+        if raffle?.margin ?? false {
+            drawRandomButton.isHidden = true
+        }
+        else {
+            inputMarginTextField.isHidden = true
+            drawMarginLabel.isHidden = true
+            drawMarginButton.isHidden = true
         }
         
         /*

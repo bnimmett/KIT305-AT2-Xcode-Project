@@ -21,7 +21,6 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
     
     @IBOutlet var raffleTitle: UILabel!
     @IBOutlet var raffleDrawDate: UILabel!
-    @IBOutlet var raffleStartDate: UILabel!
     @IBOutlet var rafflePrize: UILabel!
     @IBOutlet var rafflePrice: UILabel!
     @IBOutlet var raffleSold: UILabel!
@@ -72,22 +71,39 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
                         database.update(raffle: Raffle(
                             raffle_id: raffle!.raffle_id,
                             raffle_name: raffle!.raffle_name,
+                            raffle_description: raffle!.raffle_description,
                             draw_date: raffle!.draw_date,
                             start_date: raffle!.start_date,
                             price: raffle!.price,
                             prize: raffle!.prize,
                             max: raffle!.max,
                             current: ticket_count+1,
-                            recuring: raffle!.recuring,
-                            frequency: raffle!.frequency,
-                            archived: raffle!.archived,
-                            image: raffle!.image))
+                            margin: raffle!.margin,
+                            archived: raffle!.archived))
                         
-                        database.insert(ticket: Ticket(
-                            raffle_id: raffleId,
-                            customer_id: customerId,
-                            number: ticket_count + 1,
-                            win: 0))
+                        
+                        if !raffle!.margin {
+                            database.insert(ticket: Ticket(
+                                raffle_id: raffleId,
+                                customer_id: customerId,
+                                number: ticket_count + 1,
+                                win: 0))
+                        }
+                        else {
+                            let max:Int32 = raffle?.max ?? 1
+                            var allTickets = [Int32]()
+                            for x in 0...max {
+                                allTickets.append(x)
+                            }
+                            let soldTickets = database.selectSoldTicketNumbersByRaffle(raffle_id: raffleId)
+                            let remainingTickets = Array(Set(allTickets).subtracting(soldTickets))
+                            let randomNum = remainingTickets.randomElement()
+                            database.insert(ticket: Ticket(
+                                raffle_id: raffleId,
+                                customer_id: customerId,
+                                number: randomNum ?? -1,
+                                win: 0))
+                        }
                     }
                     raffleSold.text = String(raffle!.current)
                 }

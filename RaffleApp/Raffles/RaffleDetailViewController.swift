@@ -13,12 +13,14 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
     var raffle : Raffle?
     
     @IBOutlet var   raffleName: UILabel!
+    @IBOutlet var   raffleDescription: UILabel!
     @IBOutlet var   raffleDrawDate: UILabel!
     @IBOutlet var   rafflePrize: UILabel!
     @IBOutlet var   raffleSold: UILabel!
     @IBOutlet var   raffleMax: UILabel!
     @IBOutlet var   rafflePrice: UILabel!
-    @IBOutlet var addImageButton: UIButton!
+    @IBOutlet var   addImageButton: UIButton!
+    @IBOutlet var   marginLabel: UILabel!
     
     @IBOutlet var   sellTicketButton: UIButton!
     @IBOutlet var   drawWinnerButton: UIButton!
@@ -56,10 +58,17 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
         if let  displayRaffle = raffle
         {
             raffleName.text = displayRaffle.raffle_name
+            raffleDescription.text = displayRaffle.raffle_description
             raffleDrawDate.text = String(displayRaffle.draw_date.prefix(10))
             rafflePrize.text = String(displayRaffle.prize)
             rafflePrice.text = String(displayRaffle.price)
             raffleMax.text = String(displayRaffle.max)
+            if displayRaffle.margin {
+                marginLabel.text = "Margin Draw"
+            }
+            else {
+                marginLabel.text = "Random Draw"
+            }
             
             print(displayRaffle.raffle_id)
             

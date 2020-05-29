@@ -10,10 +10,32 @@ import UIKit
 
 class RaffleListViewController: UIViewController {
 
+    @objc func addTapped() {
+        print("hi")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //uncomment and run to treload database
-        //let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-        //database.insertPlaceholders()
+        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Older Raffles", style: .plain, target: self, action: #selector(addTapped))
+        
+        //uncomment and run to reload database
+        let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
+        database.insertPlaceholders()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        super.prepare(for: segue, sender: sender)
+
+        if segue.identifier == "ShowRaffleTableSegue"
+        {
+            guard let RaffleUITableViewController = segue.destination as? RaffleUITableViewController else
+            {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+
+            RaffleUITableViewController.showingEndedRaffles = true
+            RaffleUITableViewController.title = "Ended Raffles"
+        }
     }
 }
