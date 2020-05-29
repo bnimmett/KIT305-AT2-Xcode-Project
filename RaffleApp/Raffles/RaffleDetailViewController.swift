@@ -12,8 +12,9 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
 
     var raffle : Raffle?
     
-    @IBOutlet var   raffleName: UILabel!
-    @IBOutlet var raffleNameText: UITextField!
+    
+    @IBOutlet var   raffleNameText: UITextField!
+    @IBOutlet var   raffleDescription: UILabel!
     @IBOutlet var   raffleDrawDate: UILabel!
     @IBOutlet var   rafflePrize: UILabel!
     @IBOutlet var   raffleSold: UILabel!
@@ -104,7 +105,7 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
 
         if let  displayRaffle = raffle
         {
-            let formattedPrice = String(format: "%.2f", displayRaffle.price) //REF[1]
+            
 //            raffleDescription.text = displayRaffle.raffle_description
         
             let drawDate = displayRaffle.draw_date
@@ -114,6 +115,7 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
             dateFormatter.dateFormat = "dd/MM/YYYY, HH:mm"
             
             raffleNameText.text = displayRaffle.raffle_name
+            raffleDescription.text = displayRaffle.raffle_description
             raffleDrawDate.text = dateFormatter.string(from: textDrawDate!)
             rafflePrize.text = String(displayRaffle.prize)
             rafflePrice.text = String(displayRaffle.price)
@@ -132,6 +134,8 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
                 navigationController?.viewControllers = [returnToRoot, self]
             }
         }
+        
+        addToolbar(title: "Edit Raffle Name")
         
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)

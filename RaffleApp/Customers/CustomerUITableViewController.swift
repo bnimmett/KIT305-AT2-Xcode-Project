@@ -96,30 +96,5 @@ class CustomerUITableViewController: UITableViewController {
             let selectedCustomer = customers[indexPath.row]
             CustomerDetailViewController.customer = selectedCustomer
         }
-
-/* Old segue methof
-        if segue.identifier == "SelectCustomerSellSegue"
-        {
-            guard let NewTicketViewController = segue.destination as? NewTicketViewController else
-            {
-                fatalError("Unexpected destination: \(segue.destination)")
-            }
-            
-            guard let selectedCustomerCell = sender as? CustomerUITableViewCell else
-            {
-                fatalError("Unexpected sender: \( String(describing: sender))")
-            }
-            
-            guard let indexPath = tableView.indexPath(for: selectedCustomerCell) else
-            {
-                fatalError("The selected cell is not being displayed by the table")
-            }
-            
-            let selectedCustomer = customers[indexPath.row]
-            NewTicketViewController.customer = selectedCustomer
-            NewTicketViewController.raffle = raffle
-        }
- */
-        
     }
 }
