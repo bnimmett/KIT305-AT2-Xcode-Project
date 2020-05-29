@@ -62,7 +62,7 @@ class TicketUITableViewController: UITableViewController, ShareTicketProtocol {
             let soldTime = ticket.sold
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            dateFormatter.locale = Locale.init(identifier: "en_GB")
+            
             
             let time = dateFormatter.date(from: soldTime)
             dateFormatter.dateFormat = "MMM d, h:mm a"

@@ -53,8 +53,16 @@ class RaffleUITableViewController: UITableViewController {
                 
         if let raffleCell = cell as? RaffleUITableViewCell
         {
+            let drawDate = raffle.draw_date
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:SS.000"
+            
+            let textDrawDate = dateFormatter.date(from: drawDate)
+            
+            dateFormatter.dateFormat = "d MMM YYYY"
+              
             raffleCell.raffleNameLabel.text = raffle.raffle_name
-            raffleCell.raffleDrawDateLabel.text = String(raffle.draw_date.prefix(10))
+            raffleCell.raffleDrawDateLabel.text = dateFormatter.string(from: textDrawDate!)
             raffleCell.rafflePrizeLabel.text = String(raffle.prize)
             raffleCell.raffleTicketsSoldLabel.text = String(raffle.current)
         }
