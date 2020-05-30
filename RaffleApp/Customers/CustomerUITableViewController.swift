@@ -22,7 +22,6 @@ class CustomerUITableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
         customers = database.selectAllActiveCustomers()
     }
@@ -68,8 +67,6 @@ class CustomerUITableViewController: UITableViewController {
         print(customer.customer_name)
         delegate?.customerSelected(customer)
     }
-    
-    
     
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

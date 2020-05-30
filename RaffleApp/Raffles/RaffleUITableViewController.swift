@@ -45,7 +45,6 @@ class RaffleUITableViewController: UITableViewController {
         return raffles.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RaffleUITableViewCell", for: indexPath)
 
@@ -95,5 +94,4 @@ class RaffleUITableViewController: UITableViewController {
             RaffleDetailViewController.raffle = selectedRaffle
         }
     }
-
 }

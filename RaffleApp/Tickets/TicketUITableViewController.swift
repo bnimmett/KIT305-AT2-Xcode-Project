@@ -64,11 +64,10 @@ class TicketUITableViewController: UITableViewController, ShareTicketProtocol {
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             dateFormatter.timeZone = NSTimeZone(name: "GMT") as TimeZone?
             
-            
             let time = dateFormatter.date(from: soldTime)
             dateFormatter.dateFormat = "MMM d, h:mm a"
             dateFormatter.timeZone = NSTimeZone(name: "AEST") as TimeZone?
-            
+
             ticketCell.ticketCustomerNameLabel.text = customer.customer_name
             ticketCell.ticketSoldLabel.text = dateFormatter.string(from: time!)
             ticketCell.ticketNumberLabel.text = String(ticket.number)

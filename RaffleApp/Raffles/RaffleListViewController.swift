@@ -13,8 +13,8 @@ class RaffleListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //uncomment and run to treload database
-        //let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-        //database.insertPlaceholders()
+        let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
+        database.insertPlaceholders()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

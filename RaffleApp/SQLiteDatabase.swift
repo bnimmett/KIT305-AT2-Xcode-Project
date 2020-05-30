@@ -78,13 +78,11 @@ class SQLiteDatabase
         dropTable(tableName:"customer")
         dropTable(tableName:"ticket")
     }
+    
+    //Function for creating initial raffles and customers for testing
     func insertPlaceholders()
     {
         let database : SQLiteDatabase = SQLiteDatabase(databaseName:"my_database")
-               
-        database.truncateTable(tableName:"raffle")
-        database.truncateTable(tableName:"customer")
-        database.truncateTable(tableName:"ticket")
         
         dropTables()
         createTables()
@@ -186,7 +184,6 @@ class SQLiteDatabase
         //handle the change (simple version)
         dropTables()
         createTables()
-        //insertPlaceholders()
     }
     
     

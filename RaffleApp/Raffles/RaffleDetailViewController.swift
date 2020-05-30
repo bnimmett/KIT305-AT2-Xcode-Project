@@ -12,7 +12,6 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
 
     var raffle : Raffle?
     
-    
     @IBOutlet var   raffleNameText: UITextField!
     @IBOutlet var   raffleDescription: UILabel!
     @IBOutlet var   raffleDrawDate: UILabel!
@@ -69,10 +68,9 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
         toolbar.setItems([text, flexSpace, doneButton], animated: true)
 
         
-      //  let text = UIBarItem
+        //let text = UIBarItem
         //add each toolbar to keyboard
         raffleNameText.inputAccessoryView = toolbar
-    
     }
     
     @objc func doneButtonPressed()
@@ -106,7 +104,7 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
         if let  displayRaffle = raffle
         {
             
-//            raffleDescription.text = displayRaffle.raffle_description
+            raffleDescription.text = displayRaffle.raffle_description
         
             let drawDate = displayRaffle.draw_date
             let dateFormatter = DateFormatter()
@@ -121,10 +119,10 @@ class RaffleDetailViewController: UIViewController, UIImagePickerControllerDeleg
             rafflePrice.text = String(displayRaffle.price)
             raffleMax.text = String(displayRaffle.max)
             if displayRaffle.margin {
-//                marginLabel.text = "Margin Draw"
+                marginLabel.text = "Margin Draw"
             }
             else {
-//                marginLabel.text = "Random Draw"
+                marginLabel.text = "Random Draw"
             }
             
             print(displayRaffle.raffle_id)

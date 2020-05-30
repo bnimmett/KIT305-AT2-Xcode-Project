@@ -75,7 +75,6 @@ class NewRaffleViewController: UIViewController {
         let flexSpace = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
         toolbar.setItems([flexSpace, doneButton], animated: true)
         
-        
         //seperate toolbar with done button for each date textfield keyboard
         let doneButtonDraw = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneBtnPressDraw))
         //set button on right
@@ -161,7 +160,7 @@ class NewRaffleViewController: UIViewController {
         addToolbar()
         addDatePicker()
         
-       
+
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }

@@ -230,7 +230,6 @@ class EditRaffleViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -265,9 +264,7 @@ class EditRaffleViewController: UIViewController {
             print("Didnt recieve raffle from segue")
         }
         
-    
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
-        
     }
 }

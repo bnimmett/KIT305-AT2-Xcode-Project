@@ -15,7 +15,6 @@ class NewCustomerViewController: UIViewController {
     @IBOutlet var customerPhoneField: UITextField!
     @IBOutlet var customerPostcodeField: UITextField!
         
-    
     private func emptyAlert() //REF[3]
        {
            let emptyAlertController = UIAlertController(title: "Empty Values", message:"All fields must contain a value", preferredStyle: UIAlertController.Style.alert)
@@ -25,7 +24,6 @@ class NewCustomerViewController: UIViewController {
         
            present(emptyAlertController, animated: true, completion: nil)
        }
-    
     
     @IBAction func saveCustomerButtonTapped(_ sender: UIButton) {
 
@@ -84,8 +82,6 @@ class NewCustomerViewController: UIViewController {
         super.viewDidLoad()
         
         addToolbar()
-        
-        
         
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)

@@ -81,7 +81,6 @@ class NewTicketViewController: UIViewController, PassCustomerProtocol {
                             margin: raffle!.margin,
                             archived: raffle!.archived))
                         
-                        
                         if !raffle!.margin {
                             database.insert(ticket: Ticket(
                                 raffle_id: raffleId,

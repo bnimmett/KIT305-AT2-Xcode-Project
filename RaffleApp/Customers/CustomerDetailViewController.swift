@@ -69,13 +69,11 @@ class CustomerDetailViewController: UIViewController {
                 print("Error Customer not updated")
                 //add alert
                 self.navigationController!.popViewController(animated: true)
-
             }
             else {
                 database.update(customer:updateCustomer)
                 print("Customer \(customer?.customer_id ?? -2) updated")
                 self.navigationController!.popViewController(animated: true)
-
             }
         }
     }
@@ -126,7 +124,6 @@ class CustomerDetailViewController: UIViewController {
         customerEmailField.inputAccessoryView = toolbar
         CustomerPhoneField.inputAccessoryView = toolbar
         CustomerPostcodeField.inputAccessoryView = toolbar
-        
     }
     
     @objc func doneButtonPressed()
