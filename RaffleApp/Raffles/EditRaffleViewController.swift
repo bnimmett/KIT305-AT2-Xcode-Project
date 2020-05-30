@@ -131,7 +131,7 @@ class EditRaffleViewController: UIViewController {
         }
             
         else {
-            let deleteAlertController = UIAlertController(title: "Can't Delete", message:"You can't delete a raffle after it has started (sold a tiket)", preferredStyle: UIAlertController.Style.alert)
+            let deleteAlertController = UIAlertController(title: "Can't Delete", message:"You can't delete a raffle after it has started (sold a ticket)", preferredStyle: UIAlertController.Style.alert)
             
             let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { _ in
             }

@@ -324,7 +324,7 @@
             <objects>
                 <tableViewController id="GdB-Hh-Oyj" userLabel="Raffle Table" customClass="RaffleUITableViewController" customModule="KIT305_AT2" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sIb-iT-yPv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
@@ -446,7 +446,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vqy-vF-eQq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1084.0579710144928" y="-192.52232142857142"/>
+            <point key="canvasLocation" x="-1084" y="-74"/>
         </scene>
         <!--Customer Table-->
         <scene sceneID="MXo-2g-5Mk">
@@ -721,11 +721,11 @@
             <objects>
                 <viewController id="8EB-hQ-pOe" customClass="NewCustomerViewController" customModule="KIT305_AT2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fz8-2R-Go1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="671"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B8n-fw-A7M">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="566"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faH-e4-Z8G" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1050"/>
@@ -1442,11 +1442,11 @@
             <objects>
                 <viewController id="HSG-Et-KSv" customClass="DrawTicketViewController" customModule="KIT305_AT2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QLY-HT-ryz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="671"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1n-15-uER">
-                                <rect key="frame" x="0.0" y="340" width="414" height="419"/>
+                                <rect key="frame" x="0.0" y="340" width="414" height="282"/>
                                 <connections>
                                     <segue destination="4CR-Tr-PyA" kind="embed" identifier="ShowWinningTicketTable" id="GTe-zc-izn"/>
                                 </connections>
@@ -1528,7 +1528,7 @@
             <objects>
                 <tableViewController id="4CR-Tr-PyA" customClass="WinningTicketTableViewController" customModule="KIT305_AT2" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TZK-Al-gr9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="419"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="282"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
@@ -1998,9 +1998,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8jT-4W-5OU"/>
+        <segue reference="m0I-8v-DOf"/>
         <segue reference="aq9-Gg-bb8"/>
-        <segue reference="vCd-wu-fW5"/>
+        <segue reference="jnb-tl-rUM"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
