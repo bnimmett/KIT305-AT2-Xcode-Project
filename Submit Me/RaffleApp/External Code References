@@ -1,0 +1,18 @@
+
+[1] Format String to display Double with two decimal places
+    https://www.hackingwithswift.com/example-code/strings/how-to-specify-floating-point-precision-in-a-string
+
+[2] Tapping empty space  will close keyboard
+    https://medium.com/@KaushElsewhere/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
+
+[3] Adding pop up alert with dismiss or confirmation
+    https://www.youtube.com/watch?v=zl57-vKNrdk
+
+[4] Add toolbar to textfields with done button
+    https://medium.com/swift2go/swift-add-keyboard-done-button-using-uitoolbar-c2bea50a12c7
+    
+[5] Make view controller pop over view
+    https://www.hackingwithswift.com/example-code/uikit/how-to-use-view-controller-containment
+    
+[6] Convert string to Date to string
+https://stackoverflow.com/questions/33277970/how-to-convert-string-to-date-to-string-in-swift-ios/33278377
