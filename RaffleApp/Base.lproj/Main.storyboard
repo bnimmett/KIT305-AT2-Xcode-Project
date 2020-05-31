@@ -1178,8 +1178,8 @@
                                     <segue destination="bn1-tg-ixK" kind="embed" identifier="ShowTicketTableSegue" id="S8r-lf-YMb"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ticket Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zw6-1N-qbu">
-                                <rect key="frame" x="20" y="360" width="111" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zw6-1N-qbu">
+                                <rect key="frame" x="20" y="360" width="48.5" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1190,8 +1190,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount Sold" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxJ-V1-rRE">
-                                <rect key="frame" x="272.5" y="360" width="121.5" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sold" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxJ-V1-rRE">
+                                <rect key="frame" x="351.5" y="360" width="42.5" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1264,13 +1264,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ixA-Na-ip3">
-                                <rect key="frame" x="179.5" y="360" width="46.5" height="24"/>
+                                <rect key="frame" x="184" y="360" width="46.5" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41l-Vl-7eL">
-                                <rect key="frame" x="179" y="384" width="48" height="24"/>
+                                <rect key="frame" x="183" y="384" width="48" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1307,7 +1307,6 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bxJ-V1-rRE" secondAttribute="trailing" constant="20" id="Z1C-wO-n1a"/>
                             <constraint firstItem="a9l-J8-eAH" firstAttribute="top" secondItem="rxv-JM-4lE" secondAttribute="bottom" constant="17" id="Z6h-Vj-ZMs"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Xr7-Q5-jIt" secondAttribute="trailing" constant="35" id="ZED-La-KF5"/>
-                            <constraint firstItem="ixA-Na-ip3" firstAttribute="leading" secondItem="Zw6-1N-qbu" secondAttribute="trailing" constant="48.5" id="aLS-D0-bUJ"/>
                             <constraint firstItem="9jm-1v-LCM" firstAttribute="baseline" secondItem="EN4-jJ-WKP" secondAttribute="baseline" id="afk-FN-Wr4"/>
                             <constraint firstItem="rxv-JM-4lE" firstAttribute="top" secondItem="bxJ-V1-rRE" secondAttribute="bottom" id="bQX-ag-feq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9jP-ga-XgW" secondAttribute="trailing" constant="20" id="c3a-Bu-J79"/>
@@ -1318,11 +1317,11 @@
                             <constraint firstItem="hRj-Zn-VQh" firstAttribute="top" secondItem="y72-Kc-euU" secondAttribute="bottom" constant="186.5" id="hoj-31-iX8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JKN-n4-sdU" secondAttribute="trailing" constant="20" id="iHj-Ai-02d"/>
                             <constraint firstItem="rxv-JM-4lE" firstAttribute="leading" secondItem="FAF-fS-59a" secondAttribute="trailing" constant="5" id="kt8-9n-yyd"/>
-                            <constraint firstItem="bxJ-V1-rRE" firstAttribute="leading" secondItem="ixA-Na-ip3" secondAttribute="trailing" constant="46.5" id="kyS-pV-Y8r"/>
                             <constraint firstItem="1X6-NV-Yug" firstAttribute="top" secondItem="a9l-J8-eAH" secondAttribute="bottom" constant="19" id="lRb-Hr-38h"/>
                             <constraint firstItem="Xr7-Q5-jIt" firstAttribute="top" secondItem="a9l-J8-eAH" secondAttribute="bottom" constant="19" id="nOJ-ef-gGQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="1X6-NV-Yug" secondAttribute="bottom" constant="10" id="o3b-Sf-KA5"/>
                             <constraint firstItem="41l-Vl-7eL" firstAttribute="top" secondItem="ixA-Na-ip3" secondAttribute="bottom" id="puN-mj-CLI"/>
+                            <constraint firstItem="ixA-Na-ip3" firstAttribute="centerX" secondItem="a9l-J8-eAH" secondAttribute="centerX" id="rDt-jW-cFa"/>
                             <constraint firstItem="a9l-J8-eAH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="smp-R7-gEd"/>
                             <constraint firstItem="pad-9E-DmD" firstAttribute="top" secondItem="hRj-Zn-VQh" secondAttribute="bottom" id="x05-fv-WN7"/>
                             <constraint firstItem="bxJ-V1-rRE" firstAttribute="top" secondItem="EN4-jJ-WKP" secondAttribute="bottom" constant="10" id="xHz-7c-L2R"/>
@@ -1469,7 +1468,7 @@
                                     <constraint firstAttribute="height" constant="85" id="eg7-if-8PR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="DRAW NEXT RANDOM WINNER">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -1501,12 +1500,20 @@
                                     <action selector="drawMarginButton:" destination="HSG-Et-KSv" eventType="touchUpInside" id="CEQ-wi-MZp"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DRAW NEXT RANDOM WINNER" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1e-6z-emG">
+                                <rect key="frame" x="80" y="113" width="254" height="41"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="U1n-15-uER" firstAttribute="leading" secondItem="fud-nk-hqY" secondAttribute="leading" id="1CS-bK-7hZ"/>
+                            <constraint firstItem="fud-nk-hqY" firstAttribute="trailing" secondItem="V1e-6z-emG" secondAttribute="trailing" constant="80" id="4Wm-yi-EG3"/>
                             <constraint firstItem="6KS-Rv-cRo" firstAttribute="leading" secondItem="fud-nk-hqY" secondAttribute="leading" constant="80" id="7fY-1Q-kYr"/>
                             <constraint firstItem="6KS-Rv-cRo" firstAttribute="top" secondItem="JWf-bL-BI8" secondAttribute="bottom" constant="44" id="9xA-t0-nFn"/>
+                            <constraint firstItem="V1e-6z-emG" firstAttribute="leading" secondItem="fud-nk-hqY" secondAttribute="leading" constant="80" id="BXg-Ot-Ps0"/>
                             <constraint firstItem="PMp-f1-N8v" firstAttribute="leading" secondItem="fud-nk-hqY" secondAttribute="leading" constant="80" id="Bv0-6k-3kJ"/>
                             <constraint firstItem="U1n-15-uER" firstAttribute="top" secondItem="QLY-HT-ryz" secondAttribute="top" constant="340" id="EDu-pR-rjQ"/>
                             <constraint firstItem="Igb-Fk-bg0" firstAttribute="top" secondItem="JWf-bL-BI8" secondAttribute="bottom" constant="44" id="JP5-c5-DfG"/>
@@ -1514,7 +1521,9 @@
                             <constraint firstItem="U1n-15-uER" firstAttribute="trailing" secondItem="fud-nk-hqY" secondAttribute="trailing" id="Kyo-FI-uQJ"/>
                             <constraint firstItem="U1n-15-uER" firstAttribute="bottom" secondItem="fud-nk-hqY" secondAttribute="bottom" id="OrO-rA-age"/>
                             <constraint firstItem="fud-nk-hqY" firstAttribute="trailing" secondItem="JWf-bL-BI8" secondAttribute="trailing" constant="80" id="Tre-xP-j8W"/>
+                            <constraint firstItem="V1e-6z-emG" firstAttribute="centerY" secondItem="JWf-bL-BI8" secondAttribute="centerY" id="UaV-ed-SEs"/>
                             <constraint firstItem="JWf-bL-BI8" firstAttribute="leading" secondItem="fud-nk-hqY" secondAttribute="leading" constant="80" id="akT-E1-YlC"/>
+                            <constraint firstItem="V1e-6z-emG" firstAttribute="centerX" secondItem="fud-nk-hqY" secondAttribute="centerX" id="eEW-Cu-1Sv"/>
                             <constraint firstItem="JWf-bL-BI8" firstAttribute="top" secondItem="fud-nk-hqY" secondAttribute="top" constant="35" id="eU4-3j-zOq"/>
                             <constraint firstItem="PMp-f1-N8v" firstAttribute="top" secondItem="6KS-Rv-cRo" secondAttribute="bottom" constant="8" id="qid-00-Ams"/>
                             <constraint firstItem="Igb-Fk-bg0" firstAttribute="leading" secondItem="6KS-Rv-cRo" secondAttribute="trailing" constant="51.5" id="vF5-Fi-LFZ"/>
@@ -1527,12 +1536,13 @@
                         <outlet property="drawMarginButton" destination="Igb-Fk-bg0" id="Zfh-wx-QqH"/>
                         <outlet property="drawMarginLabel" destination="6KS-Rv-cRo" id="lDo-er-sxj"/>
                         <outlet property="drawRandomButton" destination="JWf-bL-BI8" id="R5x-xY-QNK"/>
+                        <outlet property="drawRandomButtonLabel" destination="V1e-6z-emG" id="Pf6-Lw-ZC2"/>
                         <outlet property="inputMarginTextField" destination="PMp-f1-N8v" id="LSz-Fg-xc5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gnZ-qZ-KSX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1086.9565217391305" y="677.67857142857144"/>
+            <point key="canvasLocation" x="-1086.9565217391305" y="677.34375"/>
         </scene>
         <!--Winning Ticket Table View Controller-->
         <scene sceneID="4iA-Pe-euK">

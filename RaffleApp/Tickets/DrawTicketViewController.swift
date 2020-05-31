@@ -17,6 +17,7 @@ class DrawTicketViewController: UIViewController {
     @IBOutlet var inputMarginTextField: UITextField!
     @IBOutlet var drawMarginButton: UIButton!
     @IBOutlet var drawMarginLabel: UILabel!
+    @IBOutlet var drawRandomButtonLabel: UILabel!
     
     
     @IBOutlet var drawRandomButton: UIButton!
@@ -115,6 +116,7 @@ class DrawTicketViewController: UIViewController {
         
         if raffle?.margin ?? false {
             drawRandomButton.isHidden = true
+            drawRandomButtonLabel.isHidden = true
         }
         else {
             inputMarginTextField.isHidden = true
